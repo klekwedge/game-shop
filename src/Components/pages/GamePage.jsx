@@ -1,6 +1,17 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux/es/exports';
 import { useParams } from 'react-router-dom';
+import { FcReddit } from 'react-icons/fc';
+// import {
+//   SiGogdotcom,
+//   SiPlaystation,
+//   SiSteam,
+//   SiGoogleplay,
+//   SiXbox,
+//   SiAppstore,
+// } from 'react-icons/si';
+// import { AiFillShopping, AiOutlineQuestionCircle } from 'react-icons/ai';
+
 import RAWG from '../../services/RAWG';
 import {
   currentGameFetching,
@@ -26,6 +37,28 @@ function GamePage() {
       .catch(() => dispatch(currentGameFetchingError()));
   }, [gameId]);
 
+  // function chooseStoreIcon(storeName) {
+  //   console.log(storeName);
+  //   switch (storeName) {
+  //     case 'GOG':
+  //       return <SiGogdotcom size="23" />;
+  //     case 'PlayStation Store':
+  //       return <SiPlaystation size="23" />;
+  //     case 'Steam':
+  //       return <SiSteam size="23" />;
+  //     case 'Google Play':
+  //       return <SiGoogleplay size="23" />;
+  //     case 'Xbox Store':
+  //       return <SiXbox size="23" />;
+  //     case 'Xbox 360 Store':
+  //       return <SiXbox size="23" />;
+  //     case 'App Store':
+  //       return <SiAppstore size="23" />;
+  //     default:
+  //       return <AiOutlineQuestionCircle size="23" />;
+  //   }
+  // }
+
   return (
     <main className="">
       {currentGame ? (
@@ -39,6 +72,35 @@ function GamePage() {
               className="max-w-3xl rounded-lg"
             />
             <p className="bg-zinc-800 p-10 rounded-lg">{currentGame.description_raw}</p>
+          </div>
+
+          <h2>{currentGame.released}</h2>
+
+          <div className="flex gap-5">
+            <div className="flex flex-col bg-slate-800 p-5 rounded-lg basis-1/4">
+              <FcReddit className="self-center mb-3" size="40" />
+              <a href={`${currentGame.reddit_url}`} className="font-medium text-lg mb-2">
+                {currentGame.reddit_name}
+              </a>
+              <p>{currentGame.reddit_description}</p>
+            </div>
+            <div className="flex flex-col bg-slate-800 p-5 rounded-lg basis-1/4">
+              <FcReddit className="self-center mb-3" size="40" />
+              <a href={`${currentGame.reddit_url}`} className="font-medium text-lg mb-2">
+                {currentGame.reddit_name}
+              </a>
+              <p>{currentGame.reddit_description}</p>
+            </div>
+            <div className="flex flex-col bg-slate-800 p-5 rounded-lg basis-1/4">
+              <FcReddit className="self-center mb-3" size="40" />
+              <a href={`${currentGame.reddit_url}`}>{currentGame.reddit_name}</a>
+              <p>{currentGame.reddit_description}</p>
+            </div>
+            <div className="flex flex-col bg-slate-800 p-5 rounded-lg basis-1/4">
+              <FcReddit className="self-center mb-3" size="40" />
+              <a href={`${currentGame.reddit_url}`}>{currentGame.reddit_name}</a>
+              <p>{currentGame.reddit_description}</p>
+            </div>
           </div>
         </>
       ) : null}
