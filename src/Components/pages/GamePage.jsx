@@ -15,8 +15,8 @@ import {
   SiNintendoswitch,
   SiPcgamingwiki,
 } from 'react-icons/si';
-import { MdKeyboardBackspace } from 'react-icons/md';
-import { AiFillShopping, AiOutlineQuestionCircle } from 'react-icons/ai';
+import { MdKeyboardBackspace, MdGames } from 'react-icons/md';
+import { AiFillShopping, AiOutlineQuestionCircle, AiOutlineInfoCircle } from 'react-icons/ai';
 
 import RAWG from '../../services/RAWG';
 import {
@@ -99,7 +99,7 @@ function GamePage() {
             </h2>
             <h1 className="text-5xl self-end">{currentGame.name}</h1>
           </div>
-          <div className="flex gap-10 items-center">
+          <div className="flex gap-10 items-center mb-20">
             <img
               src={currentGame.background_image}
               alt={currentGame.background_image}
@@ -108,13 +108,41 @@ function GamePage() {
             <p className="bg-zinc-800 p-10 rounded-lg">{currentGame.description_raw}</p>
           </div>
 
-          <h2>
-            Release date:
-            {` ${currentGame.released}`}
-          </h2>
-          <a href={`${currentGame.website}`}>Official website</a>
-
           <div className="flex gap-5">
+            <div className="flex flex-col bg-slate-800 p-5 rounded-lg basis-1/4">
+              <AiOutlineInfoCircle className="self-center mb-3" size="40" />
+              <h2 className="font-medium text-lg mb-2">Info:</h2>
+
+              <h3>
+                Release date:
+                {` ${currentGame.released}`}
+              </h3>
+              <a href={`${currentGame.website}`}>Official website</a>
+
+              <h3 className="my-2">
+                Metacritic rating:
+                {` ${currentGame.metacritic}`}
+              </h3>
+
+              <h3 className="mb-2">
+                RAWG rating:
+                {` ${currentGame.rating}`}
+              </h3>
+              <h3 className="mb-2">
+                Achievements count:
+                {` ${currentGame.achievements_count}`}
+              </h3>
+
+              <h3 className="mb-2">
+                Developers:
+                {` ${currentGame.developers.map((developerItem) => developerItem.name)}`}
+              </h3>
+
+              <h3 className="mb-2">
+                Publishers:
+                {` ${currentGame.publishers.map((publisherItem) => publisherItem.name)}`}
+              </h3>
+            </div>
             <div className="flex flex-col bg-slate-800 p-5 rounded-lg basis-1/4">
               <FcReddit className="self-center mb-3" size="40" />
               <a href={`${currentGame.reddit_url}`} className="font-medium text-lg mb-2">
@@ -137,7 +165,7 @@ function GamePage() {
               ))}
             </div>
             <div className="flex flex-col bg-slate-800 p-5 rounded-lg basis-1/4">
-              {/* <AiFillShopping className="self-center mb-3" size="40" /> */}
+              <MdGames className="self-center mb-3" size="40" />
               <h2 className="font-medium text-lg mb-2">Platforms:</h2>
               {currentGame.platforms.map((platformItem) => (
                 <h3 key={platformItem.platform.id} className="flex items-center gap-3 mb-2">
@@ -145,11 +173,6 @@ function GamePage() {
                   {choosePlatformIcon(platformItem.platform.name)}
                 </h3>
               ))}
-            </div>
-            <div className="flex flex-col bg-slate-800 p-5 rounded-lg basis-1/4">
-              <FcReddit className="self-center mb-3" size="40" />
-              <a href={`${currentGame.reddit_url}`}>{currentGame.reddit_name}</a>
-              <p>{currentGame.reddit_description}</p>
             </div>
           </div>
         </>
