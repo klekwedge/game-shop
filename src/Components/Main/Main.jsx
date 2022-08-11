@@ -1,25 +1,10 @@
-import React, { useEffect } from 'react';
-import RAWG from '../../services/RAWG';
+import React from 'react';
 import SidePanel from '../SidePanel/SidePanel';
-import GameList from '../GameList/SidePanel';
+import GameList from '../GameList/GameList';
 
 function Main() {
-  const rawgService = new RAWG();
-
-  function onLoaded(data) {
-    console.log(data);
-  }
-
-  function onError(e) {
-    console.log(e);
-  }
-
-  useEffect(() => {
-    rawgService.getGame().then(onLoaded).catch(onError);
-  }, []);
-
   return (
-    <main className="flex justify-between">
+    <main className="flex justify-between items-baseline gap-24">
       <SidePanel />
       <GameList />
     </main>
