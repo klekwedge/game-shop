@@ -2,7 +2,7 @@ import React from 'react';
 import SidePanel from '../SidePanel/SidePanel';
 import GameList from '../GameList/GameList';
 
-function Main() {
+function MainPage() {
   return (
     <main className="flex justify-between items-baseline gap-24">
       <SidePanel />
@@ -11,4 +11,4 @@ function Main() {
   );
 }
 
-export default Main;
+export default MainPage;

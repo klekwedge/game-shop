@@ -5,14 +5,14 @@ function SidePanel() {
     <section>
       <h2 className="text-2xl font-medium mb-2">Genres</h2>
       <ul className="flex flex-col gap-1 text-xl">
-        <li>Action</li>
-        <li>Strategy</li>
-        <li>RPG</li>
-        <li>Shooter</li>
-        <li>Adventure</li>
-        <li>Puzzle</li>
-        <li>Racing</li>
-        <li>Sports</li>
+        <li className="cursor-pointer">Action</li>
+        <li className="cursor-pointer">Strategy</li>
+        <li className="cursor-pointer">RPG</li>
+        <li className="cursor-pointer">Shooter</li>
+        <li className="cursor-pointer">Adventure</li>
+        <li className="cursor-pointer">Puzzle</li>
+        <li className="cursor-pointer">Racing</li>
+        <li className="cursor-pointer">Sports</li>
       </ul>
     </section>
   );
