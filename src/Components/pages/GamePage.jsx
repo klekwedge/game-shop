@@ -9,6 +9,11 @@ import {
   SiGoogleplay,
   SiXbox,
   SiAppstore,
+  SiPlaystation3,
+  SiPlaystation4,
+  SiPlaystation5,
+  SiNintendoswitch,
+  SiPcgamingwiki,
 } from 'react-icons/si';
 import { AiFillShopping, AiOutlineQuestionCircle } from 'react-icons/ai';
 
@@ -38,7 +43,6 @@ function GamePage() {
   }, [gameId]);
 
   function chooseStoreIcon(storeName) {
-    console.log(storeName);
     switch (storeName) {
       case 'GOG':
         return <SiGogdotcom size="23" />;
@@ -59,6 +63,27 @@ function GamePage() {
     }
   }
 
+  function choosePlatformIcon(storeName) {
+    switch (storeName) {
+      case 'PlayStation 3':
+        return <SiPlaystation3 size="23" />;
+      case 'PlayStation 4':
+        return <SiPlaystation4 size="23" />;
+      case 'PlayStation 5':
+        return <SiPlaystation5 size="23" />;
+      case 'Xbox Series S/X':
+        return <SiXbox size="23" />;
+      case 'Xbox One':
+        return <SiXbox size="23" />;
+      case 'Nintendo Switch':
+        return <SiNintendoswitch size="23" />;
+      case 'PC':
+        return <SiPcgamingwiki size="23" />;
+      default:
+        return <AiOutlineQuestionCircle size="23" />;
+    }
+  }
+
   return (
     <main className="">
       {currentGame ? (
@@ -73,7 +98,13 @@ function GamePage() {
             />
             <p className="bg-zinc-800 p-10 rounded-lg">{currentGame.description_raw}</p>
           </div>
-          <h2>{currentGame.released}</h2>
+
+          <h2>
+            Release date:
+            {` ${currentGame.released}`}
+          </h2>
+          <a href={`${currentGame.website}`}>Official website</a>
+
           <div className="flex gap-5">
             <div className="flex flex-col bg-slate-800 p-5 rounded-lg basis-1/4">
               <FcReddit className="self-center mb-3" size="40" />
@@ -97,9 +128,14 @@ function GamePage() {
               ))}
             </div>
             <div className="flex flex-col bg-slate-800 p-5 rounded-lg basis-1/4">
-              <FcReddit className="self-center mb-3" size="40" />
-              <a href={`${currentGame.reddit_url}`}>{currentGame.reddit_name}</a>
-              <p>{currentGame.reddit_description}</p>
+              {/* <AiFillShopping className="self-center mb-3" size="40" /> */}
+              <h2 className="font-medium text-lg mb-2">Platforms:</h2>
+              {currentGame.platforms.map((platformItem) => (
+                <h3 key={platformItem.platform.id} className="flex items-center gap-3 mb-2">
+                  {platformItem.platform.name}
+                  {choosePlatformIcon(platformItem.platform.name)}
+                </h3>
+              ))}
             </div>
             <div className="flex flex-col bg-slate-800 p-5 rounded-lg basis-1/4">
               <FcReddit className="self-center mb-3" size="40" />
