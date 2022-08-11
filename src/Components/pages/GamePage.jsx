@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux/es/exports';
 import { Link, useParams } from 'react-router-dom';
+import Button from '@mui/material/Button';
 import { FcReddit } from 'react-icons/fc';
 import {
   SiGogdotcom,
@@ -24,6 +25,8 @@ import {
   currentGameFetched,
   currentGameFetchingError,
   currentGameReset,
+  gameSeriesFetching,
+  gameSeriesReset,
 } from '../../actions/actions';
 
 function GamePage() {
@@ -31,8 +34,16 @@ function GamePage() {
   const { gameId } = useParams();
   const rawgService = new RAWG();
 
-  const { currentGame } = useSelector((state) => state);
+  const { currentGame, gamesOfSeries, gamesOfSeriesLoadingStatus } = useSelector((state) => state);
   const dispatch = useDispatch();
+
+  function onLoaded(data) {
+    console.log(data);
+  }
+
+  function onError(e) {
+    console.log(e);
+  }
 
   useEffect(() => {
     dispatch(currentGameReset());
@@ -42,6 +53,15 @@ function GamePage() {
       .then((data) => dispatch(currentGameFetched(data)))
       .catch(() => dispatch(currentGameFetchingError()));
   }, [gameId]);
+
+  useEffect(() => {
+    dispatch(gameSeriesReset());
+    rawgService.getListOfGamesSeries(gameId).then(onLoaded).catch(onError);
+  }, [gamesOfSeriesLoadingStatus]);
+
+  // function test() {
+  //   console.log('!');
+  // }
 
   function chooseStoreIcon(storeName) {
     switch (storeName) {
@@ -89,7 +109,7 @@ function GamePage() {
     <main className="">
       {currentGame ? (
         <>
-          {console.log(currentGame)}
+          {/* {console.log(currentGame)} */}
           <div className="flex justify-between items-center mb-8">
             <h2 className="text-2xl self-end ease-in duration-200 hover:text-violet-700">
               <Link to="/" className="flex gap-2 items-center">
@@ -108,7 +128,7 @@ function GamePage() {
             <p className="bg-zinc-800 p-10 rounded-lg">{currentGame.description_raw}</p>
           </div>
 
-          <div className="flex gap-5">
+          <div className="flex gap-5 mb-14">
             <div className="flex flex-col bg-slate-800 p-5 rounded-lg basis-1/4">
               <AiOutlineInfoCircle className="self-center mb-3" size="40" />
               <h2 className="font-medium text-lg mb-2">Info:</h2>
@@ -175,6 +195,10 @@ function GamePage() {
               ))}
             </div>
           </div>
+          <Button variant="contained" onClick={() => dispatch(gameSeriesFetching())}>
+            Get a list of game series.
+          </Button>
+          {gamesOfSeries}
         </>
       ) : null}
     </main>

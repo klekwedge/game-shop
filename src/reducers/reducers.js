@@ -4,6 +4,8 @@ const initialState = {
   gamesLoadingStatus: 'idle',
   currentGame: null,
   currentGameLoadingStatus: 'idle',
+  gamesOfSeries: null,
+  gamesOfSeriesLoadingStatus: 'idle',
 };
 
 const reducer = (state = initialState, action) => {
@@ -45,6 +47,28 @@ const reducer = (state = initialState, action) => {
         ...state,
         currentGame: null,
       };
+    case 'GAME_SERIES_FETCHING':
+      return {
+        ...state,
+        gamesOfSeriesLoadingStatus: 'loading',
+      };
+    case 'GAME_SERIES_FETCHED':
+      return {
+        ...state,
+        gamesOfSeries: action.payload,
+        gamesOfSeriesLoadingStatus: 'idle',
+      };
+    case 'GAME_SERIES_ERROR':
+      return {
+        ...state,
+        gamesOfSeriesLoadingStatus: 'error',
+      };
+    case 'GAME_SERIES_RESET':
+      return {
+        ...state,
+        gamesOfSeries: null,
+      };
+
     default:
       return state;
   }

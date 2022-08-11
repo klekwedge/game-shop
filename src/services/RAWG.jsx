@@ -16,6 +16,12 @@ class RAWG extends Component {
     return data;
   }
 
+  async getListOfGamesSeries(id) {
+    const res = await fetch(`https://api.rawg.io/api/games/${id}/game-series?key=${this.apiKey}`);
+    const data = await res.json();
+    return data;
+  }
+
   // render() {
   //   return <div>Example</div>;
   // }

@@ -27,3 +27,20 @@ export const currentGameFetchingError = () => ({
 export const currentGameReset = () => ({
   type: 'CURRENT_GAME_RESET',
 });
+
+export const gameSeriesFetching = () => ({
+  type: 'GAME_SERIES_FETCHING',
+});
+
+export const gameSeriesFetched = (games) => ({
+  type: 'GAME_SERIES_FETCHED',
+  payload: games,
+});
+
+export const gameSeriesFetchingError = () => ({
+  type: 'GAME_SERIES_ERROR',
+});
+
+export const gameSeriesReset = () => ({
+  type: 'GAME_SERIES_RESET',
+});
