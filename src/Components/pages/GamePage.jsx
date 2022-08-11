@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux/es/exports';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { FcReddit } from 'react-icons/fc';
 import {
   SiGogdotcom,
@@ -15,6 +15,7 @@ import {
   SiNintendoswitch,
   SiPcgamingwiki,
 } from 'react-icons/si';
+import { MdKeyboardBackspace } from 'react-icons/md';
 import { AiFillShopping, AiOutlineQuestionCircle } from 'react-icons/ai';
 
 import RAWG from '../../services/RAWG';
@@ -89,7 +90,15 @@ function GamePage() {
       {currentGame ? (
         <>
           {console.log(currentGame)}
-          <h1 className="text-5xl text-right mb-8">{currentGame.name}</h1>
+          <div className="flex justify-between items-center mb-8">
+            <h2 className="text-2xl self-end ease-in duration-200 hover:text-violet-700">
+              <Link to="/" className="flex gap-2 items-center">
+                <MdKeyboardBackspace size="40" />
+                Store
+              </Link>
+            </h2>
+            <h1 className="text-5xl self-end">{currentGame.name}</h1>
+          </div>
           <div className="flex gap-10 items-center">
             <img
               src={currentGame.background_image}
