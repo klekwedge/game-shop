@@ -6,6 +6,7 @@ import {
   currentGameFetching,
   currentGameFetched,
   currentGameFetchingError,
+  currentGameReset,
 } from '../../actions/actions';
 
 function GamePage() {
@@ -17,6 +18,7 @@ function GamePage() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(currentGameReset());
     dispatch(currentGameFetching());
     rawgService
       .getGame(gameId)
@@ -34,10 +36,9 @@ function GamePage() {
             <img
               src={currentGame.background_image}
               alt={currentGame.background_image}
-              // className="object-cover"
-              className="max-w-3xl"
+              className="max-w-3xl rounded-lg"
             />
-            <p className="bg-zinc-800 p-10">{currentGame.description_raw}</p>
+            <p className="bg-zinc-800 p-10 rounded-lg">{currentGame.description_raw}</p>
           </div>
         </>
       ) : null}

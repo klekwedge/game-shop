@@ -7,7 +7,7 @@ const GamePage = lazy(() => import('../pages/GamePage'));
 function App() {
   return (
     <Router>
-      <div className="max-w-screen-xl mx-auto px-5 py-3">
+      <div className="max-w-screen-2xl mx-auto px-5 py-3">
         <Suspense fallback={<h1>Loading...</h1>}>
           <Routes>
             <Route path="/" element={<MainPage />} />

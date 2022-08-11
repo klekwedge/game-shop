@@ -40,6 +40,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         currentGameLoadingStatus: 'error',
       };
+    case 'CURRENT_GAME_RESET':
+      return {
+        ...state,
+        currentGame: null,
+      };
     default:
       return state;
   }

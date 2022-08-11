@@ -23,3 +23,7 @@ export const currentGameFetched = (game) => ({
 export const currentGameFetchingError = () => ({
   type: 'CURRENT_GAME_ERROR',
 });
+
+export const currentGameReset = () => ({
+  type: 'CURRENT_GAME_RESET',
+});

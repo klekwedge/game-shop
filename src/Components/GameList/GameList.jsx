@@ -25,7 +25,7 @@ function GameList() {
         <ul className="flex gap-5 flex-wrap">
           {games.results.map((game) => (
             <li
-              className="flex flex-col items-center gap-2 bg-zinc-900 basis-1/5 grow-0 pb-2 cursor-pointer"
+              className="flex flex-col items-center gap-2 bg-zinc-900 basis-1/5 grow-0 pb-2 cursor-pointer rounded-lg"
               key={game.id}
             >
               <Link to={`${game.id}`}>
