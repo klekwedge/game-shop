@@ -73,9 +73,7 @@ function GamePage() {
             />
             <p className="bg-zinc-800 p-10 rounded-lg">{currentGame.description_raw}</p>
           </div>
-
           <h2>{currentGame.released}</h2>
-
           <div className="flex gap-5">
             <div className="flex flex-col bg-slate-800 p-5 rounded-lg basis-1/4">
               <FcReddit className="self-center mb-3" size="40" />
