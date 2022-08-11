@@ -1,25 +1,48 @@
 import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux/es/exports';
 import { useParams } from 'react-router-dom';
 import RAWG from '../../services/RAWG';
+import {
+  currentGameFetching,
+  currentGameFetched,
+  currentGameFetchingError,
+} from '../../actions/actions';
 
 function GamePage() {
   // eslint-disable-next-line no-unused-vars
   const { gameId } = useParams();
   const rawgService = new RAWG();
 
-  function onLoaded(data) {
-    console.log(data);
-  }
-
-  function onError(e) {
-    console.log(e);
-  }
+  const { currentGame } = useSelector((state) => state);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    rawgService.getGame(gameId).then(onLoaded).catch(onError);
+    dispatch(currentGameFetching());
+    rawgService
+      .getGame(gameId)
+      .then((data) => dispatch(currentGameFetched(data)))
+      .catch(() => dispatch(currentGameFetchingError()));
   }, [gameId]);
 
-  return <main className="flex justify-between items-baseline gap-24">GamePage</main>;
+  return (
+    <main className="">
+      {currentGame ? (
+        <>
+          {console.log(currentGame)}
+          <h1 className="text-5xl text-right mb-8">{currentGame.name}</h1>
+          <div className="flex gap-10 items-center">
+            <img
+              src={currentGame.background_image}
+              alt={currentGame.background_image}
+              // className="object-cover"
+              className="max-w-3xl"
+            />
+            <p className="bg-zinc-800 p-10">{currentGame.description_raw}</p>
+          </div>
+        </>
+      ) : null}
+    </main>
+  );
 }
 
 export default GamePage;

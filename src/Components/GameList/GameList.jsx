@@ -30,8 +30,8 @@ function GameList() {
             >
               <Link to={`${game.id}`}>
                 <img
-                  src={`${game.background_image}`}
-                  alt={`${game.background_image}`}
+                  src={game.background_image}
+                  alt={game.background_image}
                   className="object-cover"
                 />
                 <div className="px-2">{game.name}</div>

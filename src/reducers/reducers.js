@@ -2,6 +2,8 @@
 const initialState = {
   games: null,
   gamesLoadingStatus: 'idle',
+  currentGame: null,
+  currentGameLoadingStatus: 'idle',
 };
 
 const reducer = (state = initialState, action) => {
@@ -21,6 +23,22 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         gamesLoadingStatus: 'error',
+      };
+    case 'CURRENT_GAME_FETCHING':
+      return {
+        ...state,
+        currentGameLoadingStatus: 'loading',
+      };
+    case 'CURRENT_GAME_FETCHED':
+      return {
+        ...state,
+        currentGame: action.payload,
+        currentGameLoadingStatus: 'idle',
+      };
+    case 'CURRENT_GAME_ERROR':
+      return {
+        ...state,
+        currentGameLoadingStatus: 'error',
       };
     default:
       return state;
