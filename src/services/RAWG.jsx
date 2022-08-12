@@ -45,5 +45,12 @@ class RAWG extends Component {
     const data = await res.json();
     return data;
   }
+
+  async getGenreDetail(genreId) {
+    const res = await fetch(`https://api.rawg.io/api/genres/${genreId}?key=${this.apiKey}`);
+    const data = await res.json();
+    return data;
+  }
 }
+
 export default RAWG;

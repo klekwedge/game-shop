@@ -95,3 +95,16 @@ export const genresFetchingError = () => ({
 export const genresReset = () => ({
   type: 'GENRES_RESET',
 });
+
+export const currentGenreFetching = () => ({
+  type: 'CURRENT_GENRE_FETCHING',
+});
+
+export const currentGenreFetched = (genre) => ({
+  type: 'CURRENT_GENRE_FETCHED',
+  payload: genre,
+});
+
+export const currentGenreFetchingError = () => ({
+  type: 'CURRENT_GENRE_FETCHING_ERROR',
+});

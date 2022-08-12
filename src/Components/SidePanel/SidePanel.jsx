@@ -20,7 +20,7 @@ function SidePanel() {
   return (
     <section>
       <h2 className="text-2xl font-medium mb-2">Genres</h2>
-      <ul className="flex flex-col gap-1 text-xl">
+      <ul className="flex flex-col gap-1 text-xl w-32">
         {/* {genres && genres.results.length > 0
           ? genres.results.map((genre) => (
             <li className="cursor-pointer" key={genre.id}>
@@ -28,7 +28,7 @@ function SidePanel() {
             </li>
           ))
           : null} */}
-        {console.log(genres)}
+        {/* {console.log(genres)} */}
         {genres && genres.results.length > 0
           ? genres.results.map((genre) => (
             <li key={genre.id} className="cursor-pointer">

@@ -1,20 +1,30 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import RAWG from '../../services/RAWG';
-import { gamesFetched, gamesFetching, gamesFetchingError } from '../../actions/actions';
+import {
+  gamesFetched,
+  gamesFetching,
+  gamesFetchingError,
+  currentGenreFetched,
+  currentGenreFetchingError,
+} from '../../actions/actions';
 
-function GameList({ genre, mainTitle }) {
+function GameList({ genreName, mainTitle, descr }) {
+  const { genre } = useParams();
+
+  const { currentGenre, genres } = useSelector((state) => state.genres);
   const { games } = useSelector((state) => state.games);
+
   const dispatch = useDispatch();
   const rawgService = new RAWG();
 
   useEffect(() => {
     dispatch(gamesFetching());
-    if (genre) {
+    if (genreName) {
       rawgService
-        .getGameList(genre)
+        .getGameList(genreName)
         .then((data) => dispatch(gamesFetched(data)))
         .catch(() => dispatch(gamesFetchingError()));
     } else {
@@ -23,13 +33,25 @@ function GameList({ genre, mainTitle }) {
         .then((data) => dispatch(gamesFetched(data)))
         .catch(() => dispatch(gamesFetchingError()));
     }
-  }, [genre]);
+  }, [genreName]);
 
-  // console.log(games);
+  useEffect(() => {
+    if (genres) {
+      const test = genres.results.find((genreItem) => genreItem.slug === genre);
+      rawgService
+        .getGenreDetail(test.id)
+        .then((genreData) => dispatch(currentGenreFetched(genreData)))
+        .catch(() => dispatch(currentGenreFetchingError()));
+    }
+  }, [genreName, genres]);
+
   return (
     <section>
-      <h2 className="text-5xl font-bold mb-2 capitalize">{mainTitle}</h2>
-      <h3 className="text-base mb-4">Popular games</h3>
+      <h2 className="text-5xl font-bold mb-2 capitalize">{genre ? `${genre} games` : mainTitle}</h2>
+      <h3 className="text-base mb-8">
+        {console.log(currentGenre)}
+        {currentGenre ? currentGenre.description : descr}
+      </h3>
       {games ? (
         <ul className="flex gap-5 flex-wrap">
           {games.results.map((game) => (
@@ -37,7 +59,7 @@ function GameList({ genre, mainTitle }) {
               className="flex flex-col items-center gap-2 bg-zinc-900 basis-1/5 grow-0 pb-2 cursor-pointer rounded-lg hover:scale-105 duration-300"
               key={game.id}
             >
-              <Link to={`${game.id}`}>
+              <Link to={`/${game.id}`}>
                 <img
                   src={game.background_image}
                   alt={game.background_image}

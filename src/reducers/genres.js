@@ -2,6 +2,8 @@
 const initialState = {
   genres: null,
   genresLoadingStatus: 'idle',
+  currentGenre: null,
+  currentGenreLoadingStatus: 'idle',
 };
 
 const genres = (state = initialState, action) => {
@@ -26,6 +28,22 @@ const genres = (state = initialState, action) => {
       return {
         ...state,
         genres: null,
+      };
+    case 'CURRENT_GENRE_FETCHING':
+      return {
+        ...state,
+        currentGenreLoadingStatus: 'loading',
+      };
+    case 'CURRENT_GENRE_FETCHED':
+      return {
+        ...state,
+        currentGenre: action.payload,
+        currentGenreLoadingStatus: 'idle',
+      };
+    case 'CURRENT_GENRE_FETCHING_ERROR':
+      return {
+        ...state,
+        currentGenreLoadingStatus: 'error',
       };
     default:
       return state;

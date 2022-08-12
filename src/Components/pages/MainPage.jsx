@@ -6,7 +6,7 @@ function MainPage() {
   return (
     <main className="flex justify-between items-baseline gap-24 max-w-screen-2xl mx-auto px-5 py-3">
       <SidePanel />
-      <GameList mainTitle="games" />
+      <GameList mainTitle="games" descr="Popular games" />
     </main>
   );
 }
