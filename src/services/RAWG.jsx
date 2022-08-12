@@ -21,9 +21,5 @@ class RAWG extends Component {
     const data = await res.json();
     return data;
   }
-
-  // render() {
-  //   return <div>Example</div>;
-  // }
 }
 export default RAWG;

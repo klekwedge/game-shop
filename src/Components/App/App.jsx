@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 const MainPage = lazy(() => import('../pages/MainPage'));
 const GamePage = lazy(() => import('../pages/GamePage'));
+const GameSeriesPage = lazy(() => import('../pages/GameSeriesPage'));
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
           <Routes>
             <Route path="/" element={<MainPage />} />
             <Route path="/:gameId" element={<GamePage />} />
+            <Route path="/:gameId/series" element={<GameSeriesPage />} />
           </Routes>
         </Suspense>
       </div>

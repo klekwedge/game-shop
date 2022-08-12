@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux/es/exports';
 import { Link, useParams } from 'react-router-dom';
-import Button from '@mui/material/Button';
 import { FcReddit } from 'react-icons/fc';
 import {
   SiGogdotcom,
@@ -25,8 +24,6 @@ import {
   currentGameFetched,
   currentGameFetchingError,
   currentGameReset,
-  gameSeriesFetching,
-  gameSeriesReset,
 } from '../../actions/actions';
 
 function GamePage() {
@@ -34,17 +31,8 @@ function GamePage() {
   const { gameId } = useParams();
   const rawgService = new RAWG();
 
-  const { currentGame, gamesOfSeries, gamesOfSeriesLoadingStatus } = useSelector((state) => state);
+  const { currentGame } = useSelector((state) => state);
   const dispatch = useDispatch();
-
-  function onLoaded(data) {
-    console.log(data);
-  }
-
-  function onError(e) {
-    console.log(e);
-  }
-
   useEffect(() => {
     dispatch(currentGameReset());
     dispatch(currentGameFetching());
@@ -53,15 +41,6 @@ function GamePage() {
       .then((data) => dispatch(currentGameFetched(data)))
       .catch(() => dispatch(currentGameFetchingError()));
   }, [gameId]);
-
-  useEffect(() => {
-    dispatch(gameSeriesReset());
-    rawgService.getListOfGamesSeries(gameId).then(onLoaded).catch(onError);
-  }, [gamesOfSeriesLoadingStatus]);
-
-  // function test() {
-  //   console.log('!');
-  // }
 
   function chooseStoreIcon(storeName) {
     switch (storeName) {
@@ -117,7 +96,12 @@ function GamePage() {
                 Store
               </Link>
             </h2>
-            <h1 className="text-5xl self-end">{currentGame.name}</h1>
+            <div className="self-end">
+              <h1 className="text-5xl mb-2 text-right">{currentGame.name}</h1>
+              <h2 className="text-xl text-right ease-in duration-200 hover:text-violet-700">
+                <Link to="series">Game series</Link>
+              </h2>
+            </div>
           </div>
           <div className="flex gap-10 items-center mb-20">
             <img
@@ -195,10 +179,6 @@ function GamePage() {
               ))}
             </div>
           </div>
-          <Button variant="contained" onClick={() => dispatch(gameSeriesFetching())}>
-            Get a list of game series.
-          </Button>
-          {gamesOfSeries}
         </>
       ) : null}
     </main>
