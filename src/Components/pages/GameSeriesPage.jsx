@@ -28,7 +28,7 @@ function GameSeriesPage() {
   }, [gameId]);
 
   return (
-    <main className="flex justify-between items-baseline gap-24">
+    <main className="flex justify-between items-baseline gap-24 max-w-screen-2xl mx-auto px-5 py-3">
       {console.log(gamesOfSeries)}
       {gamesOfSeries && gamesOfSeries.count > 0 ? (
         <div>

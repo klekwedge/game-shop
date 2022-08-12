@@ -85,7 +85,7 @@ function GamePage() {
   }
 
   return (
-    <main className="">
+    <main className="max-w-screen-2xl mx-auto px-5 py-3">
       {currentGame ? (
         <>
           {/* {console.log(currentGame)} */}
@@ -160,7 +160,7 @@ function GamePage() {
               {currentGame.stores.map((storeItem) => (
                 <a
                   key={storeItem.store.id}
-                  href={`${storeItem.store.domain}`}
+                  href={storeItem.store.domain}
                   className="flex items-center gap-3 mb-2"
                 >
                   {storeItem.store.name}
