@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import RAWG from '../../services/RAWG';
 import { gamesFetched, gamesFetching, gamesFetchingError } from '../../actions/actions';
 
-function GameList({ genre }) {
+function GameList({ genre, mainTitle }) {
   const { games } = useSelector((state) => state.games);
   const dispatch = useDispatch();
   const rawgService = new RAWG();
@@ -28,7 +28,7 @@ function GameList({ genre }) {
   // console.log(games);
   return (
     <section>
-      <h2 className="text-5xl font-bold mb-2">Games</h2>
+      <h2 className="text-5xl font-bold mb-2 capitalize">{mainTitle}</h2>
       <h3 className="text-base mb-4">Popular games</h3>
       {games ? (
         <ul className="flex gap-5 flex-wrap">

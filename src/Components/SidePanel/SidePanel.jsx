@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux/es/exports';
+import { useSelector, useDispatch } from 'react-redux/es/exports';
 import { NavLink } from 'react-router-dom';
 import RAWG from '../../services/RAWG';
 import { genresFetched, genresFetchingError } from '../../actions/actions';
@@ -7,7 +7,7 @@ import { genresFetched, genresFetchingError } from '../../actions/actions';
 function SidePanel() {
   const rawgService = new RAWG();
 
-  // const { genres } = useSelector((state) => state.genres);
+  const { genres } = useSelector((state) => state.genres);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -28,8 +28,21 @@ function SidePanel() {
             </li>
           ))
           : null} */}
-        {/* {console.log(genres)} */}
-        <li className="cursor-pointer">
+        {console.log(genres)}
+        {genres && genres.results.length > 0
+          ? genres.results.map((genre) => (
+            <li key={genre.id} className="cursor-pointer">
+              <NavLink
+                to={`/games/${genre.slug}`}
+                style={({ isActive }) => (isActive ? { color: '#6d28d9' } : undefined)}
+              >
+                {genre.name}
+              </NavLink>
+            </li>
+          ))
+          : null}
+
+        {/* <li className="cursor-pointer">
           <NavLink
             to="/games/action"
             style={({ isActive }) => (isActive ? { color: '#6d28d9' } : undefined)}
@@ -91,8 +104,8 @@ function SidePanel() {
             style={({ isActive }) => (isActive ? { color: '#6d28d9' } : undefined)}
           >
             Sports
-          </NavLink>
-        </li>
+          </NavLink> */}
+        {/* </li> */}
       </ul>
     </section>
   );
