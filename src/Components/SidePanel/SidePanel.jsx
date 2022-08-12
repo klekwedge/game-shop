@@ -20,14 +20,20 @@ function SidePanel() {
   return (
     <section>
       <h2 className="text-2xl font-medium mb-2">Genres</h2>
-      <ul className="flex flex-col gap-1 text-xl w-32">
+      <ul className="flex flex-col gap-1 text-xl w-64">
         {genres && genres.results.length > 0
           ? genres.results.map((genre) => (
             <li key={genre.id} className="cursor-pointer">
               <NavLink
                 to={`/games/${genre.slug}`}
                 style={({ isActive }) => (isActive ? { color: '#6d28d9' } : undefined)}
+                className="flex items-center gap-3"
               >
+                <img
+                  src={genre.image_background}
+                  alt="Genre illustration"
+                  className="w-12 h-12 object-contain"
+                />
                 {genre.name}
               </NavLink>
             </li>
