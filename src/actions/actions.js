@@ -78,3 +78,20 @@ export const moviesFetchingError = () => ({
 export const moviesReset = () => ({
   type: 'MOVIES_RESET',
 });
+
+export const genresFetching = () => ({
+  type: 'GENRES_FETCHING',
+});
+
+export const genresFetched = (genres) => ({
+  type: 'GENRES_FETCHED',
+  payload: genres,
+});
+
+export const genresFetchingError = () => ({
+  type: 'GENRES_FETCHING_ERROR',
+});
+
+export const genresReset = () => ({
+  type: 'GENRES_RESET',
+});

@@ -1,22 +1,31 @@
+/* eslint-disable react/prop-types */
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import RAWG from '../../services/RAWG';
 import { gamesFetched, gamesFetching, gamesFetchingError } from '../../actions/actions';
 
-function GameList() {
+function GameList({ genre }) {
   const { games } = useSelector((state) => state.games);
   const dispatch = useDispatch();
   const rawgService = new RAWG();
 
   useEffect(() => {
     dispatch(gamesFetching());
-    rawgService
-      .getGameList()
-      .then((data) => dispatch(gamesFetched(data)))
-      .catch(() => dispatch(gamesFetchingError()));
-  }, []);
+    if (genre) {
+      rawgService
+        .getGameList(genre)
+        .then((data) => dispatch(gamesFetched(data)))
+        .catch(() => dispatch(gamesFetchingError()));
+    } else {
+      rawgService
+        .getGameList()
+        .then((data) => dispatch(gamesFetched(data)))
+        .catch(() => dispatch(gamesFetchingError()));
+    }
+  }, [genre]);
 
+  // console.log(games);
   return (
     <section>
       <h2 className="text-5xl font-bold mb-2">Games</h2>

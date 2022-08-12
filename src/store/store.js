@@ -3,9 +3,12 @@ import { createStore, combineReducers } from 'redux';
 import screenshots from '../reducers/screenshots';
 import games from '../reducers/games';
 import movies from '../reducers/movies';
+import genres from '../reducers/genres';
 
 const store = createStore(
-  combineReducers({ games, screenshots, movies }),
+  combineReducers({
+    games, genres, screenshots, movies,
+  }),
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
 );
 
