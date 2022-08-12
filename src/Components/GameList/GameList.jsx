@@ -5,7 +5,7 @@ import RAWG from '../../services/RAWG';
 import { gamesFetched, gamesFetching, gamesFetchingError } from '../../actions/actions';
 
 function GameList() {
-  const { games } = useSelector((state) => state);
+  const { games } = useSelector((state) => state.games);
   const dispatch = useDispatch();
   const rawgService = new RAWG();
 

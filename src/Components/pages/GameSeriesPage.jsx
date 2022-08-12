@@ -15,7 +15,7 @@ function GameSeriesPage() {
 
   const rawgService = new RAWG();
 
-  const { gamesOfSeries } = useSelector((state) => state);
+  const { gamesOfSeries } = useSelector((state) => state.games);
   const dispatch = useDispatch();
 
   useEffect(() => {

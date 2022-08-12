@@ -21,5 +21,12 @@ class RAWG extends Component {
     const data = await res.json();
     return data;
   }
+
+  async getGameScreenshots(id) {
+    const res = await fetch(`https://api.rawg.io/api/games/${id}/screenshots?key=${this.apiKey}`);
+    const data = await res.json();
+    console.log(data);
+    return data;
+  }
 }
 export default RAWG;

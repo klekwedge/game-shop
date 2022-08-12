@@ -1,7 +1,17 @@
+/* eslint-disable import/no-unresolved */
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux/es/exports';
 import { Link, useParams } from 'react-router-dom';
 import { FcReddit } from 'react-icons/fc';
+import {
+  Navigation, Pagination, Scrollbar, A11y,
+} from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
+
 import {
   SiGogdotcom,
   SiPlaystation,
@@ -24,6 +34,8 @@ import {
   currentGameFetched,
   currentGameFetchingError,
   currentGameReset,
+  screenshotsFetched,
+  screenshotsFetchingError,
 } from '../../actions/actions';
 
 function GamePage() {
@@ -31,15 +43,34 @@ function GamePage() {
   const { gameId } = useParams();
   const rawgService = new RAWG();
 
-  const { currentGame } = useSelector((state) => state);
+  const { currentGame } = useSelector((state) => state.games);
+  const { screenshots } = useSelector((state) => state.screenshots);
   const dispatch = useDispatch();
+
+  // function onLoaded(data) {
+  //   console.log(data);
+  // }
+
+  // function onError(data) {
+  //   console.log(data);
+  // }
+
   useEffect(() => {
     dispatch(currentGameReset());
     dispatch(currentGameFetching());
+
     rawgService
       .getGame(gameId)
       .then((data) => dispatch(currentGameFetched(data)))
-      .catch(() => dispatch(currentGameFetchingError()));
+      .catch(() => dispatch(currentGameFetchingError()))
+      .then(() => rawgService.getGameScreenshots(gameId))
+      .then((data) => dispatch(screenshotsFetched(data)))
+      .catch(() => dispatch(screenshotsFetchingError()));
+
+    // rawgService
+    //   .getGameAddOns(gameId)
+    //   .then((data) => onLoaded(data))
+    //   .catch(onError());
   }, [gameId]);
 
   function chooseStoreIcon(storeName) {
@@ -103,13 +134,29 @@ function GamePage() {
               </h2>
             </div>
           </div>
+
           <div className="flex gap-10 items-center mb-20">
-            <img
-              src={currentGame.background_image}
-              alt={currentGame.background_image}
-              className="max-w-3xl rounded-lg"
-            />
-            <p className="bg-zinc-800 p-10 rounded-lg">{currentGame.description_raw}</p>
+            <Swiper
+              modules={[Navigation, Pagination, Scrollbar, A11y]}
+              allowTouchMove={false}
+              navigation
+              pagination={{ clickable: true }}
+              onSwiper={(swiper) => console.log(swiper)}
+              onSlideChange={() => console.log('slide change')}
+            >
+              <SwiperSlide>
+                <img src={currentGame.background_image} alt={currentGame.background_image} />
+              </SwiperSlide>
+              {screenshots
+                ? screenshots.results.map((screenshot) => (
+                  <SwiperSlide key={screenshot.id}>
+                    <img src={screenshot.image} alt={`Screenshot from ${currentGame.name}`} />
+                  </SwiperSlide>
+                ))
+                : null}
+            </Swiper>
+
+            <p className="bg-zinc-800 p-10 rounded-lg max-w-xl">{currentGame.description_raw}</p>
           </div>
 
           <div className="flex gap-5 mb-14">
@@ -163,6 +210,7 @@ function GamePage() {
                   href={storeItem.store.domain}
                   className="flex items-center gap-3 mb-2"
                 >
+                  {/* {console.log(storeItem)} */}
                   {storeItem.store.name}
                   {chooseStoreIcon(storeItem.store.name)}
                 </a>

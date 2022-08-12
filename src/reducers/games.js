@@ -8,7 +8,7 @@ const initialState = {
   gamesOfSeriesLoadingStatus: 'idle',
 };
 
-const reducer = (state = initialState, action) => {
+const games = (state = initialState, action) => {
   switch (action.type) {
     case 'GAMES_FETCHING':
       return {
@@ -74,4 +74,4 @@ const reducer = (state = initialState, action) => {
   }
 };
 
-export default reducer;
+export default games;
