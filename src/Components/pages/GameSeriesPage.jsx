@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { FiExternalLink } from 'react-icons/fi';
+import { MdKeyboardBackspace } from 'react-icons/md';
 import RAWG from '../../services/RAWG';
 import {
   gameSeriesFetching,
@@ -28,8 +29,15 @@ function GameSeriesPage() {
   }, [gameId]);
 
   return (
-    <main className="flex justify-between items-baseline gap-24 max-w-screen-2xl mx-auto px-5 py-3">
-      {console.log(gamesOfSeries)}
+    <main className="flex flex-col justify-between items-baseline gap-3 max-w-screen-2xl mx-auto px-5 pt-16 pb-2">
+      <div className="flex justify-between items-center mb-8">
+        <h2 className="text-2xl self-end ease-in duration-200 hover:text-violet-700">
+          <Link to="/" className="flex gap-2 items-center">
+            <MdKeyboardBackspace size="40" />
+            Store
+          </Link>
+        </h2>
+      </div>
       {gamesOfSeries && gamesOfSeries.count > 0 ? (
         <div>
           <h2 className="text-4xl mb-8 font-medium">
@@ -55,7 +63,9 @@ function GameSeriesPage() {
             ))}
           </ul>
         </div>
-      ) : null}
+      ) : (
+        <h2 className="text-4xl mb-8 font-medium">This game is not part of any series.</h2>
+      )}
     </main>
   );
 }

@@ -36,7 +36,7 @@ function GameList({ genreName, mainTitle, descr }) {
   }, [genreName]);
 
   useEffect(() => {
-    if (genres) {
+    if (genres && genre) {
       const test = genres.results.find((genreItem) => genreItem.slug === genre);
       rawgService
         .getGenreDetail(test.id)

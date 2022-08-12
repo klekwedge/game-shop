@@ -51,14 +51,6 @@ function GamePage() {
   const { movies } = useSelector((state) => state.movies);
   const dispatch = useDispatch();
 
-  // function onLoaded(data) {
-  //   console.log(data);
-  // }
-
-  // function onError(data) {
-  //   console.log(data);
-  // }
-
   useEffect(() => {
     dispatch(currentGameReset());
     dispatch(currentGameFetching());
