@@ -25,16 +25,16 @@ function GameList() {
         <ul className="flex gap-5 flex-wrap">
           {games.results.map((game) => (
             <li
-              className="flex flex-col items-center gap-2 bg-zinc-900 basis-1/5 grow-0 pb-2 cursor-pointer rounded-lg"
+              className="flex flex-col items-center gap-2 bg-zinc-900 basis-1/5 grow-0 pb-2 cursor-pointer rounded-lg hover:scale-105 duration-300"
               key={game.id}
             >
               <Link to={`${game.id}`}>
                 <img
                   src={game.background_image}
                   alt={game.background_image}
-                  className="object-cover"
+                  className="max-h-36 object-cover mb-2"
                 />
-                <div className="px-2">{game.name}</div>
+                <h4 className="px-2 text-center">{game.name}</h4>
               </Link>
             </li>
           ))}
