@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/media-has-caption */
 /* eslint-disable import/no-unresolved */
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux/es/exports';
@@ -36,6 +37,8 @@ import {
   currentGameReset,
   screenshotsFetched,
   screenshotsFetchingError,
+  moviesFetched,
+  moviesFetchingError,
 } from '../../actions/actions';
 
 function GamePage() {
@@ -45,6 +48,7 @@ function GamePage() {
 
   const { currentGame } = useSelector((state) => state.games);
   const { screenshots } = useSelector((state) => state.screenshots);
+  const { movies } = useSelector((state) => state.movies);
   const dispatch = useDispatch();
 
   // function onLoaded(data) {
@@ -61,11 +65,14 @@ function GamePage() {
 
     rawgService
       .getGame(gameId)
-      .then((data) => dispatch(currentGameFetched(data)))
+      .then((gameData) => dispatch(currentGameFetched(gameData)))
       .catch(() => dispatch(currentGameFetchingError()))
       .then(() => rawgService.getGameScreenshots(gameId))
-      .then((data) => dispatch(screenshotsFetched(data)))
-      .catch(() => dispatch(screenshotsFetchingError()));
+      .then((screenshotsData) => dispatch(screenshotsFetched(screenshotsData)))
+      .catch(() => dispatch(screenshotsFetchingError()))
+      .then(() => rawgService.getGameTrailers(gameId))
+      .then((moviesData) => dispatch(moviesFetched(moviesData)))
+      .catch(() => dispatch(moviesFetchingError()));
 
     // rawgService
     //   .getGameAddOns(gameId)
@@ -142,15 +149,24 @@ function GamePage() {
               navigation
               pagination={{ clickable: true }}
               onSwiper={(swiper) => console.log(swiper)}
-              onSlideChange={() => console.log('slide change')}
             >
               <SwiperSlide>
                 <img src={currentGame.background_image} alt={currentGame.background_image} />
               </SwiperSlide>
-              {screenshots
+              {screenshots && screenshots.results.length > 0
                 ? screenshots.results.map((screenshot) => (
                   <SwiperSlide key={screenshot.id}>
                     <img src={screenshot.image} alt={`Screenshot from ${currentGame.name}`} />
+                  </SwiperSlide>
+                ))
+                : null}
+
+              {movies && movies.results.length > 0
+                ? movies.results.map((movie) => (
+                  <SwiperSlide key={movie.id}>
+                    <video controls poster={movie.preview}>
+                      <source src={movie.data.max} />
+                    </video>
                   </SwiperSlide>
                 ))
                 : null}

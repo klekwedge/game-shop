@@ -2,9 +2,10 @@
 import { createStore, combineReducers } from 'redux';
 import screenshots from '../reducers/screenshots';
 import games from '../reducers/games';
+import movies from '../reducers/movies';
 
 const store = createStore(
-  combineReducers({ screenshots, games }),
+  combineReducers({ games, screenshots, movies }),
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
 );
 
