@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import RAWG from '../../services/RAWG';
-import { currentGenreFetched, currentGenreFetchingError } from '../../actions/actions';
+import { currentGenreFetched, currentGenreFetchingError } from '../../slices/genresSlices';
 import { gamesFetched, gamesFetching, gamesFetchingError } from '../../slices/gamesSlices';
 import Spinner from '../Spinner/Spinner';
 

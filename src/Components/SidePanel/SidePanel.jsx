@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux/es/exports';
 import { NavLink } from 'react-router-dom';
 import RAWG from '../../services/RAWG';
-import { genresFetched, genresFetchingError } from '../../actions/actions';
+import { genresFetched, genresFetchingError } from '../../slices/genresSlices';
 
 function SidePanel() {
   const rawgService = new RAWG();
