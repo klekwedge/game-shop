@@ -39,7 +39,7 @@ import {
   currentGameReset,
 } from '../../slices/gamesSlice';
 
-import { moviesFetched, moviesFetchingError } from '../../slices/moviesSlice';
+import { trailersFetched, trailersFetchingError } from '../../slices/trailersSlice';
 
 function GamePage() {
   // eslint-disable-next-line no-unused-vars
@@ -63,8 +63,8 @@ function GamePage() {
       .then((screenshotsData) => dispatch(screenshotsFetched(screenshotsData)))
       .catch(() => dispatch(screenshotsFetchingError()))
       .then(() => rawgService.getGameTrailers(gameId))
-      .then((moviesData) => dispatch(moviesFetched(moviesData)))
-      .catch(() => dispatch(moviesFetchingError()));
+      .then((trailersData) => dispatch(trailersFetched(trailersData)))
+      .catch(() => dispatch(trailersFetchingError()));
 
     // rawgService
     //   .getGameAddOns(gameId)
