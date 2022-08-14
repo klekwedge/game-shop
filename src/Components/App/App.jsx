@@ -1,6 +1,7 @@
 import React, { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Header from '../Header/Header';
+import Spinner from '../Spinner/Spinner';
 
 const MainPage = lazy(() => import('../pages/MainPage'));
 const GamePage = lazy(() => import('../pages/GamePage'));
@@ -13,7 +14,7 @@ function App() {
     <Router>
       <div className="flex flex-col items-center">
         <Header />
-        <Suspense fallback={<h1>Loading...</h1>}>
+        <Suspense fallback={<Spinner />}>
           <Routes>
             <Route path="/" element={<MainPage />} />
             <Route path="/:gameId" element={<GamePage />} />

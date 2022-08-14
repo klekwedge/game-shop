@@ -31,15 +31,18 @@ import { AiFillShopping, AiOutlineQuestionCircle, AiOutlineInfoCircle } from 're
 
 import RAWG from '../../services/RAWG';
 import {
-  currentGameFetching,
-  currentGameFetched,
-  currentGameFetchingError,
-  currentGameReset,
   screenshotsFetched,
   screenshotsFetchingError,
   moviesFetched,
   moviesFetchingError,
 } from '../../actions/actions';
+
+import {
+  currentGameFetching,
+  currentGameFetched,
+  currentGameFetchingError,
+  currentGameReset,
+} from '../../slices/gamesSlices';
 
 function GamePage() {
   // eslint-disable-next-line no-unused-vars
@@ -115,7 +118,7 @@ function GamePage() {
   }
 
   return (
-    <main className="max-w-screen-2xl mx-auto px-5 py-3">
+    <main className="max-w-screen-2xl mx-auto px-8 py-3">
       {currentGame ? (
         <>
           {/* {console.log(currentGame)} */}

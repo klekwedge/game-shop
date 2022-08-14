@@ -1,15 +1,17 @@
-/* eslint-disable no-underscore-dangle */
-import { createStore, combineReducers } from 'redux';
+import { configureStore } from '@reduxjs/toolkit';
 import screenshots from '../reducers/screenshots';
-import games from '../reducers/games';
+import games from '../slices/gamesSlices';
 import movies from '../reducers/movies';
 import genres from '../reducers/genres';
 
-const store = createStore(
-  combineReducers({
-    games, genres, screenshots, movies,
-  }),
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-);
+const store = configureStore({
+  reducer: {
+    games,
+    genres,
+    screenshots,
+    movies,
+  },
+  devTools: process.env.NODE_ENV !== 'production',
+});
 
 export default store;

@@ -3,18 +3,12 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import RAWG from '../../services/RAWG';
-import {
-  gamesFetched,
-  gamesFetching,
-  gamesFetchingError,
-  currentGenreFetched,
-  currentGenreFetchingError,
-} from '../../actions/actions';
+import { currentGenreFetched, currentGenreFetchingError } from '../../actions/actions';
+import { gamesFetched, gamesFetching, gamesFetchingError } from '../../slices/gamesSlices';
 import Spinner from '../Spinner/Spinner';
 
 function GameList({ genreName, mainTitle, descr }) {
   const { genre } = useParams();
-
   const { currentGenre, genres } = useSelector((state) => state.genres);
   const { games, gamesLoadingStatus } = useSelector((state) => state.games);
 
@@ -48,7 +42,8 @@ function GameList({ genreName, mainTitle, descr }) {
 
   if (gamesLoadingStatus === 'loading') {
     return <Spinner />;
-  } if (gamesLoadingStatus === 'error') {
+  }
+  if (gamesLoadingStatus === 'error') {
     return <h5 className="text-center mt-5">Ошибка загрузки</h5>;
   }
 
