@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
-import screenshots from '../reducers/screenshots';
 import games from '../slices/gamesSlice';
-import movies from '../slices/moviesSlice';
 import genres from '../slices/genresSlice';
+import screenshots from '../slices/screenshotsSlice';
+import movies from '../slices/moviesSlice';
 
 const store = configureStore({
   reducer: {

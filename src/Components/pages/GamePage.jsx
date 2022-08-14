@@ -30,7 +30,7 @@ import { MdKeyboardBackspace, MdGames } from 'react-icons/md';
 import { AiFillShopping, AiOutlineQuestionCircle, AiOutlineInfoCircle } from 'react-icons/ai';
 
 import RAWG from '../../services/RAWG';
-import { screenshotsFetched, screenshotsFetchingError } from '../../actions/actions';
+import { screenshotsFetched, screenshotsFetchingError } from '../../slices/screenshotsSlice';
 
 import {
   currentGameFetching,
