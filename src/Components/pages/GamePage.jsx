@@ -30,19 +30,16 @@ import { MdKeyboardBackspace, MdGames } from 'react-icons/md';
 import { AiFillShopping, AiOutlineQuestionCircle, AiOutlineInfoCircle } from 'react-icons/ai';
 
 import RAWG from '../../services/RAWG';
-import {
-  screenshotsFetched,
-  screenshotsFetchingError,
-  moviesFetched,
-  moviesFetchingError,
-} from '../../actions/actions';
+import { screenshotsFetched, screenshotsFetchingError } from '../../actions/actions';
 
 import {
   currentGameFetching,
   currentGameFetched,
   currentGameFetchingError,
   currentGameReset,
-} from '../../slices/gamesSlices';
+} from '../../slices/gamesSlice';
+
+import { moviesFetched, moviesFetchingError } from '../../slices/moviesSlice';
 
 function GamePage() {
   // eslint-disable-next-line no-unused-vars

@@ -9,7 +9,7 @@ import {
   gameSeriesFetched,
   gameSeriesFetchingError,
   gameSeriesReset,
-} from '../../slices/gamesSlices';
+} from '../../slices/gamesSlice';
 
 function GameSeriesPage() {
   const { gameId } = useParams();

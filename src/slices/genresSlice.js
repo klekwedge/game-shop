@@ -8,7 +8,7 @@ const initialState = {
   currentGenreLoadingStatus: 'idle',
 };
 
-const genresSlices = createSlice({
+const genresSlice = createSlice({
   name: 'genres',
   initialState,
   reducers: {
@@ -38,7 +38,7 @@ const genresSlices = createSlice({
   },
 });
 
-const { actions, reducer } = genresSlices;
+const { actions, reducer } = genresSlice;
 export default reducer;
 export const {
   genresFetching,
