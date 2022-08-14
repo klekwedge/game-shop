@@ -1,5 +1,6 @@
 import React, { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Header from '../Header/Header';
 
 const MainPage = lazy(() => import('../pages/MainPage'));
 const GamePage = lazy(() => import('../pages/GamePage'));
@@ -10,7 +11,8 @@ const GenrePage = lazy(() => import('../pages/GenrePage'));
 function App() {
   return (
     <Router>
-      <div>
+      <div className="flex flex-col items-center">
+        <Header />
         <Suspense fallback={<h1>Loading...</h1>}>
           <Routes>
             <Route path="/" element={<MainPage />} />
