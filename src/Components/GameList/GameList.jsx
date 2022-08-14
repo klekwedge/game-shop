@@ -10,12 +10,13 @@ import {
   currentGenreFetched,
   currentGenreFetchingError,
 } from '../../actions/actions';
+import Spinner from '../Spinner/Spinner';
 
 function GameList({ genreName, mainTitle, descr }) {
   const { genre } = useParams();
 
   const { currentGenre, genres } = useSelector((state) => state.genres);
-  const { games } = useSelector((state) => state.games);
+  const { games, gamesLoadingStatus } = useSelector((state) => state.games);
 
   const dispatch = useDispatch();
   const rawgService = new RAWG();
@@ -45,13 +46,16 @@ function GameList({ genreName, mainTitle, descr }) {
     }
   }, [genreName, genres]);
 
+  if (gamesLoadingStatus === 'loading') {
+    return <Spinner />;
+  } if (gamesLoadingStatus === 'error') {
+    return <h5 className="text-center mt-5">Ошибка загрузки</h5>;
+  }
+
   return (
     <section>
       <h2 className="text-5xl font-bold mb-2 capitalize">{genre ? `${genre} games` : mainTitle}</h2>
-      <h3 className="text-base mb-8">
-        {console.log(currentGenre)}
-        {currentGenre ? currentGenre.description : descr}
-      </h3>
+      <h3 className="text-base mb-8">{currentGenre ? currentGenre.description : descr}</h3>
       {games ? (
         <ul className="flex gap-5 flex-wrap">
           {games.results.map((game) => (
