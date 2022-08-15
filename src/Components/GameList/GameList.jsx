@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import {
-  Flex, Skeleton, SkeletonCircle, SkeletonText,
+  Flex, Skeleton, Heading,
 } from '@chakra-ui/react';
 import RAWG from '../../services/RAWG';
 import { currentGenreFetched, currentGenreFetchingError } from '../../slices/genresSlice';
@@ -49,12 +49,7 @@ function GameList({ genreName, mainTitle, descr }) {
     return (
       <Flex gap="20px" flexWrap="wrap" minWidth="1000px">
         {[...Array(16).keys()].map(() => (
-          <Skeleton
-            key={uuidv4()}
-            width="220px"
-            height="135px"
-            borderRadius="10px"
-          />
+          <Skeleton key={uuidv4()} width="220px" height="135px" borderRadius="10px" />
         ))}
       </Flex>
     );
@@ -71,17 +66,26 @@ function GameList({ genreName, mainTitle, descr }) {
         <ul className="flex gap-5 flex-wrap">
           {games.results.map((game) => (
             <li
-              className="flex flex-col items-center gap-2 bg-zinc-900 basis-1/5 grow pb-2 cursor-pointer rounded-lg hover:scale-105 duration-300"
+              className="flex flex-col items-center gap-2 bg-zinc-900 basis-1/5 grow pb-2 rounded-lg hover:scale-105 duration-300"
               key={game.id}
             >
-              <Link to={`/${game.id}`}>
-                <img
-                  src={game.background_image}
-                  alt={game.background_image}
-                  className="max-h-36 object-cover mb-2"
-                />
-                <h4 className="px-2 text-center">{game.name}</h4>
-              </Link>
+              <img
+                src={game.background_image}
+                alt={game.background_image}
+                className="max-h-36 object-cover mb-2"
+              />
+              <Heading
+                as="h4"
+                fontWeight="500"
+                fontSize="16px"
+                textAlign="center"
+                alignSelf="center"
+                padding="0px 10px"
+                transition="all 0.3s ease"
+                _hover={{ color: '#d4d4d4' }}
+              >
+                <Link to={`/${game.id}`}>{game.name}</Link>
+              </Heading>
             </li>
           ))}
         </ul>
