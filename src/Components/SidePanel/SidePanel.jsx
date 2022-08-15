@@ -1,8 +1,27 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux/es/exports';
 import { NavLink, Link } from 'react-router-dom';
-import { FaFistRaised, FaHorseHead, FaFlagCheckered } from 'react-icons/fa';
-import { GiBroadsword, GiPistolGun } from 'react-icons/gi';
+import { Flex } from '@chakra-ui/react';
+import {
+  FaFistRaised,
+  FaHorseHead,
+  FaMountain,
+  FaSnowboarding,
+  FaChessBoard,
+  FaTruck,
+} from 'react-icons/fa';
+import { SiApplearcade } from 'react-icons/si';
+import { RiTeamFill } from 'react-icons/ri';
+import {
+  GiBroadsword,
+  GiPistolGun,
+  GiBoxingGlove,
+  GiCardAceDiamonds,
+  GiFlatPlatform,
+  GiSandSnake,
+} from 'react-icons/gi';
+import { MdFamilyRestroom, MdPerson } from 'react-icons/md';
+import { IoExtensionPuzzleSharp, IoCarSport, IoSchool } from 'react-icons/io5';
 import RAWG from '../../services/RAWG';
 import { genresFetched, genresFetchingError } from '../../slices/genresSlice';
 
@@ -13,10 +32,24 @@ function SidePanel() {
 
   const icons = [
     <FaFistRaised />,
-    <FaHorseHead />,
+    <MdPerson />,
+    <FaMountain />,
     <GiBroadsword />,
+    <FaHorseHead />,
     <GiPistolGun />,
-    <FaFlagCheckered />,
+    <GiSandSnake />,
+    <FaTruck />,
+    <IoExtensionPuzzleSharp />,
+    <SiApplearcade />,
+    <GiFlatPlatform />,
+    <IoCarSport />,
+    <RiTeamFill />,
+    <FaSnowboarding />,
+    <GiBoxingGlove />,
+    <MdFamilyRestroom />,
+    <FaChessBoard />,
+    <IoSchool />,
+    <GiCardAceDiamonds />,
   ];
 
   const dispatch = useDispatch();
@@ -53,7 +86,10 @@ function SidePanel() {
                 style={({ isActive }) => (isActive ? { color: '#6d28d9' } : undefined)}
                 className="flex items-center gap-3"
               >
-                {icons[i] ? icons[i] : null}
+                <Flex aligItems="center" justifyContent="center" bg="#27272a" p="5px">
+                  {icons[i] ? icons[i] : null}
+                </Flex>
+
                 {genre.name}
               </NavLink>
             </li>
