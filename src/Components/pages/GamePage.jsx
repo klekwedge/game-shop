@@ -40,12 +40,13 @@ import {
 } from '../../slices/gamesSlice';
 
 import { trailersFetched, trailersFetchingError } from '../../slices/trailersSlice';
+import Spinner from '../Spinner/Spinner';
 
 function GamePage() {
   const { gameId } = useParams();
   const rawgService = new RAWG();
 
-  const { currentGame } = useSelector((state) => state.games);
+  const { currentGame, currentGameLoadingStatus } = useSelector((state) => state.games);
   const { screenshots } = useSelector((state) => state.screenshots);
   const { movies } = useSelector((state) => state.movies);
   const dispatch = useDispatch();
@@ -70,6 +71,14 @@ function GamePage() {
     //   .then((data) => onLoaded(data))
     //   .catch(onError());
   }, [gameId]);
+
+  if (currentGameLoadingStatus === 'loading') {
+    return <Spinner />;
+  }
+
+  if (currentGameLoadingStatus === 'error') {
+    return <h5 className="text-center basis-3/4">Ошибка загрузки</h5>;
+  }
 
   function chooseStoreIcon(storeName) {
     switch (storeName) {
