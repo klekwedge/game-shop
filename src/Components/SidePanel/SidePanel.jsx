@@ -30,7 +30,7 @@ function SidePanel() {
 
   const { genres } = useSelector((state) => state.genres);
 
-  const icons = [
+  const genresIcons = [
     <FaFistRaised />,
     <MdPerson />,
     <FaMountain />,
@@ -87,7 +87,7 @@ function SidePanel() {
                 className="flex items-center gap-3"
               >
                 <Flex aligItems="center" justifyContent="center" bg="#27272a" p="5px">
-                  {icons[i] ? icons[i] : null}
+                  {genresIcons[i] ? genresIcons[i] : null}
                 </Flex>
 
                 {genre.name}

@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import {
-  Flex, Skeleton, Heading,
+  Flex, Skeleton, Heading, List, ListItem, Image,
 } from '@chakra-ui/react';
 import RAWG from '../../services/RAWG';
 import { currentGenreFetched, currentGenreFetchingError } from '../../slices/genresSlice';
@@ -63,16 +63,21 @@ function GameList({ genreName, mainTitle, descr }) {
       <h2 className="text-5xl font-bold mb-2 capitalize">{genre ? `${genre} games` : mainTitle}</h2>
       <h3 className="text-base mb-8">{currentGenre ? currentGenre.description : descr}</h3>
       {games ? (
-        <ul className="flex gap-5 flex-wrap">
+        <List className="flex gap-5 flex-wrap">
           {games.results.map((game) => (
-            <li
+            <ListItem
               className="flex flex-col items-center gap-2 bg-zinc-900 basis-1/5 grow pb-2 rounded-lg hover:scale-105 duration-300"
               key={game.id}
             >
-              <img
+              <Image
                 src={game.background_image}
                 alt={game.background_image}
-                className="max-h-36 object-cover mb-2"
+                objectFit="cover"
+                maxW="256px"
+                maxH="144px"
+                w="100%"
+                h="100%"
+                mb="10px"
               />
               <Heading
                 as="h4"
@@ -86,9 +91,9 @@ function GameList({ genreName, mainTitle, descr }) {
               >
                 <Link to={`/${game.id}`}>{game.name}</Link>
               </Heading>
-            </li>
+            </ListItem>
           ))}
-        </ul>
+        </List>
       ) : null}
     </section>
   );
