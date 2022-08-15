@@ -42,7 +42,6 @@ import {
 import { trailersFetched, trailersFetchingError } from '../../slices/trailersSlice';
 
 function GamePage() {
-  // eslint-disable-next-line no-unused-vars
   const { gameId } = useParams();
   const rawgService = new RAWG();
 

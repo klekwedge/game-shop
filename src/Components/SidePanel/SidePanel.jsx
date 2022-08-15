@@ -18,7 +18,7 @@ function SidePanel() {
   }, []);
 
   return (
-    <section>
+    <section className="basis-1/4">
       <h2 className="text-2xl font-medium mb-2">Popular</h2>
       <ul className="flex flex-col gap-1 text-xl w-64 mb-5">
         <li className="cursor-pointer">

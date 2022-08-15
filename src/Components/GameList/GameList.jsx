@@ -1,7 +1,12 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
+import {
+  Flex, Skeleton, SkeletonCircle, SkeletonText,
+} from '@chakra-ui/react';
 import RAWG from '../../services/RAWG';
 import { currentGenreFetched, currentGenreFetchingError } from '../../slices/genresSlice';
 import { gamesFetched, gamesFetching, gamesFetchingError } from '../../slices/gamesSlice';
@@ -41,10 +46,21 @@ function GameList({ genreName, mainTitle, descr }) {
   }, [genreName, genres]);
 
   if (gamesLoadingStatus === 'loading') {
-    return <Spinner />;
+    return (
+      <Flex gap="20px" flexWrap="wrap" minWidth="1000px">
+        {[...Array(16).keys()].map(() => (
+          <Skeleton
+            key={uuidv4()}
+            width="220px"
+            height="135px"
+            borderRadius="10px"
+          />
+        ))}
+      </Flex>
+    );
   }
   if (gamesLoadingStatus === 'error') {
-    return <h5 className="text-center mt-5">Ошибка загрузки</h5>;
+    return <h5 className="text-center basis-3/4">Ошибка загрузки</h5>;
   }
 
   return (
@@ -55,7 +71,7 @@ function GameList({ genreName, mainTitle, descr }) {
         <ul className="flex gap-5 flex-wrap">
           {games.results.map((game) => (
             <li
-              className="flex flex-col items-center gap-2 bg-zinc-900 basis-1/5 grow-0 pb-2 cursor-pointer rounded-lg hover:scale-105 duration-300"
+              className="flex flex-col items-center gap-2 bg-zinc-900 basis-1/5 grow pb-2 cursor-pointer rounded-lg hover:scale-105 duration-300"
               key={game.id}
             >
               <Link to={`/${game.id}`}>

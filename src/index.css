@@ -439,7 +439,7 @@ textarea {
   padding: 0.2em 0;
 }
 
-body {
+body.page {
   overflow-x: hidden;
   background-color: #0f1011;
   color: white;
