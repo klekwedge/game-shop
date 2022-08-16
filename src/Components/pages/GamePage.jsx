@@ -1,5 +1,4 @@
 /* eslint-disable react/jsx-no-bind */
-/* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/media-has-caption */
 /* eslint-disable import/no-unresolved */
 import React, { useEffect } from 'react';
@@ -33,12 +32,19 @@ import {
   achievementsReset,
   nextAchievements,
   getAchievementsAmount,
-  additionsFetching,
+  // additionsFetching,
   additionsFetched,
-  additionsFetchingError,
+  // additionsFetchingError,
 } from '../../slices/currentGameSlice';
 
-import { trailersFetched, trailersFetchingError } from '../../slices/trailersSlice';
+import {
+  gameSeriesFetching,
+  gameSeriesFetched,
+  gameSeriesFetchingError,
+  gameSeriesReset,
+} from '../../slices/gamesSlice';
+
+// import { trailersFetched, trailersFetchingError } from '../../slices/trailersSlice';
 import Spinner from '../Spinner/Spinner';
 
 import './GamePage.scss';
@@ -61,6 +67,7 @@ function GamePage() {
   } = useSelector((state) => state.currentGame);
   const { screenshots } = useSelector((state) => state.screenshots);
   const { movies } = useSelector((state) => state.movies);
+  const { gamesOfSeries } = useSelector((state) => state.games);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -81,15 +88,17 @@ function GamePage() {
     // .then((trailersData) => dispatch(trailersFetched(trailersData)))
     // .catch(() => dispatch(trailersFetchingError()));
     //
-
-    // rawgService
-    //   .getGameAddOns(gameId)
-    //   .then((data) => onLoaded(data))
-    //   .catch(onError());
   }, [gameId]);
 
   function loadStartAchievements(tabIndex) {
-    if (tabIndex === 1 && achievements.length === 0) {
+    if (tabIndex === 3 && currentGame) {
+      dispatch(gameSeriesReset());
+      dispatch(gameSeriesFetching());
+      rawgService
+        .getListOfGamesSeries(gameId)
+        .then((data) => dispatch(gameSeriesFetched(data)))
+        .catch(() => gameSeriesFetchingError());
+    } else if (tabIndex === 1 && achievements.length === 0) {
       rawgService
         .getGameAchievements(gameId)
         .then((achievementsData) => {
@@ -216,7 +225,7 @@ function GamePage() {
                   <AdditionsList additions={additions} />
                 </TabPanel>
                 <TabPanel>
-                  <GameSeries />
+                  <GameSeries gamesOfSeries={gamesOfSeries} />
                 </TabPanel>
               </TabPanels>
             </Tabs>

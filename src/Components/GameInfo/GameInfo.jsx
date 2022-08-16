@@ -1,6 +1,5 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import React, { useEffect } from 'react';
+import React from 'react';
 import { FcReddit } from 'react-icons/fc';
 import { MdGames } from 'react-icons/md';
 import {
@@ -17,9 +16,6 @@ import {
   SiPcgamingwiki,
 } from 'react-icons/si';
 import { AiFillShopping, AiOutlineQuestionCircle, AiOutlineInfoCircle } from 'react-icons/ai';
-import {
-  Flex, Box, Button, Text, Heading, List, ListItem, Image,
-} from '@chakra-ui/react';
 
 function GameInfo({ currentGame }) {
   function chooseStoreIcon(storeName) {

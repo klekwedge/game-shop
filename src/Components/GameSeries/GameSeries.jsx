@@ -1,34 +1,11 @@
-import React, { useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+/* eslint-disable react/prop-types */
+import React from 'react';
+import { Link } from 'react-router-dom';
 import {
   Flex, Heading, List, ListItem, Image,
 } from '@chakra-ui/react';
-import RAWG from '../../services/RAWG';
-import {
-  gameSeriesFetching,
-  gameSeriesFetched,
-  gameSeriesFetchingError,
-  gameSeriesReset,
-} from '../../slices/gamesSlice';
 
-function GameSeries() {
-  const { gameId } = useParams();
-
-  const rawgService = new RAWG();
-
-  const { gamesOfSeries } = useSelector((state) => state.games);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(gameSeriesReset());
-    dispatch(gameSeriesFetching());
-    rawgService
-      .getListOfGamesSeries(gameId)
-      .then((data) => dispatch(gameSeriesFetched(data)))
-      .catch(() => gameSeriesFetchingError());
-  }, [gameId]);
-
+function GameSeries({ gamesOfSeries }) {
   return (
     <Flex
       as="main"
