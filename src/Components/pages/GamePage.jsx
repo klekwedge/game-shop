@@ -4,11 +4,12 @@ import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  Button, Flex, Heading, Image, List, ListItem,
+  Button, Flex, Heading, Image, List, ListItem, Box,
 } from '@chakra-ui/react';
 import { Link, useParams } from 'react-router-dom';
 import { FcReddit } from 'react-icons/fc';
 import { v4 as uuidv4 } from 'uuid';
+import cn from 'classnames';
 import {
   Navigation, Pagination, Scrollbar, A11y,
 } from 'swiper';
@@ -51,6 +52,8 @@ import {
 import { trailersFetched, trailersFetchingError } from '../../slices/trailersSlice';
 import Spinner from '../Spinner/Spinner';
 
+import './GamePage.scss';
+
 function GamePage() {
   const { gameId } = useParams();
   const rawgService = new RAWG();
@@ -85,8 +88,8 @@ function GamePage() {
       //
       .then(() => rawgService.getGameAchievements(gameId))
       .then((achievementsData) => {
-        dispatch(nextAchievements(achievementsData.next));
         dispatch(achievementsFetched(achievementsData.results));
+        dispatch(nextAchievements(achievementsData.next));
         dispatch(getAchievementsAmount(achievementsData.count));
       })
       .catch(() => dispatch(achievementsFetchingError()));
@@ -156,6 +159,8 @@ function GamePage() {
         return <AiOutlineQuestionCircle size="23" />;
     }
   }
+
+  console.log(achievements);
 
   return (
     <>
@@ -297,12 +302,42 @@ function GamePage() {
                   {' '}
                   {`(${achievementsAmount})`}
                 </Heading>
-                <List display="flex" justifyContent="center" gap="25px" flexWrap="wrap" mb="30px">
+                <List display="flex" justifyContent="center" gap="40px" alignItems="center" flexWrap="wrap" mb="30px">
                   {achievements.map((achievementItem) => (
                     <ListItem key={uuidv4()} maxW="240px" display="flex" flexDirection="column">
-                      <Image src={achievementItem.image} objectFit="cover" w="100%" h="100%" />
+                      <Box className="wrap" w="100%" h="100%" mb="20px">
+                        <div
+                          className={cn('AchievementIconWrapper', {
+                            LegendaryAchievement: achievementItem.percent <= 5,
+                            EpicAchievement:
+                              achievementItem.percent <= 10 && achievementItem.percent > 5,
+                            RareAchievement:
+                              achievementItem.percent > 10 && achievementItem.percent <= 15,
+                          })}
+                        >
+                          {+achievementItem.percent < 20 ? (
+                            <div className="AchievementIconGlowContainerRoot">
+                              <div className="AchievementIconGlowContainer">
+                                <div className="AchievementIconGlow" />
+                              </div>
+                            </div>
+                          ) : null}
+
+                          <Image
+                            src={achievementItem.image}
+                            objectFit="cover"
+                            w="100%"
+                            h="100%"
+                            className="AchieveIcon"
+                          />
+                        </div>
+                      </Box>
+
                       <Heading as="h4" textAlign="center" fontWeight="500" fontSize="20px">
                         {achievementItem.name}
+                      </Heading>
+                      <Heading as="h5" textAlign="center" fontWeight="400" fontSize="16px">
+                        {achievementItem.percent}
                       </Heading>
                     </ListItem>
                   ))}
