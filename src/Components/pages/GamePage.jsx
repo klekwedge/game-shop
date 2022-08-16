@@ -44,6 +44,8 @@ import {
   currentGameReset,
   achievementsFetched,
   achievementsFetchingError,
+  nextAchievements,
+  getAchievementsAmount,
 } from '../../slices/currentGameSlice';
 
 import { trailersFetched, trailersFetchingError } from '../../slices/trailersSlice';
@@ -53,14 +55,16 @@ function GamePage() {
   const { gameId } = useParams();
   const rawgService = new RAWG();
 
-  const { currentGame, currentGameLoadingStatus, achievements } = useSelector(
-    (state) => state.currentGame,
-  );
+  const {
+    currentGame,
+    currentGameLoadingStatus,
+    achievements,
+    nextAchievementsPage,
+    achievementsAmount,
+  } = useSelector((state) => state.currentGame);
   const { screenshots } = useSelector((state) => state.screenshots);
   const { movies } = useSelector((state) => state.movies);
   const dispatch = useDispatch();
-
-  console.log(achievements);
 
   useEffect(() => {
     dispatch(currentGameReset());
@@ -80,7 +84,11 @@ function GamePage() {
       .catch(() => dispatch(trailersFetchingError()))
       //
       .then(() => rawgService.getGameAchievements(gameId))
-      .then((achievementsData) => dispatch(achievementsFetched(achievementsData)))
+      .then((achievementsData) => {
+        dispatch(nextAchievements(achievementsData.next));
+        dispatch(achievementsFetched(achievementsData.results));
+        dispatch(getAchievementsAmount(achievementsData.count));
+      })
       .catch(() => dispatch(achievementsFetchingError()));
 
     // rawgService
@@ -89,7 +97,15 @@ function GamePage() {
     //   .catch(onError());
   }, [gameId]);
 
-  function loadMoreAchievements() {}
+  function loadMoreAchievements() {
+    rawgService
+      .getGada(nextAchievementsPage)
+      .then((achievementsData) => {
+        dispatch(nextAchievements(achievementsData.next));
+        dispatch(achievementsFetched(achievementsData.results));
+      })
+      .catch(() => dispatch(achievementsFetchingError()));
+  }
 
   if (currentGameLoadingStatus === 'loading') {
     return <Spinner />;
@@ -274,15 +290,17 @@ function GamePage() {
                 ))}
               </div>
             </div>
-            {achievements ? (
+            {achievements.length > 0 ? (
               <Flex flexDirection="column" alignItems="center">
-                <Heading as="h4" fontWeight="600" fontSize="30px" mb="60px">
+                <Heading as="h4" fontWeight="600" fontSize="30px" mb="60px" alignSelf="flex-start">
                   Achievements
+                  {' '}
+                  {`(${achievementsAmount})`}
                 </Heading>
                 <List display="flex" justifyContent="center" gap="25px" flexWrap="wrap" mb="30px">
-                  {achievements.results.map((achievementItem) => (
+                  {achievements.map((achievementItem) => (
                     <ListItem key={uuidv4()} maxW="240px" display="flex" flexDirection="column">
-                      <Image src={achievementItem.image} />
+                      <Image src={achievementItem.image} objectFit="cover" w="100%" h="100%" />
                       <Heading as="h4" textAlign="center" fontWeight="500" fontSize="20px">
                         {achievementItem.name}
                       </Heading>
@@ -295,6 +313,7 @@ function GamePage() {
                   _hover={{ bg: 'purple.700' }}
                   _active={{ bg: 'purple.500' }}
                   onClick={() => loadMoreAchievements()}
+                  display={nextAchievementsPage === null ? 'none' : 'block'}
                 >
                   Load more
                 </Button>

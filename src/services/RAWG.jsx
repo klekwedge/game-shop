@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 /* eslint-disable react/no-unused-class-component-methods */
 import { Component } from 'react';
 
@@ -24,9 +25,8 @@ class RAWG extends Component {
 
   // eslint-disable-next-line class-methods-use-this
   async getGameAchievements(gameId) {
-    console.log(gameId);
     const res = await fetch(
-      'https://api.rawg.io/api/games/3328/achievements?key=9c6f34d35ac04b2bbe700fdadfb26801&page=2',
+      `https://api.rawg.io/api/games/${gameId}/achievements?key=9c6f34d35ac04b2bbe700fdadfb26801`,
     );
     const data = await res.json();
     return data;
@@ -58,6 +58,12 @@ class RAWG extends Component {
 
   async getGenreDetail(genreId) {
     const res = await fetch(`https://api.rawg.io/api/genres/${genreId}?key=${this.apiKey}`);
+    const data = await res.json();
+    return data;
+  }
+
+  async getGada(url) {
+    const res = await fetch(url);
     const data = await res.json();
     return data;
   }

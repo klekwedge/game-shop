@@ -4,8 +4,10 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   currentGame: null,
   currentGameLoadingStatus: 'idle',
-  achievements: null,
+  achievements: [],
   achievementsLoadingStatus: 'idle',
+  nextAchievementsPage: null,
+  achievementsAmount: 0,
 };
 
 const currentGameSlice = createSlice({
@@ -29,11 +31,17 @@ const currentGameSlice = createSlice({
       state.achievementsLoadingStatus = 'loading';
     },
     achievementsFetched: (state, action) => {
-      state.achievements = action.payload;
+      state.achievements.push(...action.payload);
       state.achievementsLoadingStatus = 'idle';
     },
     achievementsFetchingError: (state) => {
       state.achievementsLoadingStatus = 'error';
+    },
+    nextAchievements: (state, action) => {
+      state.nextAchievementsPage = action.payload;
+    },
+    getAchievementsAmount: (state, action) => {
+      state.achievementsAmount = action.payload;
     },
   },
 });
@@ -49,4 +57,6 @@ export const {
   achievementsFetching,
   achievementsFetched,
   achievementsFetchingError,
+  nextAchievements,
+  getAchievementsAmount,
 } = actions;
