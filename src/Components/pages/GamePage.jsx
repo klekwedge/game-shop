@@ -73,6 +73,7 @@ import Spinner from '../Spinner/Spinner';
 import './GamePage.scss';
 import AdditionsList from '../AdditionsList/AdditionsList';
 import AchievementsList from '../AchievementsList/AchievementsList';
+import GameSeries from '../GameSeries/GameSeries';
 
 function GamePage() {
   const { gameId } = useParams();
@@ -224,7 +225,7 @@ function GamePage() {
               <div className="self-end">
                 <h1 className="text-5xl mb-2 text-right">{currentGame.name}</h1>
                 <h2 className="text-xl text-right ease-in duration-200 hover:text-violet-700">
-                  <Link to="series">Game series</Link>
+                  Game series
                 </h2>
               </div>
             </div>
@@ -334,9 +335,8 @@ function GamePage() {
                 <Tab _selected={{ color: 'white', bg: 'purple.600' }}>Select item </Tab>
                 <Tab _selected={{ color: 'white', bg: 'purple.600' }}>Achievements</Tab>
                 <Tab _selected={{ color: 'white', bg: 'purple.600' }}>Additions</Tab>
-                <Tab _selected={{ color: 'white', bg: 'purple.600' }}>Three</Tab>
+                <Tab _selected={{ color: 'white', bg: 'purple.600' }}>Game series</Tab>
               </TabList>
-
               <TabPanels p="20px 0px 60px">
                 <TabPanel>
                   <p>Achievements: get a list of game achievements</p>
@@ -344,6 +344,7 @@ function GamePage() {
                     Additions: get a list of DLC for the game, GOTY and other editions, companion
                     apps, etc.
                   </p>
+                  <p>Game series: get a list of games that are part of the same series.</p>
                 </TabPanel>
                 <TabPanel>
                   <AchievementsList
@@ -357,7 +358,7 @@ function GamePage() {
                   <AdditionsList additions={additions} />
                 </TabPanel>
                 <TabPanel>
-                  <p>three!</p>
+                  <GameSeries />
                 </TabPanel>
               </TabPanels>
             </Tabs>

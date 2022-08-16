@@ -6,7 +6,6 @@ import Spinner from '../Spinner/Spinner';
 
 const MainPage = lazy(() => import('../pages/MainPage'));
 const GamePage = lazy(() => import('../pages/GamePage'));
-const GameSeriesPage = lazy(() => import('../pages/GameSeriesPage'));
 const Page404 = lazy(() => import('../pages/Page404'));
 const GenrePage = lazy(() => import('../pages/GenrePage'));
 const GenresPage = lazy(() => import('../pages/GenresPage'));
@@ -20,7 +19,6 @@ function App() {
           <Routes>
             <Route path="/" element={<MainPage />} />
             <Route path="/:gameId" element={<GamePage />} />
-            <Route path="/:gameId/series" element={<GameSeriesPage />} />
             <Route path="/games/:genre" element={<GenrePage />} />
             <Route path="/genres" element={<GenresPage />} />
             <Route path="*" element={<Page404 />} />
