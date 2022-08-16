@@ -86,7 +86,7 @@ function SidePanel() {
                 style={({ isActive }) => (isActive ? { color: '#6d28d9' } : undefined)}
                 className="flex items-center gap-3"
               >
-                <Flex aligItems="center" justifyContent="center" bg="#27272a" p="5px">
+                <Flex alignItems="center" justifyContent="center" bg="#27272a" p="5px">
                   {genresIcons[i] ? genresIcons[i] : null}
                 </Flex>
 

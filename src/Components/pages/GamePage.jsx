@@ -2,9 +2,13 @@
 /* eslint-disable import/no-unresolved */
 import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
-import { useSelector, useDispatch } from 'react-redux/es/exports';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  Button, Flex, Heading, Image, List, ListItem,
+} from '@chakra-ui/react';
 import { Link, useParams } from 'react-router-dom';
 import { FcReddit } from 'react-icons/fc';
+import { v4 as uuidv4 } from 'uuid';
 import {
   Navigation, Pagination, Scrollbar, A11y,
 } from 'swiper';
@@ -38,7 +42,9 @@ import {
   currentGameFetched,
   currentGameFetchingError,
   currentGameReset,
-} from '../../slices/gamesSlice';
+  achievementsFetched,
+  achievementsFetchingError,
+} from '../../slices/currentGameSlice';
 
 import { trailersFetched, trailersFetchingError } from '../../slices/trailersSlice';
 import Spinner from '../Spinner/Spinner';
@@ -47,10 +53,14 @@ function GamePage() {
   const { gameId } = useParams();
   const rawgService = new RAWG();
 
-  const { currentGame, currentGameLoadingStatus } = useSelector((state) => state.games);
+  const { currentGame, currentGameLoadingStatus, achievements } = useSelector(
+    (state) => state.currentGame,
+  );
   const { screenshots } = useSelector((state) => state.screenshots);
   const { movies } = useSelector((state) => state.movies);
   const dispatch = useDispatch();
+
+  console.log(achievements);
 
   useEffect(() => {
     dispatch(currentGameReset());
@@ -60,18 +70,26 @@ function GamePage() {
       .getGame(gameId)
       .then((gameData) => dispatch(currentGameFetched(gameData)))
       .catch(() => dispatch(currentGameFetchingError()))
+      ///
       .then(() => rawgService.getGameScreenshots(gameId))
       .then((screenshotsData) => dispatch(screenshotsFetched(screenshotsData)))
       .catch(() => dispatch(screenshotsFetchingError()))
+      ///
       .then(() => rawgService.getGameTrailers(gameId))
       .then((trailersData) => dispatch(trailersFetched(trailersData)))
-      .catch(() => dispatch(trailersFetchingError()));
+      .catch(() => dispatch(trailersFetchingError()))
+      //
+      .then(() => rawgService.getGameAchievements(gameId))
+      .then((achievementsData) => dispatch(achievementsFetched(achievementsData)))
+      .catch(() => dispatch(achievementsFetchingError()));
 
     // rawgService
     //   .getGameAddOns(gameId)
     //   .then((data) => onLoaded(data))
     //   .catch(onError());
   }, [gameId]);
+
+  function loadMoreAchievements() {}
 
   if (currentGameLoadingStatus === 'loading') {
     return <Spinner />;
@@ -126,14 +144,17 @@ function GamePage() {
   return (
     <>
       <Helmet>
-        <meta name="description" content={`${currentGame ? currentGame.name : 'Current Game'} - Game Shop`} />
+        <meta
+          name="description"
+          content={`${currentGame ? currentGame.name : 'Current Game'} - Game Shop`}
+        />
         <title>
           {currentGame ? currentGame.name : 'Current Game'}
           {' '}
           - Game Shop
         </title>
       </Helmet>
-      <main className="max-w-screen-2xl mx-auto px-8 py-3">
+      <main className="max-w-screen-2xl mx-auto px-20 py-3">
         {currentGame ? (
           <>
             {/* {console.log(currentGame)} */}
@@ -253,6 +274,32 @@ function GamePage() {
                 ))}
               </div>
             </div>
+            {achievements ? (
+              <Flex flexDirection="column" alignItems="center">
+                <Heading as="h4" fontWeight="600" fontSize="30px" mb="60px">
+                  Achievements
+                </Heading>
+                <List display="flex" justifyContent="center" gap="25px" flexWrap="wrap" mb="30px">
+                  {achievements.results.map((achievementItem) => (
+                    <ListItem key={uuidv4()} maxW="240px" display="flex" flexDirection="column">
+                      <Image src={achievementItem.image} />
+                      <Heading as="h4" textAlign="center" fontWeight="500" fontSize="20px">
+                        {achievementItem.name}
+                      </Heading>
+                    </ListItem>
+                  ))}
+                </List>
+                <Button
+                  m="0 auto"
+                  bg="purple.600"
+                  _hover={{ bg: 'purple.700' }}
+                  _active={{ bg: 'purple.500' }}
+                  onClick={() => loadMoreAchievements()}
+                >
+                  Load more
+                </Button>
+              </Flex>
+            ) : null}
           </>
         ) : null}
       </main>

@@ -82,7 +82,7 @@ function Header() {
         <Flex alignItems="center" gap="30px">
           <a href="https://rawg.io/">Rawg</a>
           <div ref={btnRef} onClick={onOpen} className="flex items-center gap-2 cursor-pointer">
-            <AiOutlineShopping color="white" size="30" />
+            <AiOutlineShopping color="white" size="30" className="w-8" />
             <h2 className="font-medium text-lg">Cart: 0</h2>
           </div>
         </Flex>
@@ -102,7 +102,9 @@ function Header() {
           <DrawerBody>Content</DrawerBody>
 
           <DrawerFooter display="flex" justifyContent="space-between">
-            <Heading as="h2" fontSize="20px" fontWeight="500">Total:</Heading>
+            <Heading as="h2" fontSize="20px" fontWeight="500">
+              Total:
+            </Heading>
             <Button colorScheme="blue" mr={3} onClick={onClose}>
               Cancel
             </Button>

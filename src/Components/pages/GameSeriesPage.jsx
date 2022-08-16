@@ -3,7 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { MdKeyboardBackspace } from 'react-icons/md';
 import {
-  Flex, Heading, List, ListItem,
+  Flex, Heading, List, ListItem, Image,
 } from '@chakra-ui/react';
 import RAWG from '../../services/RAWG';
 import {
@@ -73,10 +73,12 @@ function GameSeriesPage() {
                 transition="all 0.4s ease"
                 _hover={{ transform: 'scale(1.05)' }}
               >
-                <img
+                <Image
                   src={gameItem.background_image}
                   alt={gameItem.background_image}
                   objectFit="cover"
+                  maxH="180px"
+                  maxW="325px"
                   // className="object-cover"
                 />
                 <Heading

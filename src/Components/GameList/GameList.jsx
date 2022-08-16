@@ -58,6 +58,8 @@ function GameList({ genreName, mainTitle, descr }) {
     return <h5 className="text-center basis-3/4">Ошибка загрузки</h5>;
   }
 
+  console.log(games);
+
   return (
     <section>
       <h2 className="text-5xl font-bold mb-2 capitalize">{genre ? `${genre} games` : mainTitle}</h2>
