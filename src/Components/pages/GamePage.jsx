@@ -6,24 +6,9 @@ import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  Button,
-  Flex,
-  Heading,
-  Image,
-  List,
-  ListItem,
-  Box,
-  Text,
-  Tabs,
-  TabList,
-  TabPanels,
-  Tab,
-  TabPanel,
+  Tabs, TabList, TabPanels, Tab, TabPanel,
 } from '@chakra-ui/react';
 import { Link, useParams } from 'react-router-dom';
-import { FcReddit } from 'react-icons/fc';
-import { v4 as uuidv4 } from 'uuid';
-import cn from 'classnames';
 import {
   Navigation, Pagination, Scrollbar, A11y,
 } from 'swiper';
@@ -33,21 +18,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 
-import {
-  SiGogdotcom,
-  SiPlaystation,
-  SiSteam,
-  SiGoogleplay,
-  SiXbox,
-  SiAppstore,
-  SiPlaystation3,
-  SiPlaystation4,
-  SiPlaystation5,
-  SiNintendoswitch,
-  SiPcgamingwiki,
-} from 'react-icons/si';
-import { MdKeyboardBackspace, MdGames } from 'react-icons/md';
-import { AiFillShopping, AiOutlineQuestionCircle, AiOutlineInfoCircle } from 'react-icons/ai';
+import { MdKeyboardBackspace } from 'react-icons/md';
 
 import RAWG from '../../services/RAWG';
 import { screenshotsFetched, screenshotsFetchingError } from '../../slices/screenshotsSlice';
@@ -74,6 +45,7 @@ import './GamePage.scss';
 import AdditionsList from '../AdditionsList/AdditionsList';
 import AchievementsList from '../AchievementsList/AchievementsList';
 import GameSeries from '../GameSeries/GameSeries';
+import GameInfo from '../GameInfo/GameInfo';
 
 function GamePage() {
   const { gameId } = useParams();
@@ -154,48 +126,6 @@ function GamePage() {
     return <h5 className="text-center basis-3/4">Ошибка загрузки</h5>;
   }
 
-  function chooseStoreIcon(storeName) {
-    switch (storeName) {
-      case 'GOG':
-        return <SiGogdotcom size="23" />;
-      case 'PlayStation Store':
-        return <SiPlaystation size="23" />;
-      case 'Steam':
-        return <SiSteam size="23" />;
-      case 'Google Play':
-        return <SiGoogleplay size="23" />;
-      case 'Xbox Store':
-        return <SiXbox size="23" />;
-      case 'Xbox 360 Store':
-        return <SiXbox size="23" />;
-      case 'App Store':
-        return <SiAppstore size="23" />;
-      default:
-        return <AiOutlineQuestionCircle size="23" />;
-    }
-  }
-
-  function choosePlatformIcon(storeName) {
-    switch (storeName) {
-      case 'PlayStation 3':
-        return <SiPlaystation3 size="23" />;
-      case 'PlayStation 4':
-        return <SiPlaystation4 size="23" />;
-      case 'PlayStation 5':
-        return <SiPlaystation5 size="23" />;
-      case 'Xbox Series S/X':
-        return <SiXbox size="23" />;
-      case 'Xbox One':
-        return <SiXbox size="23" />;
-      case 'Nintendo Switch':
-        return <SiNintendoswitch size="23" />;
-      case 'PC':
-        return <SiPcgamingwiki size="23" />;
-      default:
-        return <AiOutlineQuestionCircle size="23" />;
-    }
-  }
-
   console.log('render');
 
   return (
@@ -263,88 +193,16 @@ function GamePage() {
               <p className="bg-zinc-800 p-10 rounded-lg max-w-xl">{currentGame.description_raw}</p>
             </div>
 
-            <div className="flex gap-5 mb-14">
-              <div className="flex flex-col bg-slate-800 p-5 rounded-lg basis-1/4">
-                <AiOutlineInfoCircle className="self-center mb-3" size="40" />
-                <h2 className="font-medium text-lg mb-2">Info:</h2>
-
-                <h3>
-                  Release date:
-                  {` ${currentGame.released}`}
-                </h3>
-                <a href={`${currentGame.website}`}>Official website</a>
-
-                <h3 className="my-2">
-                  Metacritic rating:
-                  {` ${currentGame.metacritic}`}
-                </h3>
-
-                <h3 className="mb-2">
-                  RAWG rating:
-                  {` ${currentGame.rating}`}
-                </h3>
-                <h3 className="mb-2">
-                  Achievements count:
-                  {` ${currentGame.achievements_count}`}
-                </h3>
-
-                <h3 className="mb-2">
-                  Developers:
-                  {` ${currentGame.developers.map((developerItem) => developerItem.name)}`}
-                </h3>
-
-                <h3 className="mb-2">
-                  Publishers:
-                  {` ${currentGame.publishers.map((publisherItem) => publisherItem.name)}`}
-                </h3>
-              </div>
-              <div className="flex flex-col bg-slate-800 p-5 rounded-lg basis-1/4">
-                <FcReddit className="self-center mb-3" size="40" />
-                <a href={`${currentGame.reddit_url}`} className="font-medium text-lg mb-2">
-                  {currentGame.reddit_name}
-                </a>
-                <p>{currentGame.reddit_description}</p>
-              </div>
-              <div className="flex flex-col bg-slate-800 p-5 rounded-lg basis-1/4">
-                <AiFillShopping className="self-center mb-3" size="40" />
-                <h2 className="font-medium text-lg mb-2">The shops:</h2>
-                {currentGame.stores.map((storeItem) => (
-                  <a
-                    key={storeItem.store.id}
-                    href={storeItem.store.domain}
-                    className="flex items-center gap-3 mb-2"
-                  >
-                    {storeItem.store.name}
-                    {chooseStoreIcon(storeItem.store.name)}
-                  </a>
-                ))}
-              </div>
-              <div className="flex flex-col bg-slate-800 p-5 rounded-lg basis-1/4">
-                <MdGames className="self-center mb-3" size="40" />
-                <h2 className="font-medium text-lg mb-2">Platforms:</h2>
-                {currentGame.platforms.map((platformItem) => (
-                  <h3 key={platformItem.platform.id} className="flex items-center gap-3 mb-2">
-                    {platformItem.platform.name}
-                    {choosePlatformIcon(platformItem.platform.name)}
-                  </h3>
-                ))}
-              </div>
-            </div>
             <Tabs variant="solid-rounded" onChange={(tabIndex) => loadStartAchievements(tabIndex)}>
               <TabList>
-                <Tab _selected={{ color: 'white', bg: 'purple.600' }}>Select item </Tab>
+                <Tab _selected={{ color: 'white', bg: 'purple.600' }}>Game Info </Tab>
                 <Tab _selected={{ color: 'white', bg: 'purple.600' }}>Achievements</Tab>
                 <Tab _selected={{ color: 'white', bg: 'purple.600' }}>Additions</Tab>
                 <Tab _selected={{ color: 'white', bg: 'purple.600' }}>Game series</Tab>
               </TabList>
               <TabPanels p="20px 0px 60px">
                 <TabPanel>
-                  <p>Achievements: get a list of game achievements</p>
-                  <p>
-                    Additions: get a list of DLC for the game, GOTY and other editions, companion
-                    apps, etc.
-                  </p>
-                  <p>Game series: get a list of games that are part of the same series.</p>
+                  <GameInfo currentGame={currentGame} />
                 </TabPanel>
                 <TabPanel>
                   <AchievementsList
