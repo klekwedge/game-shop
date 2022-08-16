@@ -37,6 +37,9 @@ const currentGameSlice = createSlice({
     achievementsFetchingError: (state) => {
       state.achievementsLoadingStatus = 'error';
     },
+    achievementsReset: (state) => {
+      state.achievements = [];
+    },
     nextAchievements: (state, action) => {
       state.nextAchievementsPage = action.payload;
     },
@@ -57,6 +60,7 @@ export const {
   achievementsFetching,
   achievementsFetched,
   achievementsFetchingError,
+  achievementsReset,
   nextAchievements,
   getAchievementsAmount,
 } = actions;

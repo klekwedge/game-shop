@@ -45,6 +45,7 @@ import {
   currentGameReset,
   achievementsFetched,
   achievementsFetchingError,
+  achievementsReset,
   nextAchievements,
   getAchievementsAmount,
 } from '../../slices/currentGameSlice';
@@ -72,6 +73,7 @@ function GamePage() {
   useEffect(() => {
     dispatch(currentGameReset());
     dispatch(currentGameFetching());
+    dispatch(achievementsReset());
 
     rawgService
       .getGame(gameId)
