@@ -154,10 +154,42 @@
     0px 0px 16px 1px rgba(255, 217, 78, 0.4);
 }
 
+.RareAchievementColor {
+  color: #4b7af2;
+}
+
+.EpicAchievementColor {
+  color: #c14fff;
+}
+
+.LegendaryAchievementColor {
+  color: #ffb84e;
+}
+
 @keyframes rotate {
   to {
     transform: rotate(1turn);
   }
 }
 
+.AchiveAdditionalContainer {
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 100;
+}
 
+.AchiveItem:hover .AchiveAdditionalContainer {
+  opacity: 1;
+  visibility: visible;
+}
+
+.AchiveAdditional {
+  position: absolute;
+  width: 100%;
+  border-radius: 0px 0px 10px 10px;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%);
+}

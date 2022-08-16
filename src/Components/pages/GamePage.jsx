@@ -4,7 +4,7 @@ import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  Button, Flex, Heading, Image, List, ListItem, Box,
+  Button, Flex, Heading, Image, List, ListItem, Box, Text,
 } from '@chakra-ui/react';
 import { Link, useParams } from 'react-router-dom';
 import { FcReddit } from 'react-icons/fc';
@@ -302,9 +302,19 @@ function GamePage() {
                   {' '}
                   {`(${achievementsAmount})`}
                 </Heading>
-                <List display="flex" justifyContent="center" gap="40px" alignItems="center" flexWrap="wrap" mb="30px">
+                <List display="flex" justifyContent="center" gap="40px" flexWrap="wrap" mb="60px">
                   {achievements.map((achievementItem) => (
-                    <ListItem key={uuidv4()} maxW="240px" display="flex" flexDirection="column">
+                    <ListItem
+                      key={uuidv4()}
+                      w="100%"
+                      minH="100%"
+                      maxW="240px"
+                      display="flex"
+                      flexDirection="column"
+                      bg="#202020"
+                      cursor="pointer"
+                      className="AchiveItem"
+                    >
                       <Box className="wrap" w="100%" h="100%" mb="20px">
                         <div
                           className={cn('AchievementIconWrapper', {
@@ -329,16 +339,43 @@ function GamePage() {
                             w="100%"
                             h="100%"
                             className="AchieveIcon"
+                            borderRadius="10px 10px 0px 0px"
                           />
                         </div>
                       </Box>
 
-                      <Heading as="h4" textAlign="center" fontWeight="500" fontSize="20px">
+                      <Heading
+                        as="h4"
+                        textAlign="center"
+                        fontWeight="500"
+                        fontSize="20px"
+                        p="0px 10px 10px"
+                      >
                         {achievementItem.name}
                       </Heading>
-                      <Heading as="h5" textAlign="center" fontWeight="400" fontSize="16px">
-                        {achievementItem.percent}
-                      </Heading>
+                      <Box className="AchiveAdditionalContainer">
+                        <Box className="AchiveAdditional" p="5px 10px 20px" bg="#202020">
+                          <Heading
+                            as="h5"
+                            textAlign="center"
+                            fontWeight="400"
+                            fontSize="16px"
+                            className={cn('AchievementIconWrapper', {
+                              LegendaryAchievementColor: achievementItem.percent <= 5,
+                              EpicAchievementColor:
+                                achievementItem.percent <= 10 && achievementItem.percent > 5,
+                              RareAchievementColor:
+                                achievementItem.percent > 10 && achievementItem.percent <= 15,
+                            })}
+                          >
+                            {achievementItem.percent}
+                            %
+                          </Heading>
+                          <Text textAlign="center" fontWeight="400" fontSize="16px">
+                            {achievementItem.description}
+                          </Text>
+                        </Box>
+                      </Box>
                     </ListItem>
                   ))}
                 </List>
