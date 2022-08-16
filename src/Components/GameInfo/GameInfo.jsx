@@ -13,7 +13,7 @@ import {
   SiPlaystation4,
   SiPlaystation5,
   SiNintendoswitch,
-  SiPcgamingwiki,
+  SiWindows,
 } from 'react-icons/si';
 import { AiFillShopping, AiOutlineQuestionCircle, AiOutlineInfoCircle } from 'react-icons/ai';
 
@@ -39,26 +39,30 @@ function GameInfo({ currentGame }) {
     }
   }
 
-  function choosePlatformIcon(storeName) {
-    switch (storeName) {
+  function choosePlatformIcon(platformName) {
+    switch (platformName) {
       case 'PlayStation 3':
-        return <SiPlaystation3 size="23" />;
+        return <SiPlaystation3 size="23" title={platformName} />;
       case 'PlayStation 4':
-        return <SiPlaystation4 size="23" />;
+        return <SiPlaystation4 size="23" title={platformName} />;
       case 'PlayStation 5':
-        return <SiPlaystation5 size="23" />;
+        return <SiPlaystation5 size="23" title={platformName} />;
       case 'Xbox Series S/X':
-        return <SiXbox size="23" />;
+        return <SiXbox size="23" title={platformName} />;
       case 'Xbox One':
-        return <SiXbox size="23" />;
+        return <SiXbox size="23" title={platformName} />;
+      case 'Xbox 360':
+        return <SiXbox size="23" title={platformName} />;
       case 'Nintendo Switch':
-        return <SiNintendoswitch size="23" />;
+        return <SiNintendoswitch size="23" title={platformName} />;
       case 'PC':
-        return <SiPcgamingwiki size="23" />;
+        return <SiWindows size="23" title={platformName} />;
       default:
-        return <AiOutlineQuestionCircle size="23" />;
+        return <AiOutlineQuestionCircle size="23" title={platformName} />;
     }
   }
+
+  console.log(currentGame);
 
   return (
     <section>

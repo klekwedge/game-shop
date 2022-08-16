@@ -5,7 +5,7 @@ import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  Tabs, TabList, TabPanels, Tab, TabPanel,
+  Tabs, TabList, TabPanels, Tab, TabPanel, Box,
 } from '@chakra-ui/react';
 import { Link, useParams } from 'react-router-dom';
 import {
@@ -19,7 +19,17 @@ import 'swiper/css/scrollbar';
 
 import { MdKeyboardBackspace } from 'react-icons/md';
 
+import {
+  SiXbox,
+  SiPlaystation3,
+  SiPlaystation4,
+  SiPlaystation5,
+  SiNintendoswitch,
+  SiWindows,
+} from 'react-icons/si';
+import { AiOutlineQuestionCircle } from 'react-icons/ai';
 import RAWG from '../../services/RAWG';
+
 import { screenshotsFetched, screenshotsFetchingError } from '../../slices/screenshotsSlice';
 
 import {
@@ -56,6 +66,29 @@ import GameInfo from '../GameInfo/GameInfo';
 function GamePage() {
   const { gameId } = useParams();
   const rawgService = new RAWG();
+
+  function choosePlatformIcon(platformName) {
+    switch (platformName) {
+      case 'PlayStation 3':
+        return <SiPlaystation3 size="23" title={platformName} />;
+      case 'PlayStation 4':
+        return <SiPlaystation4 size="23" title={platformName} />;
+      case 'PlayStation 5':
+        return <SiPlaystation5 size="23" title={platformName} />;
+      case 'Xbox Series S/X':
+        return <SiXbox size="23" title={platformName} />;
+      case 'Xbox One':
+        return <SiXbox size="23" title={platformName} />;
+      case 'Xbox 360':
+        return <SiXbox size="23" title={platformName} />;
+      case 'Nintendo Switch':
+        return <SiNintendoswitch size="23" title={platformName} />;
+      case 'PC':
+        return <SiWindows size="23" title={platformName} />;
+      default:
+        return <AiOutlineQuestionCircle size="23" title={platformName} />;
+    }
+  }
 
   const {
     currentGame,
@@ -161,12 +194,16 @@ function GamePage() {
                   Store
                 </Link>
               </h2>
-              <div className="self-end">
-                <h1 className="text-5xl mb-2 text-right">{currentGame.name}</h1>
-                <h2 className="text-xl text-right ease-in duration-200 hover:text-violet-700">
-                  Game series
-                </h2>
-              </div>
+              <Box alignSelf="flex-end" display="flex" gap="15px" flexDirection="column" alignItems="flex-end">
+                <h1 className="text-5xl mb-4 text-right">{currentGame.name}</h1>
+                <Box display="inline-flex" gap="20px" alignItems="center" justifyContent="flex-end">
+                  {currentGame.platforms.map((platformItem) => (
+                    <h3 key={platformItem.platform.id}>
+                      {choosePlatformIcon(platformItem.platform.name)}
+                    </h3>
+                  ))}
+                </Box>
+              </Box>
             </div>
 
             <div className="flex gap-10 items-center mb-20">
