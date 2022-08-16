@@ -1,10 +1,23 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/media-has-caption */
 /* eslint-disable import/no-unresolved */
 import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  Button, Flex, Heading, Image, List, ListItem, Box, Text,
+  Button,
+  Flex,
+  Heading,
+  Image,
+  List,
+  ListItem,
+  Box,
+  Text,
+  Tabs,
+  TabList,
+  TabPanels,
+  Tab,
+  TabPanel,
 } from '@chakra-ui/react';
 import { Link, useParams } from 'react-router-dom';
 import { FcReddit } from 'react-icons/fc';
@@ -86,21 +99,29 @@ function GamePage() {
       ///
       .then(() => rawgService.getGameTrailers(gameId))
       .then((trailersData) => dispatch(trailersFetched(trailersData)))
-      .catch(() => dispatch(trailersFetchingError()))
-      //
-      .then(() => rawgService.getGameAchievements(gameId))
-      .then((achievementsData) => {
-        dispatch(achievementsFetched(achievementsData.results));
-        dispatch(nextAchievements(achievementsData.next));
-        dispatch(getAchievementsAmount(achievementsData.count));
-      })
-      .catch(() => dispatch(achievementsFetchingError()));
+      .catch(() => dispatch(trailersFetchingError()));
+    //
 
     // rawgService
     //   .getGameAddOns(gameId)
     //   .then((data) => onLoaded(data))
     //   .catch(onError());
   }, [gameId]);
+
+  function loadStartAchievements(tabIndex) {
+    console.log('!');
+    if (tabIndex === 1 && achievements.length === 0) {
+      console.log('!!!');
+      rawgService
+        .getGameAchievements(gameId)
+        .then((achievementsData) => {
+          dispatch(achievementsFetched(achievementsData.results));
+          dispatch(nextAchievements(achievementsData.next));
+          dispatch(getAchievementsAmount(achievementsData.count));
+        })
+        .catch(() => dispatch(achievementsFetchingError()));
+    }
+  }
 
   function loadMoreAchievements() {
     rawgService
@@ -162,7 +183,7 @@ function GamePage() {
     }
   }
 
-  console.log(achievements);
+  console.log('render');
 
   return (
     <>
@@ -177,7 +198,7 @@ function GamePage() {
           - Game Shop
         </title>
       </Helmet>
-      <main className="max-w-screen-2xl mx-auto px-20 py-3">
+      <main className="max-w-screen-2xl mx-auto px-20 pt-3 pb-8">
         {currentGame ? (
           <>
             {/* {console.log(currentGame)} */}
@@ -202,7 +223,7 @@ function GamePage() {
                 allowTouchMove={false}
                 navigation
                 pagination={{ clickable: true }}
-                onSwiper={(swiper) => console.log(swiper)}
+                // onSwiper={(swiper) => console.log(swiper)}
               >
                 <SwiperSlide>
                   <img src={currentGame.background_image} alt={currentGame.background_image} />
@@ -297,102 +318,136 @@ function GamePage() {
                 ))}
               </div>
             </div>
-            {achievements.length > 0 ? (
-              <Flex flexDirection="column" alignItems="center">
-                <Heading as="h4" fontWeight="600" fontSize="30px" mb="60px" alignSelf="flex-start">
-                  Achievements
-                  {' '}
-                  {`(${achievementsAmount})`}
-                </Heading>
-                <List display="flex" justifyContent="center" gap="40px" flexWrap="wrap" mb="60px">
-                  {achievements.map((achievementItem) => (
-                    <ListItem
-                      key={uuidv4()}
-                      w="100%"
-                      minH="100%"
-                      maxW="240px"
-                      display="flex"
-                      flexDirection="column"
-                      bg="#202020"
-                      cursor="pointer"
-                      className="AchiveItem"
-                    >
-                      <Box className="wrap" w="100%" h="100%" mb="20px">
-                        <div
-                          className={cn('AchievementIconWrapper', {
-                            LegendaryAchievement: achievementItem.percent <= 5,
-                            EpicAchievement:
-                              achievementItem.percent <= 10 && achievementItem.percent > 5,
-                            RareAchievement:
-                              achievementItem.percent > 10 && achievementItem.percent <= 15,
-                          })}
-                        >
-                          {+achievementItem.percent < 20 ? (
-                            <div className="AchievementIconGlowContainerRoot">
-                              <div className="AchievementIconGlowContainer">
-                                <div className="AchievementIconGlow" />
-                              </div>
-                            </div>
-                          ) : null}
+            <Tabs variant="solid-rounded" onChange={(tabIndex) => loadStartAchievements(tabIndex)}>
+              <TabList>
+                <Tab _selected={{ color: 'white', bg: 'purple.600' }}>Select item </Tab>
+                <Tab _selected={{ color: 'white', bg: 'purple.600' }}>Achievements</Tab>
+                <Tab _selected={{ color: 'white', bg: 'purple.600' }}>Two</Tab>
+                <Tab _selected={{ color: 'white', bg: 'purple.600' }}>Three</Tab>
+              </TabList>
 
-                          <Image
-                            src={achievementItem.image}
-                            objectFit="cover"
-                            w="100%"
-                            h="100%"
-                            className="AchieveIcon"
-                            borderRadius="10px 10px 0px 0px"
-                          />
-                        </div>
-                      </Box>
-
+              <TabPanels>
+                <TabPanel>
+                  <p>Achievements: get a list of game achievements</p>
+                </TabPanel>
+                <TabPanel>
+                  {achievements.length > 0 ? (
+                    <Flex flexDirection="column" alignItems="center" pt="20px">
                       <Heading
                         as="h4"
-                        textAlign="center"
-                        fontWeight="500"
-                        fontSize="20px"
-                        p="0px 10px 10px"
+                        fontWeight="600"
+                        fontSize="30px"
+                        mb="40px"
+                        alignSelf="flex-start"
                       >
-                        {achievementItem.name}
+                        Achievements
+                        {' '}
+                        {`(${achievementsAmount})`}
                       </Heading>
-                      <Box className="AchiveAdditionalContainer">
-                        <Box className="AchiveAdditional" p="5px 10px 20px" bg="#202020">
-                          <Heading
-                            as="h5"
-                            textAlign="center"
-                            fontWeight="400"
-                            fontSize="16px"
-                            className={cn('AchievementIconWrapper', {
-                              LegendaryAchievementColor: achievementItem.percent <= 5,
-                              EpicAchievementColor:
-                                achievementItem.percent <= 10 && achievementItem.percent > 5,
-                              RareAchievementColor:
-                                achievementItem.percent > 10 && achievementItem.percent <= 15,
-                            })}
+                      <List
+                        display="flex"
+                        justifyContent="center"
+                        gap="35px"
+                        flexWrap="wrap"
+                        mb="60px"
+                      >
+                        {achievements.map((achievementItem) => (
+                          <ListItem
+                            key={uuidv4()}
+                            w="100%"
+                            minH="100%"
+                            maxW="240px"
+                            display="flex"
+                            flexDirection="column"
+                            bg="#202020"
+                            cursor="pointer"
+                            className="AchiveItem"
                           >
-                            {achievementItem.percent}
-                            %
-                          </Heading>
-                          <Text textAlign="center" fontWeight="400" fontSize="16px">
-                            {achievementItem.description}
-                          </Text>
-                        </Box>
-                      </Box>
-                    </ListItem>
-                  ))}
-                </List>
-                <Button
-                  m="0 auto"
-                  bg="purple.600"
-                  _hover={{ bg: 'purple.700' }}
-                  _active={{ bg: 'purple.500' }}
-                  onClick={() => loadMoreAchievements()}
-                  display={nextAchievementsPage === null ? 'none' : 'block'}
-                >
-                  Load more
-                </Button>
-              </Flex>
-            ) : null}
+                            <Box className="wrap" w="100%" h="100%" mb="20px">
+                              <div
+                                className={cn('AchievementIconWrapper', {
+                                  LegendaryAchievement: achievementItem.percent <= 5,
+                                  EpicAchievement:
+                                    achievementItem.percent <= 10 && achievementItem.percent > 5,
+                                  RareAchievement:
+                                    achievementItem.percent > 10 && achievementItem.percent <= 15,
+                                })}
+                              >
+                                {+achievementItem.percent < 20 ? (
+                                  <div className="AchievementIconGlowContainerRoot">
+                                    <div className="AchievementIconGlowContainer">
+                                      <div className="AchievementIconGlow" />
+                                    </div>
+                                  </div>
+                                ) : null}
+
+                                <Image
+                                  src={achievementItem.image}
+                                  objectFit="cover"
+                                  w="100%"
+                                  h="100%"
+                                  className="AchieveIcon"
+                                  borderRadius="10px 10px 0px 0px"
+                                />
+                              </div>
+                            </Box>
+
+                            <Heading
+                              as="h4"
+                              textAlign="center"
+                              fontWeight="500"
+                              fontSize="20px"
+                              p="0px 10px 10px"
+                            >
+                              {achievementItem.name}
+                            </Heading>
+                            <Box className="AchiveAdditionalContainer">
+                              <Box className="AchiveAdditional" p="5px 10px 20px" bg="#202020">
+                                <Heading
+                                  as="h5"
+                                  textAlign="center"
+                                  fontWeight="400"
+                                  fontSize="16px"
+                                  className={cn('AchievementIconWrapper', {
+                                    LegendaryAchievementColor: achievementItem.percent <= 5,
+                                    EpicAchievementColor:
+                                      achievementItem.percent <= 10 && achievementItem.percent > 5,
+                                    RareAchievementColor:
+                                      achievementItem.percent > 10 && achievementItem.percent <= 15,
+                                  })}
+                                >
+                                  {achievementItem.percent}
+                                  %
+                                </Heading>
+                                <Text textAlign="center" fontWeight="400" fontSize="16px">
+                                  {achievementItem.description}
+                                </Text>
+                              </Box>
+                            </Box>
+                          </ListItem>
+                        ))}
+                      </List>
+                      <Button
+                        m="0 auto"
+                        bg="purple.600"
+                        _hover={{ bg: 'purple.700' }}
+                        _active={{ bg: 'purple.500' }}
+                        onClick={() => loadMoreAchievements()}
+                        display={nextAchievementsPage === null ? 'none' : 'block'}
+                      >
+                        Load more
+                      </Button>
+                    </Flex>
+                  ) : null}
+                </TabPanel>
+                <TabPanel>
+                  <p>two!</p>
+                </TabPanel>
+                <TabPanel>
+                  <p>three!</p>
+                </TabPanel>
+              </TabPanels>
+            </Tabs>
           </>
         ) : null}
       </main>
