@@ -5,11 +5,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import {
-  Flex, Skeleton, Heading, List, ListItem, Image,
+  Heading, List, ListItem, Image,
 } from '@chakra-ui/react';
 
 function AdditionsList({ additions }) {
-  console.log('!!!', additions);
   return (
     <section>
       {additions ? (
