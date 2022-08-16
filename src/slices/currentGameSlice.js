@@ -8,6 +8,7 @@ const initialState = {
   achievementsLoadingStatus: 'idle',
   nextAchievementsPage: null,
   achievementsAmount: 0,
+  additions: [],
 };
 
 const currentGameSlice = createSlice({
@@ -46,6 +47,18 @@ const currentGameSlice = createSlice({
     getAchievementsAmount: (state, action) => {
       state.achievementsAmount = action.payload;
     },
+    additionsFetching: () => {
+      // state.achievementsLoadingStatus = 'loading';
+    },
+    additionsFetched: (state, action) => {
+      state.additions = action.payload;
+    },
+    additionsFetchingError: () => {
+      // state.achievementsLoadingStatus = 'error';
+    },
+    additionsReset: (state) => {
+      state.achievements = [];
+    },
   },
 });
 
@@ -63,4 +76,7 @@ export const {
   achievementsReset,
   nextAchievements,
   getAchievementsAmount,
+  additionsFetching,
+  additionsFetched,
+  additionsFetchingError,
 } = actions;

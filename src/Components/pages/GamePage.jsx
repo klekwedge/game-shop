@@ -61,12 +61,16 @@ import {
   achievementsReset,
   nextAchievements,
   getAchievementsAmount,
+  additionsFetching,
+  additionsFetched,
+  additionsFetchingError,
 } from '../../slices/currentGameSlice';
 
 import { trailersFetched, trailersFetchingError } from '../../slices/trailersSlice';
 import Spinner from '../Spinner/Spinner';
 
 import './GamePage.scss';
+import AdditionsList from '../AdditionsList/AdditionsList';
 
 function GamePage() {
   const { gameId } = useParams();
@@ -78,6 +82,7 @@ function GamePage() {
     achievements,
     nextAchievementsPage,
     achievementsAmount,
+    additions,
   } = useSelector((state) => state.currentGame);
   const { screenshots } = useSelector((state) => state.screenshots);
   const { movies } = useSelector((state) => state.movies);
@@ -95,11 +100,11 @@ function GamePage() {
       ///
       .then(() => rawgService.getGameScreenshots(gameId))
       .then((screenshotsData) => dispatch(screenshotsFetched(screenshotsData)))
-      .catch(() => dispatch(screenshotsFetchingError()))
-      ///
-      .then(() => rawgService.getGameTrailers(gameId))
-      .then((trailersData) => dispatch(trailersFetched(trailersData)))
-      .catch(() => dispatch(trailersFetchingError()));
+      .catch(() => dispatch(screenshotsFetchingError()));
+    ///
+    // .then(() => rawgService.getGameTrailers(gameId))
+    // .then((trailersData) => dispatch(trailersFetched(trailersData)))
+    // .catch(() => dispatch(trailersFetchingError()));
     //
 
     // rawgService
@@ -109,15 +114,20 @@ function GamePage() {
   }, [gameId]);
 
   function loadStartAchievements(tabIndex) {
-    console.log('!');
     if (tabIndex === 1 && achievements.length === 0) {
-      console.log('!!!');
       rawgService
         .getGameAchievements(gameId)
         .then((achievementsData) => {
           dispatch(achievementsFetched(achievementsData.results));
           dispatch(nextAchievements(achievementsData.next));
           dispatch(getAchievementsAmount(achievementsData.count));
+        })
+        .catch(() => dispatch(achievementsFetchingError()));
+    } else if (tabIndex === 2 && additions.length === 0) {
+      rawgService
+        .getGameAdditions(gameId)
+        .then((additionsData) => {
+          dispatch(additionsFetched(additionsData.results));
         })
         .catch(() => dispatch(achievementsFetchingError()));
     }
@@ -132,6 +142,8 @@ function GamePage() {
       })
       .catch(() => dispatch(achievementsFetchingError()));
   }
+
+  console.log(additions);
 
   if (currentGameLoadingStatus === 'loading') {
     return <Spinner />;
@@ -322,13 +334,17 @@ function GamePage() {
               <TabList>
                 <Tab _selected={{ color: 'white', bg: 'purple.600' }}>Select item </Tab>
                 <Tab _selected={{ color: 'white', bg: 'purple.600' }}>Achievements</Tab>
-                <Tab _selected={{ color: 'white', bg: 'purple.600' }}>Two</Tab>
+                <Tab _selected={{ color: 'white', bg: 'purple.600' }}>Additions</Tab>
                 <Tab _selected={{ color: 'white', bg: 'purple.600' }}>Three</Tab>
               </TabList>
 
-              <TabPanels>
+              <TabPanels p="20px 0px 60px">
                 <TabPanel>
                   <p>Achievements: get a list of game achievements</p>
+                  <p>
+                    Additions: get a list of DLC for the game, GOTY and other editions, companion
+                    apps, etc.
+                  </p>
                 </TabPanel>
                 <TabPanel>
                   {achievements.length > 0 ? (
@@ -441,7 +457,7 @@ function GamePage() {
                   ) : null}
                 </TabPanel>
                 <TabPanel>
-                  <p>two!</p>
+                  <AdditionsList additions={additions} />
                 </TabPanel>
                 <TabPanel>
                   <p>three!</p>
