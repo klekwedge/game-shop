@@ -62,8 +62,6 @@ function GameInfo({ currentGame }) {
     }
   }
 
-  console.log(currentGame);
-
   return (
     <section>
       <div className="flex gap-5 mb-14">

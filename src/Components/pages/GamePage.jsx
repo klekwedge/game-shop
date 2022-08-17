@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-no-bind */
 /* eslint-disable jsx-a11y/media-has-caption */
 /* eslint-disable import/no-unresolved */
@@ -28,14 +29,8 @@ import {
   SiWindows,
 } from 'react-icons/si';
 import { AiOutlineQuestionCircle } from 'react-icons/ai';
-import RAWG from '../../services/RAWG';
-
-import { screenshotsFetched, screenshotsFetchingError } from '../../slices/screenshotsSlice';
-
 import {
-  currentGameFetching,
-  currentGameFetched,
-  currentGameFetchingError,
+  fetchGame,
   currentGameReset,
   achievementsFetched,
   achievementsFetchingError,
@@ -46,6 +41,9 @@ import {
   additionsFetched,
   // additionsFetchingError,
 } from '../../slices/currentGameSlice';
+import RAWG from '../../services/RAWG';
+
+import { screenshotsFetched, screenshotsFetchingError } from '../../slices/screenshotsSlice';
 
 import {
   gameSeriesFetching,
@@ -101,21 +99,18 @@ function GamePage() {
   const { screenshots } = useSelector((state) => state.screenshots);
   const { movies } = useSelector((state) => state.movies);
   const { gamesOfSeries } = useSelector((state) => state.games);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(currentGameReset());
-    dispatch(currentGameFetching());
-    dispatch(achievementsReset());
+    dispatch(fetchGame(rawgService.getGame(gameId)));
+    // dispatch(currentGameReset());
 
-    rawgService
-      .getGame(gameId)
-      .then((gameData) => dispatch(currentGameFetched(gameData)))
-      .catch(() => dispatch(currentGameFetchingError()))
-      ///
-      .then(() => rawgService.getGameScreenshots(gameId))
-      .then((screenshotsData) => dispatch(screenshotsFetched(screenshotsData)))
-      .catch(() => dispatch(screenshotsFetchingError()));
+    // dispatch(achievementsReset());
+
+    // rawgService.getGameScreenshots(gameId)
+    //   .then((screenshotsData) => dispatch(screenshotsFetched(screenshotsData)))
+    //   .catch(() => dispatch(screenshotsFetchingError()));
     ///
     // .then(() => rawgService.getGameTrailers(gameId))
     // .then((trailersData) => dispatch(trailersFetched(trailersData)))
@@ -194,7 +189,13 @@ function GamePage() {
                   Store
                 </Link>
               </h2>
-              <Box alignSelf="flex-end" display="flex" gap="15px" flexDirection="column" alignItems="flex-end">
+              <Box
+                alignSelf="flex-end"
+                display="flex"
+                gap="15px"
+                flexDirection="column"
+                alignItems="flex-end"
+              >
                 <h1 className="text-5xl mb-4 text-right">{currentGame.name}</h1>
                 <Box display="inline-flex" gap="20px" alignItems="center" justifyContent="flex-end">
                   {currentGame.platforms.map((platformItem) => (

@@ -1,5 +1,6 @@
 /* eslint-disable no-param-reassign */
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import useHttp from '../hooks/http.hook';
 
 const initialState = {
   currentGame: null,
@@ -11,20 +12,15 @@ const initialState = {
   additions: [],
 };
 
+export const fetchGame = createAsyncThunk('currentGame/fetchGame', (url) => {
+  const { request } = useHttp();
+  return request(url);
+});
+
 const currentGameSlice = createSlice({
   name: 'currentGame',
   initialState,
   reducers: {
-    currentGameFetching: (state) => {
-      state.currentGameLoadingStatus = 'loading';
-    },
-    currentGameFetched: (state, action) => {
-      state.currentGame = action.payload;
-      state.currentGameLoadingStatus = 'idle';
-    },
-    currentGameFetchingError: (state) => {
-      state.currentGameLoadingStatus = 'error';
-    },
     currentGameReset: (state) => {
       state.currentGame = null;
     },
@@ -60,15 +56,26 @@ const currentGameSlice = createSlice({
       state.achievements = [];
     },
   },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchGame.pending, (state) => {
+        state.currentGameLoadingStatus = 'loading';
+      })
+      .addCase(fetchGame.fulfilled, (state, action) => {
+        state.currentGameLoadingStatus = 'idle';
+        state.currentGame = action.payload;
+      })
+      .addCase(fetchGame.rejected, (state) => {
+        state.currentGameLoadingStatus = 'error';
+      })
+      .addDefaultCase(() => {});
+  },
 });
 
 const { actions, reducer } = currentGameSlice;
 
 export default reducer;
 export const {
-  currentGameFetching,
-  currentGameFetched,
-  currentGameFetchingError,
   currentGameReset,
   achievementsFetching,
   achievementsFetched,
