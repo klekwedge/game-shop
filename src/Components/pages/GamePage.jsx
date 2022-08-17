@@ -31,7 +31,6 @@ import {
 import { AiOutlineQuestionCircle } from 'react-icons/ai';
 import {
   fetchGame,
-  currentGameReset,
   achievementsFetched,
   achievementsFetchingError,
   achievementsReset,
@@ -39,6 +38,7 @@ import {
   getAchievementsAmount,
   // additionsFetching,
   additionsFetched,
+  fetchAchievements,
   // additionsFetchingError,
 } from '../../slices/currentGameSlice';
 import RAWG from '../../services/RAWG';
@@ -127,14 +127,7 @@ function GamePage() {
         .then((data) => dispatch(gameSeriesFetched(data)))
         .catch(() => gameSeriesFetchingError());
     } else if (tabIndex === 1 && achievements.length === 0) {
-      rawgService
-        .getGameAchievements(gameId)
-        .then((achievementsData) => {
-          dispatch(achievementsFetched(achievementsData.results));
-          dispatch(nextAchievements(achievementsData.next));
-          dispatch(getAchievementsAmount(achievementsData.count));
-        })
-        .catch(() => dispatch(achievementsFetchingError()));
+      dispatch(fetchAchievements(rawgService.getGameAchievements(gameId)));
     } else if (tabIndex === 2 && additions.length === 0) {
       rawgService
         .getGameAdditions(gameId)

@@ -22,12 +22,9 @@ class RAWG extends Component {
     return res;
   }
 
-  async getGameAchievements(gameId) {
-    const res = await fetch(
-      `https://api.rawg.io/api/games/${gameId}/achievements?key=${this.apiKey}`,
-    );
-    const data = await res.json();
-    return data;
+  getGameAchievements(gameId) {
+    const res = `https://api.rawg.io/api/games/${gameId}/achievements?key=${this.apiKey}`;
+    return res;
   }
 
   async getGameAdditions(gameId) {

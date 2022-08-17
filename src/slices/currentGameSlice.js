@@ -17,13 +17,15 @@ export const fetchGame = createAsyncThunk('currentGame/fetchGame', (url) => {
   return request(url);
 });
 
+export const fetchAchievements = createAsyncThunk('currentGame/fetchAchievements', (url) => {
+  const { request } = useHttp();
+  return request(url);
+});
+
 const currentGameSlice = createSlice({
   name: 'currentGame',
   initialState,
   reducers: {
-    currentGameReset: (state) => {
-      state.currentGame = null;
-    },
     achievementsFetching: (state) => {
       state.achievementsLoadingStatus = 'loading';
     },
@@ -68,6 +70,18 @@ const currentGameSlice = createSlice({
       .addCase(fetchGame.rejected, (state) => {
         state.currentGameLoadingStatus = 'error';
       })
+      .addCase(fetchAchievements.pending, (state) => {
+        state.achievementsLoadingStatus = 'loading';
+      })
+      .addCase(fetchAchievements.fulfilled, (state, action) => {
+        state.achievementsLoadingStatus = 'idle';
+        state.achievements.push(...action.payload.results);
+        state.nextAchievementsPage = action.payload.next;
+        state.achievementsAmount = action.payload.count;
+      })
+      .addCase(fetchAchievements.rejected, (state) => {
+        state.achievementsLoadingStatus = 'error';
+      })
       .addDefaultCase(() => {});
   },
 });
@@ -76,7 +90,6 @@ const { actions, reducer } = currentGameSlice;
 
 export default reducer;
 export const {
-  currentGameReset,
   achievementsFetching,
   achievementsFetched,
   achievementsFetchingError,
