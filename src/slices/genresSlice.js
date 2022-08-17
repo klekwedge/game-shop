@@ -1,5 +1,6 @@
 /* eslint-disable no-param-reassign */
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import useHttp from '../hooks/http.hook';
 
 const initialState = {
   genres: null,
@@ -8,44 +9,47 @@ const initialState = {
   currentGenreLoadingStatus: 'idle',
 };
 
+export const fetchGenres = createAsyncThunk('genres/fetchGenres', (url) => {
+  const { request } = useHttp();
+  return request(url);
+});
+
+export const fetchCurrentGenre = createAsyncThunk('genres/fetchCurrentGenre', (url) => {
+  const { request } = useHttp();
+  return request(url);
+});
+
 const genresSlice = createSlice({
   name: 'genres',
   initialState,
   reducers: {
-    genresFetching: (state) => {
-      state.genresLoadingStatus = 'loading';
-    },
-    genresFetched: (state, action) => {
-      state.genres = action.payload;
-      state.genresLoadingStatus = 'idle';
-    },
-    genresFetchingError: (state) => {
-      state.genresLoadingStatus = 'error';
-    },
-    genresReset: (state) => {
-      state.genres = null;
-    },
-    currentGenreFetching: (state) => {
-      state.currentGenreLoadingStatus = 'loading';
-    },
-    currentGenreFetched: (state, action) => {
-      state.currentGenre = action.payload;
-      state.currentGenreLoadingStatus = 'idle';
-    },
-    currentGenreFetchingError: (state) => {
-      state.currentGenreLoadingStatus = 'error';
-    },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchGenres.pending, (state) => {
+        state.genresLoadingStatus = 'loading';
+      })
+      .addCase(fetchGenres.fulfilled, (state, action) => {
+        state.genres = action.payload;
+        state.genresLoadingStatus = 'idle';
+      })
+      .addCase(fetchGenres.rejected, (state) => {
+        state.genresLoadingStatus = 'error';
+      })
+      .addCase(fetchCurrentGenre.pending, (state) => {
+        state.currentGenreLoadingStatus = 'loading';
+      })
+      .addCase(fetchCurrentGenre.fulfilled, (state, action) => {
+        state.currentGenre = action.payload;
+        state.currentGenreLoadingStatus = 'idle';
+      })
+      .addCase(fetchCurrentGenre.rejected, (state) => {
+        state.currentGenreLoadingStatus = 'error';
+      })
+      .addDefaultCase(() => {});
   },
 });
 
+// eslint-disable-next-line no-unused-vars
 const { actions, reducer } = genresSlice;
 export default reducer;
-export const {
-  genresFetching,
-  genresFetched,
-  genresFetchingError,
-  genresReset,
-  currentGenreFetching,
-  currentGenreFetched,
-  currentGenreFetchingError,
-} = actions;

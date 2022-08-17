@@ -8,7 +8,7 @@ import {
   Flex, Skeleton, Heading, List, ListItem, Image,
 } from '@chakra-ui/react';
 import RAWG from '../../services/RAWG';
-import { currentGenreFetched, currentGenreFetchingError } from '../../slices/genresSlice';
+import { fetchCurrentGenre } from '../../slices/genresSlice';
 import { gamesFetched, gamesFetching, gamesFetchingError } from '../../slices/gamesSlice';
 import Spinner from '../Spinner/Spinner';
 
@@ -38,10 +38,7 @@ function GameList({ genreName, mainTitle, descr }) {
   useEffect(() => {
     if (genres && genre) {
       const test = genres.results.find((genreItem) => genreItem.slug === genre);
-      rawgService
-        .getGenreDetail(test.id)
-        .then((genreData) => dispatch(currentGenreFetched(genreData)))
-        .catch(() => dispatch(currentGenreFetchingError()));
+      dispatch(fetchCurrentGenre(rawgService.getGenreDetail(test.id)));
     }
   }, [genreName, genres]);
 
@@ -57,8 +54,6 @@ function GameList({ genreName, mainTitle, descr }) {
   if (gamesLoadingStatus === 'error') {
     return <h5 className="text-center basis-3/4">Ошибка загрузки</h5>;
   }
-
-  console.log(games);
 
   return (
     <section>

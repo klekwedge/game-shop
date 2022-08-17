@@ -49,16 +49,14 @@ class RAWG extends Component {
     return res;
   }
 
-  async getGenres() {
-    const res = await fetch(`https://api.rawg.io/api/genres?key=${this.apiKey}`);
-    const data = await res.json();
-    return data;
+  getGenres() {
+    const res = `https://api.rawg.io/api/genres?key=${this.apiKey}`;
+    return res;
   }
 
-  async getGenreDetail(genreId) {
-    const res = await fetch(`https://api.rawg.io/api/genres/${genreId}?key=${this.apiKey}`);
-    const data = await res.json();
-    return data;
+  getGenreDetail(genreId) {
+    const res = `https://api.rawg.io/api/genres/${genreId}?key=${this.apiKey}`;
+    return res;
   }
 
   async getData(url) {

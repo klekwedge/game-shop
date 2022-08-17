@@ -96,7 +96,6 @@ const currentGameSlice = createSlice({
         state.gamesOfSeriesLoadingStatus = 'loading';
       })
       .addCase(fetchGameSeries.fulfilled, (state, action) => {
-        // console.log(action.payload);
         state.gamesOfSeries = action.payload;
         state.gamesOfSeriesLoadingStatus = 'idle';
       })

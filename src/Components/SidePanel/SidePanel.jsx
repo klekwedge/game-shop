@@ -23,7 +23,7 @@ import {
 import { MdFamilyRestroom, MdPerson } from 'react-icons/md';
 import { IoExtensionPuzzleSharp, IoCarSport, IoSchool } from 'react-icons/io5';
 import RAWG from '../../services/RAWG';
-import { genresFetched, genresFetchingError } from '../../slices/genresSlice';
+import { fetchGenres } from '../../slices/genresSlice';
 
 function SidePanel() {
   const rawgService = new RAWG();
@@ -54,10 +54,7 @@ function SidePanel() {
 
   const dispatch = useDispatch();
   useEffect(() => {
-    rawgService
-      .getGenres()
-      .then((genresData) => dispatch(genresFetched(genresData)))
-      .catch(() => dispatch(genresFetchingError()));
+    dispatch(fetchGenres(rawgService.getGenres()));
   }, []);
 
   return (
