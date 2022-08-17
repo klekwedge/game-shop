@@ -1,7 +1,6 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/jsx-no-bind */
-/* eslint-disable jsx-a11y/media-has-caption */
 /* eslint-disable import/no-unresolved */
+/* eslint-disable jsx-a11y/media-has-caption */
+/* eslint-disable react/jsx-no-bind */
 import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { useSelector, useDispatch } from 'react-redux';
@@ -35,7 +34,6 @@ import {
   achievementsFetchingError,
   achievementsReset,
   nextAchievements,
-  getAchievementsAmount,
   // additionsFetching,
   additionsFetched,
   fetchAchievements,
@@ -43,7 +41,7 @@ import {
 } from '../../slices/currentGameSlice';
 import RAWG from '../../services/RAWG';
 
-import { screenshotsFetched, screenshotsFetchingError } from '../../slices/screenshotsSlice';
+import { fetchScreenshots } from '../../slices/screenshotsSlice';
 
 import {
   gameSeriesFetching,
@@ -103,22 +101,17 @@ function GamePage() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(achievementsReset());
     dispatch(fetchGame(rawgService.getGame(gameId)));
-    // dispatch(currentGameReset());
+    dispatch(fetchScreenshots(rawgService.getGameScreenshots(gameId)));
 
-    // dispatch(achievementsReset());
-
-    // rawgService.getGameScreenshots(gameId)
-    //   .then((screenshotsData) => dispatch(screenshotsFetched(screenshotsData)))
-    //   .catch(() => dispatch(screenshotsFetchingError()));
-    ///
-    // .then(() => rawgService.getGameTrailers(gameId))
-    // .then((trailersData) => dispatch(trailersFetched(trailersData)))
-    // .catch(() => dispatch(trailersFetchingError()));
-    //
+    // rawgService
+    //   .getGameTrailers(gameId)
+    //   .then((trailersData) => dispatch(trailersFetched(trailersData)))
+    //   .catch(() => dispatch(trailersFetchingError()));
   }, [gameId]);
 
-  function loadStartAchievements(tabIndex) {
+  function loadSection(tabIndex) {
     if (tabIndex === 3 && currentGame) {
       dispatch(gameSeriesReset());
       dispatch(gameSeriesFetching());
@@ -233,7 +226,7 @@ function GamePage() {
               <p className="bg-zinc-800 p-10 rounded-lg max-w-xl">{currentGame.description_raw}</p>
             </div>
 
-            <Tabs variant="solid-rounded" onChange={(tabIndex) => loadStartAchievements(tabIndex)}>
+            <Tabs variant="solid-rounded" onChange={(tabIndex) => loadSection(tabIndex)}>
               <TabList>
                 <Tab _selected={{ color: 'white', bg: 'purple.600' }}>Game Info </Tab>
                 <Tab _selected={{ color: 'white', bg: 'purple.600' }}>Achievements</Tab>

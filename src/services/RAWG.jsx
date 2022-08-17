@@ -45,10 +45,9 @@ class RAWG extends Component {
     return data;
   }
 
-  async getGameScreenshots(id) {
-    const res = await fetch(`https://api.rawg.io/api/games/${id}/screenshots?key=${this.apiKey}`);
-    const data = await res.json();
-    return data;
+  getGameScreenshots(id) {
+    const res = `https://api.rawg.io/api/games/${id}/screenshots?key=${this.apiKey}`;
+    return res;
   }
 
   async getGenres() {
