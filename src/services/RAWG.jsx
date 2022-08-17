@@ -5,16 +5,14 @@ import { Component } from 'react';
 class RAWG extends Component {
   apiKey = '9c6f34d35ac04b2bbe700fdadfb26801';
 
-  async getGameList(genre = '') {
+  getGameList(genre = '') {
     let res;
     if (genre) {
-      res = await fetch(`https://api.rawg.io/api/games?key=${this.apiKey}&genres=${genre}`);
+      res = `https://api.rawg.io/api/games?key=${this.apiKey}&genres=${genre}`;
     } else {
-      res = await fetch(`https://api.rawg.io/api/games?key=${this.apiKey}`);
+      res = `https://api.rawg.io/api/games?key=${this.apiKey}`;
     }
-
-    const data = await res.json();
-    return data;
+    return res;
   }
 
   getGame(id) {
@@ -27,10 +25,8 @@ class RAWG extends Component {
     return res;
   }
 
-  async getGameAdditions(gameId) {
-    const res = await fetch(`https://api.rawg.io/api/games/${gameId}/additions?key=${this.apiKey}`);
-    const data = await res.json();
-    return data;
+  getGameAdditions(gameId) {
+    return `https://api.rawg.io/api/games/${gameId}/additions?key=${this.apiKey}`;
   }
 
   getListOfGamesSeries(id) {

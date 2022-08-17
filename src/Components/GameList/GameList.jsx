@@ -9,7 +9,7 @@ import {
 } from '@chakra-ui/react';
 import RAWG from '../../services/RAWG';
 import { fetchCurrentGenre } from '../../slices/genresSlice';
-import { gamesFetched, gamesFetching, gamesFetchingError } from '../../slices/gamesSlice';
+import { fetchGames } from '../../slices/gamesSlice';
 import Spinner from '../Spinner/Spinner';
 
 function GameList({ genreName, mainTitle, descr }) {
@@ -21,17 +21,10 @@ function GameList({ genreName, mainTitle, descr }) {
   const rawgService = new RAWG();
 
   useEffect(() => {
-    dispatch(gamesFetching());
     if (genreName) {
-      rawgService
-        .getGameList(genreName)
-        .then((data) => dispatch(gamesFetched(data)))
-        .catch(() => dispatch(gamesFetchingError()));
+      dispatch(fetchGames(rawgService.getGameList(genreName)));
     } else {
-      rawgService
-        .getGameList()
-        .then((data) => dispatch(gamesFetched(data)))
-        .catch(() => dispatch(gamesFetchingError()));
+      dispatch(fetchGames(rawgService.getGameList()));
     }
   }, [genreName]);
 

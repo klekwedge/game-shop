@@ -34,12 +34,11 @@ import {
   achievementsFetchingError,
   achievementsReset,
   nextAchievements,
-  // additionsFetching,
-  additionsFetched,
+  fetchAdditions,
   fetchAchievements,
-  additionsFetchingError,
   fetchGameSeries,
   gameSeriesReset,
+  additionsReset,
 } from '../../slices/currentGameSlice';
 import RAWG from '../../services/RAWG';
 
@@ -110,12 +109,15 @@ function GamePage() {
     if (tabIndex === 1 && achievements.length === 0) {
       dispatch(fetchAchievements(rawgService.getGameAchievements(gameId)));
     } else if (tabIndex === 2 && additions.length === 0) {
-      rawgService
-        .getGameAdditions(gameId)
-        .then((additionsData) => {
-          dispatch(additionsFetched(additionsData.results));
-        })
-        .catch(() => dispatch(additionsFetchingError()));
+      dispatch(additionsReset());
+      dispatch(fetchAdditions(rawgService.getGameAdditions(gameId)));
+
+      // rawgService
+      //   .getGameAdditions(gameId)
+      //   .then((additionsData) => {
+      //     dispatch(additionsFetched(additionsData.results));
+      //   })
+      //   .catch(() => dispatch(additionsFetchingError()));
     } else if (tabIndex === 3 && currentGame) {
       dispatch(gameSeriesReset());
       dispatch(fetchGameSeries(rawgService.getListOfGamesSeries(gameId)));

@@ -6,6 +6,7 @@ const initialState = {
   screenshots: null,
   screenshotsLoadingStatus: 'idle',
 };
+
 export const fetchScreenshots = createAsyncThunk('screenshots/fetchScreenshots', (url) => {
   const { request } = useHttp();
   return request(url);
