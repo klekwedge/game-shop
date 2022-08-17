@@ -107,10 +107,7 @@ function GamePage() {
   }, [gameId]);
 
   function loadSection(tabIndex) {
-    if (tabIndex === 3 && currentGame) {
-      dispatch(gameSeriesReset());
-      dispatch(fetchGameSeries(rawgService.getListOfGamesSeries(gameId)));
-    } else if (tabIndex === 1 && achievements.length === 0) {
+    if (tabIndex === 1 && achievements.length === 0) {
       dispatch(fetchAchievements(rawgService.getGameAchievements(gameId)));
     } else if (tabIndex === 2 && additions.length === 0) {
       rawgService
@@ -119,6 +116,9 @@ function GamePage() {
           dispatch(additionsFetched(additionsData.results));
         })
         .catch(() => dispatch(additionsFetchingError()));
+    } else if (tabIndex === 3 && currentGame) {
+      dispatch(gameSeriesReset());
+      dispatch(fetchGameSeries(rawgService.getListOfGamesSeries(gameId)));
     }
   }
 
