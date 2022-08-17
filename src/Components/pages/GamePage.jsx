@@ -37,18 +37,13 @@ import {
   // additionsFetching,
   additionsFetched,
   fetchAchievements,
-  // additionsFetchingError,
+  additionsFetchingError,
+  fetchGameSeries,
+  gameSeriesReset,
 } from '../../slices/currentGameSlice';
 import RAWG from '../../services/RAWG';
 
 import { fetchScreenshots } from '../../slices/screenshotsSlice';
-
-import {
-  gameSeriesFetching,
-  gameSeriesFetched,
-  gameSeriesFetchingError,
-  gameSeriesReset,
-} from '../../slices/gamesSlice';
 
 // import { trailersFetched, trailersFetchingError } from '../../slices/trailersSlice';
 import Spinner from '../Spinner/Spinner';
@@ -93,10 +88,10 @@ function GamePage() {
     nextAchievementsPage,
     achievementsAmount,
     additions,
+    gamesOfSeries,
   } = useSelector((state) => state.currentGame);
   const { screenshots } = useSelector((state) => state.screenshots);
   const { movies } = useSelector((state) => state.movies);
-  const { gamesOfSeries } = useSelector((state) => state.games);
 
   const dispatch = useDispatch();
 
@@ -114,11 +109,7 @@ function GamePage() {
   function loadSection(tabIndex) {
     if (tabIndex === 3 && currentGame) {
       dispatch(gameSeriesReset());
-      dispatch(gameSeriesFetching());
-      rawgService
-        .getListOfGamesSeries(gameId)
-        .then((data) => dispatch(gameSeriesFetched(data)))
-        .catch(() => gameSeriesFetchingError());
+      dispatch(fetchGameSeries(rawgService.getListOfGamesSeries(gameId)));
     } else if (tabIndex === 1 && achievements.length === 0) {
       dispatch(fetchAchievements(rawgService.getGameAchievements(gameId)));
     } else if (tabIndex === 2 && additions.length === 0) {
@@ -127,13 +118,13 @@ function GamePage() {
         .then((additionsData) => {
           dispatch(additionsFetched(additionsData.results));
         })
-        .catch(() => dispatch(achievementsFetchingError()));
+        .catch(() => dispatch(additionsFetchingError()));
     }
   }
 
   function loadMoreAchievements() {
     rawgService
-      .getGada(nextAchievementsPage)
+      .getData(nextAchievementsPage)
       .then((achievementsData) => {
         dispatch(nextAchievements(achievementsData.next));
         dispatch(achievementsFetched(achievementsData.results));

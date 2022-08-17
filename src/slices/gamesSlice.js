@@ -4,8 +4,6 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   games: null,
   gamesLoadingStatus: 'idle',
-  gamesOfSeries: null,
-  gamesOfSeriesLoadingStatus: 'idle',
 };
 
 const gamesSlice = createSlice({
@@ -21,19 +19,6 @@ const gamesSlice = createSlice({
     },
     gamesFetchingError: (state) => {
       state.gamesLoadingStatus = 'error';
-    },
-    gameSeriesFetching: (state) => {
-      state.gamesOfSeriesLoadingStatus = 'loading';
-    },
-    gameSeriesFetched: (state, action) => {
-      state.gamesOfSeries = action.payload;
-      state.gamesOfSeriesLoadingStatus = 'idle';
-    },
-    gameSeriesFetchingError: (state) => {
-      state.gamesOfSeriesLoadingStatus = 'error';
-    },
-    gameSeriesReset: (state) => {
-      state.gamesOfSeries = null;
     },
   },
 });

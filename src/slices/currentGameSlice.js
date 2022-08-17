@@ -10,6 +10,8 @@ const initialState = {
   nextAchievementsPage: null,
   achievementsAmount: 0,
   additions: [],
+  gamesOfSeries: null,
+  gamesOfSeriesLoadingStatus: 'idle',
 };
 
 export const fetchGame = createAsyncThunk('currentGame/fetchGame', (url) => {
@@ -18,6 +20,11 @@ export const fetchGame = createAsyncThunk('currentGame/fetchGame', (url) => {
 });
 
 export const fetchAchievements = createAsyncThunk('currentGame/fetchAchievements', (url) => {
+  const { request } = useHttp();
+  return request(url);
+});
+
+export const fetchGameSeries = createAsyncThunk('currentGame/fetchGameSeries', (url) => {
   const { request } = useHttp();
   return request(url);
 });
@@ -44,6 +51,9 @@ const currentGameSlice = createSlice({
     },
     getAchievementsAmount: (state, action) => {
       state.achievementsAmount = action.payload;
+    },
+    gameSeriesReset: (state) => {
+      state.gamesOfSeries = null;
     },
     additionsFetching: () => {
       // state.achievementsLoadingStatus = 'loading';
@@ -82,6 +92,17 @@ const currentGameSlice = createSlice({
       .addCase(fetchAchievements.rejected, (state) => {
         state.achievementsLoadingStatus = 'error';
       })
+      .addCase(fetchGameSeries.pending, (state) => {
+        state.gamesOfSeriesLoadingStatus = 'loading';
+      })
+      .addCase(fetchGameSeries.fulfilled, (state, action) => {
+        // console.log(action.payload);
+        state.gamesOfSeries = action.payload;
+        state.gamesOfSeriesLoadingStatus = 'idle';
+      })
+      .addCase(fetchGameSeries.rejected, (state) => {
+        state.gamesOfSeriesLoadingStatus = 'error';
+      })
       .addDefaultCase(() => {});
   },
 });
@@ -99,4 +120,5 @@ export const {
   additionsFetching,
   additionsFetched,
   additionsFetchingError,
+  gameSeriesReset,
 } = actions;

@@ -33,10 +33,9 @@ class RAWG extends Component {
     return data;
   }
 
-  async getListOfGamesSeries(id) {
-    const res = await fetch(`https://api.rawg.io/api/games/${id}/game-series?key=${this.apiKey}`);
-    const data = await res.json();
-    return data;
+  getListOfGamesSeries(id) {
+    const res = `https://api.rawg.io/api/games/${id}/game-series?key=${this.apiKey}`;
+    return res;
   }
 
   async getGameTrailers(id) {
@@ -62,11 +61,17 @@ class RAWG extends Component {
     return data;
   }
 
-  async getGada(url) {
+  async getData(url) {
     const res = await fetch(url);
     const data = await res.json();
     return data;
   }
+
+  // async getGata(url) {
+  //   const res = await fetch(url);
+  //   const data = await res.json();
+  //   return data;
+  // }
 }
 
 export default RAWG;
