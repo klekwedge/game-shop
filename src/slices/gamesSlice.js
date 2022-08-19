@@ -3,7 +3,8 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import useHttp from '../hooks/http.hook';
 
 const initialState = {
-  games: null,
+  games: [],
+  nextPage: null,
   gamesLoadingStatus: 'idle',
 };
 
@@ -16,6 +17,9 @@ const gamesSlice = createSlice({
   name: 'games',
   initialState,
   reducers: {
+    resetGames: (state) => {
+      state.games = [];
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -23,8 +27,10 @@ const gamesSlice = createSlice({
         state.gamesLoadingStatus = 'loading';
       })
       .addCase(fetchGames.fulfilled, (state, action) => {
-        state.games = action.payload;
         state.gamesLoadingStatus = 'idle';
+        console.log(action.payload);
+        state.games.push(...action.payload.results);
+        state.nextPage = action.payload.next;
       })
       .addCase(fetchGames.rejected, (state) => {
         state.gamesLoadingStatus = 'error';
@@ -35,5 +41,5 @@ const gamesSlice = createSlice({
 
 // eslint-disable-next-line no-unused-vars
 const { actions, reducer } = gamesSlice;
-
+export const { resetGames } = actions;
 export default reducer;
