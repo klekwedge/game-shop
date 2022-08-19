@@ -1,25 +1,32 @@
+/* eslint-disable react/jsx-no-bind */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import { motion, AnimatePresence } from 'framer-motion';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams, useLocation } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import {
   Flex, Button, Skeleton, Heading, List, ListItem, Image,
 } from '@chakra-ui/react';
+import { AiOutlinePlusCircle } from 'react-icons/ai';
 import RAWG from '../../services/RAWG';
 import { fetchCurrentGenre } from '../../slices/genresSlice';
 import { fetchGames, resetGames } from '../../slices/gamesSlice';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 
 function GameList({ genreName, mainTitle, descr }) {
+  const [loadingImage, setLoadingImage] = useState(true);
   const { genre } = useParams();
   const { currentGenre, genres } = useSelector((state) => state.genres);
   const { games, nextPage, gamesLoadingStatus } = useSelector((state) => state.games);
 
   const dispatch = useDispatch();
   const rawgService = new RAWG();
+
+  const handleOnLoad = () => {
+    setLoadingImage(false);
+  };
 
   useEffect(() => {
     dispatch(resetGames());
@@ -32,8 +39,8 @@ function GameList({ genreName, mainTitle, descr }) {
 
   useEffect(() => {
     if (genres && genre) {
-      const test = genres.results.find((genreItem) => genreItem.slug === genre);
-      dispatch(fetchCurrentGenre(rawgService.getGenreDetail(test.id)));
+      const desiredGenre = genres.results.find((genreItem) => genreItem.slug === genre);
+      dispatch(fetchCurrentGenre(rawgService.getGenreDetail(desiredGenre.id)));
     }
   }, [genreName, genres]);
 
@@ -66,6 +73,18 @@ function GameList({ genreName, mainTitle, descr }) {
     return null;
   }
 
+  function getSumNumber(num) {
+    let sum = 0;
+    let tmp;
+    while (num) {
+      tmp = num % 10;
+      // eslint-disable-next-line no-param-reassign
+      num = (num - tmp) / 10;
+      sum += tmp;
+    }
+    return sum;
+  }
+
   return (
     <section>
       <h2 className="text-5xl font-bold mb-2 capitalize">{genre ? `${genre} games` : mainTitle}</h2>
@@ -84,6 +103,9 @@ function GameList({ genreName, mainTitle, descr }) {
                   exit={{ opacity: 0 }}
                   transition={{ duration: 1 }}
                 >
+                  {loadingImage && (
+                    <Skeleton maxW="256px" maxH="144px" w="100%" h="100%" mb="10px" />
+                  )}
                   <Image
                     src={game.background_image}
                     alt={game.background_image}
@@ -93,16 +115,54 @@ function GameList({ genreName, mainTitle, descr }) {
                     w="100%"
                     h="100%"
                     mb="10px"
+                    onLoad={handleOnLoad}
                   />
+                  <Flex
+                    w="100%"
+                    alignItems="center"
+                    justifyContent="space-between"
+                    gap="20px"
+                    padding="0px 10px"
+                    mb="5px"
+                    alignSelf="flex-start"
+                  >
+                    <Heading
+                      as="h4"
+                      fontWeight="400"
+                      fontSize="14px"
+                      textAlign="left"
+                      color="#d4d4d4"
+                      cursor="pointer"
+                      transition="all 0.5s ease"
+                      _hover={{ color: 'purple.400' }}
+                      display="flex"
+                      alignItems="center"
+                      gap="5px"
+                    >
+                      <span>Add to cart</span>
+                      <AiOutlinePlusCircle size="15px" />
+                    </Heading>
+                    <Heading
+                      as="h4"
+                      fontWeight="400"
+                      fontSize="14px"
+                      textAlign="left"
+                      color="#d4d4d4"
+                    >
+                      $
+                      {getSumNumber(game.id)}
+                    </Heading>
+                  </Flex>
+
                   <Heading
                     as="h4"
                     fontWeight="500"
                     fontSize="16px"
-                    textAlign="center"
-                    alignSelf="center"
+                    alignSelf="flex-start"
                     padding="0px 10px"
                     transition="all 0.3s ease"
                     _hover={{ color: '#d4d4d4' }}
+                    textAlign="left"
                   >
                     <Link to={`/${game.id}`}>{game.name}</Link>
                   </Heading>

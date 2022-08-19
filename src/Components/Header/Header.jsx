@@ -1,8 +1,7 @@
 /* eslint-disable react/jsx-no-bind */
-/* eslint-disable react/no-children-prop */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable react/no-children-prop */
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import {
@@ -22,7 +21,6 @@ import {
 } from '@chakra-ui/react';
 import { AiOutlineSearch, AiOutlineShopping } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
-// import RAWG from '../../services/RAWG';
 import { fetchGames, resetGames } from '../../slices/gamesSlice';
 
 function Header() {
@@ -31,13 +29,15 @@ function Header() {
   const btnRef = React.useRef();
   const dispatch = useDispatch();
 
-  function test() {
-    dispatch(resetGames());
-    dispatch(
-      fetchGames(
-        `https://api.rawg.io/api/games?key=9c6f34d35ac04b2bbe700fdadfb26801&search=${inputValue}`,
-      ),
-    );
+  function searchGame() {
+    if (inputValue) {
+      dispatch(resetGames());
+      dispatch(
+        fetchGames(
+          `https://api.rawg.io/api/games?key=9c6f34d35ac04b2bbe700fdadfb26801&search=${inputValue}`,
+        ),
+      );
+    }
   }
 
   return (
@@ -78,7 +78,9 @@ function Header() {
         <Flex alignItems="center" gap="30px">
           <InputGroup>
             <InputLeftElement
-              children={<AiOutlineSearch size="22" className="cursor-pointer" onClick={test} />}
+              children={
+                <AiOutlineSearch size="22" className="cursor-pointer" onClick={searchGame} />
+              }
             />
             <Input
               value={inputValue}

@@ -5,7 +5,7 @@ import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  Tabs, TabList, TabPanels, Tab, TabPanel, Box,
+  Tabs, TabList, TabPanels, Tab, TabPanel, Box, Image,
 } from '@chakra-ui/react';
 import { Link, useParams } from 'react-router-dom';
 import {
@@ -52,6 +52,7 @@ import AdditionsList from '../AdditionsList/AdditionsList';
 import AchievementsList from '../AchievementsList/AchievementsList';
 import GameSeries from '../GameSeries/GameSeries';
 import GameInfo from '../GameInfo/GameInfo';
+import ErrorMessage from '../ErrorMessage/ErrorMessage';
 
 function GamePage() {
   const { gameId } = useParams();
@@ -132,7 +133,7 @@ function GamePage() {
   }
 
   if (currentGameLoadingStatus === 'error') {
-    return <h5 className="text-center basis-3/4">Ошибка загрузки</h5>;
+    return <ErrorMessage />;
   }
 
   return (
@@ -185,12 +186,12 @@ function GamePage() {
                 // onSwiper={(swiper) => console.log(swiper)}
               >
                 <SwiperSlide>
-                  <img src={currentGame.background_image} alt={currentGame.background_image} />
+                  <Image src={currentGame.background_image} alt={currentGame.background_image} />
                 </SwiperSlide>
                 {screenshots && screenshots.results.length > 0
                   ? screenshots.results.map((screenshot) => (
                     <SwiperSlide key={screenshot.id}>
-                      <img src={screenshot.image} alt={`Screenshot from ${currentGame.name}`} />
+                      <Image src={screenshot.image} alt={`Screenshot from ${currentGame.name}`} />
                     </SwiperSlide>
                   ))
                   : null}
