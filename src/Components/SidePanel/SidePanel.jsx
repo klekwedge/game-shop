@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useSelector, useDispatch } from 'react-redux/es/exports';
 import { NavLink, Link } from 'react-router-dom';
-import { Flex } from '@chakra-ui/react';
+import { Flex, Box } from '@chakra-ui/react';
 import {
   FaFistRaised,
   FaHorseHead,
@@ -67,7 +67,7 @@ function SidePanel() {
   }, []);
 
   return (
-    <section className="basis-1/4">
+    <Box flex="1 1 30%">
       <h2 className="text-2xl font-medium mb-2">Popular</h2>
       <ul className="flex flex-col gap-1 text-xl w-64 mb-5">
         <li className="cursor-pointer">
@@ -110,7 +110,7 @@ function SidePanel() {
             : null}
         </ul>
       </AnimatePresence>
-    </section>
+    </Box>
   );
 }
 

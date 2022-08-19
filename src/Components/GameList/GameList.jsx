@@ -12,6 +12,7 @@ import RAWG from '../../services/RAWG';
 import { fetchCurrentGenre } from '../../slices/genresSlice';
 import { fetchGames } from '../../slices/gamesSlice';
 import Spinner from '../Spinner/Spinner';
+import ErrorMessage from '../ErrorMessage/ErrorMessage';
 
 function GameList({ genreName, mainTitle, descr }) {
   const { genre } = useParams();
@@ -46,7 +47,8 @@ function GameList({ genreName, mainTitle, descr }) {
     );
   }
   if (gamesLoadingStatus === 'error') {
-    return <h5 className="text-center basis-3/4">Ошибка загрузки</h5>;
+    console.log('!');
+    return <ErrorMessage />;
   }
 
   return (

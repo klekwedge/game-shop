@@ -135,8 +135,6 @@ function GamePage() {
     return <h5 className="text-center basis-3/4">Ошибка загрузки</h5>;
   }
 
-  console.log('render');
-
   return (
     <>
       <Helmet>
@@ -146,14 +144,12 @@ function GamePage() {
         />
         <title>
           {currentGame ? currentGame.name : 'Current Game'}
-          {' '}
           - Game Shop
         </title>
       </Helmet>
       <main className="max-w-screen-2xl mx-auto px-20 pt-3 pb-8">
         {currentGame ? (
           <>
-            {/* {console.log(currentGame)} */}
             <div className="flex justify-between items-center mb-8">
               <h2 className="text-2xl self-end ease-in duration-200 hover:text-violet-700">
                 <Link to="/" className="flex gap-2 items-center">
