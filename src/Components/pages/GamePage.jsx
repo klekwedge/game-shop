@@ -185,6 +185,7 @@ function GamePage() {
                 allowTouchMove={false}
                 navigation
                 pagination={{ clickable: true }}
+                className="GamePageSwiper"
                 // onSwiper={(swiper) => console.log(swiper)}
               >
                 <SwiperSlide>
