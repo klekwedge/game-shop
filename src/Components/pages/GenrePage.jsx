@@ -1,6 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { useParams } from 'react-router-dom';
+import { Flex } from '@chakra-ui/react';
 import SidePanel from '../SidePanel/SidePanel';
 import GameList from '../GameList/GameList';
 
@@ -17,10 +18,18 @@ function GenrePage() {
           - Game Shop
         </title>
       </Helmet>
-      <main className="flex justify-between items-baseline gap-24 max-w-screen-2xl mx-auto px-5 py-3">
+      <Flex
+        as="main"
+        margin="0 auto"
+        justifyContent="space-between"
+        alignItems="flex-start"
+        gap="96px"
+        maxWidth="1400px"
+        padding="20px 20px"
+      >
         <SidePanel />
         <GameList genreName={genre} />
-      </main>
+      </Flex>
     </>
   );
 }

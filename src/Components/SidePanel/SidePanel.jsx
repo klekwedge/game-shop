@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import { useSelector, useDispatch } from 'react-redux/es/exports';
 import { NavLink, Link } from 'react-router-dom';
 import { Flex } from '@chakra-ui/react';
@@ -26,6 +27,14 @@ import RAWG from '../../services/RAWG';
 import { fetchGenres } from '../../slices/genresSlice';
 
 function SidePanel() {
+  const listItemVariants = {
+    visible: {
+      opacity: 1,
+      x: 0,
+    },
+    hidden: { opacity: 0, x: -100 },
+  };
+
   const rawgService = new RAWG();
 
   const { genres } = useSelector((state) => state.genres);
@@ -74,25 +83,33 @@ function SidePanel() {
       <h2 className="text-2xl font-medium mb-2">
         <Link to="/genres">Genres</Link>
       </h2>
-      <ul className="flex flex-col gap-1 text-xl w-64">
-        {genres && genres.results.length > 0
-          ? genres.results.map((genre, i) => (
-            <li key={genre.id} className="cursor-pointer p-1">
-              <NavLink
-                to={`/games/${genre.slug}`}
-                style={({ isActive }) => (isActive ? { color: '#6d28d9' } : undefined)}
-                className="flex items-center gap-3"
+      <AnimatePresence>
+        <ul className="flex flex-col gap-1 text-xl w-64">
+          {genres && genres.results.length > 0
+            ? genres.results.map((genre, i) => (
+              <motion.li
+                key={genre.id}
+                className="cursor-pointer p-1"
+                variants={listItemVariants}
+                initial="hidden"
+                animate="visible"
               >
-                <Flex alignItems="center" justifyContent="center" bg="#27272a" p="5px">
-                  {genresIcons[i] ? genresIcons[i] : null}
-                </Flex>
+                <NavLink
+                  to={`/games/${genre.slug}`}
+                  style={({ isActive }) => (isActive ? { color: '#6d28d9' } : undefined)}
+                  className="flex items-center gap-3"
+                >
+                  <Flex alignItems="center" justifyContent="center" bg="#27272a" p="5px">
+                    {genresIcons[i] ? genresIcons[i] : null}
+                  </Flex>
 
-                {genre.name}
-              </NavLink>
-            </li>
-          ))
-          : null}
-      </ul>
+                  {genre.name}
+                </NavLink>
+              </motion.li>
+            ))
+            : null}
+        </ul>
+      </AnimatePresence>
     </section>
   );
 }

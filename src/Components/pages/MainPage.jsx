@@ -18,7 +18,7 @@ function MainPage() {
         alignItems="flex-start"
         gap="96px"
         maxWidth="1400px"
-        padding="12px 20px"
+        padding="20px 20px"
       >
         <SidePanel />
         <GameList mainTitle="games" descr="Popular games" />

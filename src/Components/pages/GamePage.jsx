@@ -111,13 +111,6 @@ function GamePage() {
     } else if (tabIndex === 2 && additions.length === 0) {
       dispatch(additionsReset());
       dispatch(fetchAdditions(rawgService.getGameAdditions(gameId)));
-
-      // rawgService
-      //   .getGameAdditions(gameId)
-      //   .then((additionsData) => {
-      //     dispatch(additionsFetched(additionsData.results));
-      //   })
-      //   .catch(() => dispatch(additionsFetchingError()));
     } else if (tabIndex === 3 && currentGame) {
       dispatch(gameSeriesReset());
       dispatch(fetchGameSeries(rawgService.getListOfGamesSeries(gameId)));
