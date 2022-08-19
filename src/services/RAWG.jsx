@@ -61,11 +61,7 @@ class RAWG extends Component {
     return data;
   }
 
-  // async getGata(url) {
-  //   const res = await fetch(url);
-  //   const data = await res.json();
-  //   return data;
-  // }
+  // https://api.rawg.io/api/games?key=9c6f34d35ac04b2bbe700fdadfb26801&search=witcher-3
 }
 
 export default RAWG;

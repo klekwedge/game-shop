@@ -1,7 +1,10 @@
+/* eslint-disable react/jsx-no-bind */
+/* eslint-disable react/no-children-prop */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React from 'react';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import {
   Drawer,
   DrawerBody,
@@ -13,13 +16,29 @@ import {
   Button,
   Heading,
   useDisclosure,
+  Input,
+  InputGroup,
+  InputLeftElement,
 } from '@chakra-ui/react';
-import { AiOutlineShopping } from 'react-icons/ai';
+import { AiOutlineSearch, AiOutlineShopping } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
+// import RAWG from '../../services/RAWG';
+import { fetchGames, resetGames } from '../../slices/gamesSlice';
 
 function Header() {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [inputValue, setInputValue] = useState('');
   const btnRef = React.useRef();
+  const dispatch = useDispatch();
+
+  function test() {
+    dispatch(resetGames());
+    dispatch(
+      fetchGames(
+        `https://api.rawg.io/api/games?key=9c6f34d35ac04b2bbe700fdadfb26801&search=${inputValue}`,
+      ),
+    );
+  }
 
   return (
     <header className="px-5 py-4 w-full">
@@ -55,31 +74,21 @@ function Header() {
               Game Shop
             </Link>
           </Heading>
-
-          <div className="max-w-2xl mx-auto relative w-80 pb-0">
-            <svg
-              className="w-8 h-8 flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none top-1/2 -translate-y-1/2"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-              />
-            </svg>
-            <input
-              type="search"
-              id="default-search"
-              className="block pl-10 py-3 w-full text-sm text-white  placeholder:text-white selection:bg-violet-700 bg-neutral-800 rounded-lg"
-              placeholder="Search game..."
-            />
-          </div>
         </Flex>
         <Flex alignItems="center" gap="30px">
+          <InputGroup>
+            <InputLeftElement
+              children={<AiOutlineSearch size="22" className="cursor-pointer" onClick={test} />}
+            />
+            <Input
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+              placeholder="Search game"
+              border="1px solid #553C9A"
+              minW="250px"
+            />
+          </InputGroup>
+
           <a href="https://rawg.io/">Rawg</a>
           <div ref={btnRef} onClick={onOpen} className="flex items-center gap-2 cursor-pointer">
             <AiOutlineShopping color="white" size="30" className="w-8" />
