@@ -3,7 +3,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useLocation } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import {
   Flex, Button, Skeleton, Heading, List, ListItem, Image,
@@ -21,8 +21,6 @@ function GameList({ genreName, mainTitle, descr }) {
   const dispatch = useDispatch();
   const rawgService = new RAWG();
 
-  console.log(games);
-
   useEffect(() => {
     dispatch(resetGames());
     if (genreName) {
@@ -39,7 +37,7 @@ function GameList({ genreName, mainTitle, descr }) {
     }
   }, [genreName, genres]);
 
-  if (gamesLoadingStatus === 'loading') {
+  if (gamesLoadingStatus === 'loading' && games.length === 0) {
     return (
       <Flex gap="20px" flexWrap="wrap" minWidth="1000px">
         {[...Array(16).keys()].map(() => (
@@ -51,25 +49,27 @@ function GameList({ genreName, mainTitle, descr }) {
 
   function loadMoreGames() {
     dispatch(fetchGames(nextPage));
-    // nextPage
-    // rawgService
-    //   .getData(nextAchievementsPage)
-    //   .then((achievementsData) => {
-    //     dispatch(nextAchievements(achievementsData.next));
-    //     dispatch(achievementsFetched(achievementsData.results));
-    //   })
-    //   .catch(() => dispatch(achievementsFetchingError()));
   }
 
   if (gamesLoadingStatus === 'error') {
-    console.log('!');
     return <ErrorMessage />;
+  }
+
+  function defineDescription() {
+    console.log(currentGenre);
+    if (useLocation().pathname === '/') {
+      return descr;
+    }
+    if (currentGenre) {
+      return currentGenre.description;
+    }
+    return null;
   }
 
   return (
     <section>
       <h2 className="text-5xl font-bold mb-2 capitalize">{genre ? `${genre} games` : mainTitle}</h2>
-      <h3 className="text-base mb-8">{currentGenre ? currentGenre.description : descr}</h3>
+      <h3 className="text-base mb-8">{defineDescription()}</h3>
       {games.length > 0 ? (
         <Flex gap="70px" flexDirection="column">
           <AnimatePresence>

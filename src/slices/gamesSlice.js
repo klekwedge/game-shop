@@ -28,7 +28,6 @@ const gamesSlice = createSlice({
       })
       .addCase(fetchGames.fulfilled, (state, action) => {
         state.gamesLoadingStatus = 'idle';
-        console.log(action.payload);
         state.games.push(...action.payload.results);
         state.nextPage = action.payload.next;
       })
