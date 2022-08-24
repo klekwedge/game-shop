@@ -1,14 +1,9 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link, useParams } from 'react-router-dom';
-import { v4 as uuidv4 } from 'uuid';
-import {
-  Heading, List, ListItem, Image,
-} from '@chakra-ui/react';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Heading, List, ListItem, Image } from '@chakra-ui/react';
+import { AdditionsListProps } from './AdditionsList.props';
 
-function AdditionsList({ additions }) {
+function AdditionsList ({ additions }: AdditionsListProps):JSX.Element {
   return (
     <section>
       {additions ? (

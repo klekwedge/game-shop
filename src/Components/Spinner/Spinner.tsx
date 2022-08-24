@@ -1,7 +1,7 @@
 import React from 'react';
 import './Spinner.scss';
 
-function Spinner() {
+function Spinner():JSX.Element {
   return <div className="loader mx-auto" />;
 }
 

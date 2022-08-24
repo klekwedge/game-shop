@@ -1,9 +1,8 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
 import { Flex, Heading } from '@chakra-ui/react';
 import './ErrorMessage.scss';
 
-function ErrorMessage() {
+function ErrorMessage(): JSX.Element {
   return (
     <Flex as="section" w="800px" gap="10px" flexDirection="column">
       <svg id="500_Bill" viewBox="-8.5 9.5 560 250">
@@ -15,11 +14,7 @@ function ErrorMessage() {
             <path d="M451 37.4h48.2V93H451z" />
           </clipPath>
           <rect id="ember-temp" x="483" y="54" width="5" height="5" fill="#fb6a4f" />
-          <path
-            id="ember-emit"
-            fill="#FB6A4F"
-            d="M485.128 48.46l2.828 2.83-2.828 2.827-2.828-2.828z"
-          />
+          <path id="ember-emit" fill="#FB6A4F" d="M485.128 48.46l2.828 2.83-2.828 2.827-2.828-2.828z" />
         </defs>
         <path
           id="Five"
@@ -69,24 +64,8 @@ function ErrorMessage() {
             fill="#FF8D8D"
             d="M378.7 198.2c-48.8 0-88.5-39.7-88.5-88.5s39.7-88.5 88.5-88.5 88.5 39.7 88.5 88.5-39.7 88.5-88.5 88.5z"
           />
-          <circle
-            id="glow-outer-1"
-            className="glow"
-            opacity=".35"
-            fill="#F00"
-            cx="378.7"
-            cy="109.8"
-            r="55.2"
-          />
-          <circle
-            id="glow-inner"
-            className="glow"
-            opacity=".35"
-            fill="#F00"
-            cx="378.7"
-            cy="109.8"
-            r="28.3"
-          />
+          <circle id="glow-outer-1" className="glow" opacity=".35" fill="#F00" cx="378.7" cy="109.8" r="55.2" />
+          <circle id="glow-inner" className="glow" opacity=".35" fill="#F00" cx="378.7" cy="109.8" r="28.3" />
         </g>
         <g id="Bill">
           <path
@@ -187,26 +166,10 @@ function ErrorMessage() {
             />
           </g>
           <g id="Eyes" fill="#263D52">
-            <circle
-              id="eyes-left"
-              style={{ transformOrigin: '228.391px 126.333px' }}
-              cx="228.4"
-              cy="126.3"
-              r="5.9"
-            />
-            <circle
-              id="eyes-right"
-              style={{ transformOrigin: '266.289px 126.333px' }}
-              cx="266.3"
-              cy="126.3"
-              r="5.9"
-            />
+            <circle id="eyes-left" style={{ transformOrigin: '228.391px 126.333px' }} cx="228.4" cy="126.3" r="5.9" />
+            <circle id="eyes-right" style={{ transformOrigin: '266.289px 126.333px' }} cx="266.3" cy="126.3" r="5.9" />
           </g>
-          <path
-            id="unibrow"
-            fill="#263D52"
-            d="M271 122h-57c-.6 0-1-.4-1-1s.4-1 1-1h57c.6 0 1 .4 1 1s-.4 1-1 1z"
-          />
+          <path id="unibrow" fill="#263D52" d="M271 122h-57c-.6 0-1-.4-1-1s.4-1 1-1h57c.6 0 1 .4 1 1s-.4 1-1 1z" />
           <g id="facial-hair">
             <path
               fill="#263D52"
@@ -252,17 +215,9 @@ function ErrorMessage() {
         </g>
         <g id="tower" clipPath="url(#circle-mask)">
           <path id="tower-outer-fill" fill="#F2F8FC" d="M396.5 48.3H530V228H396.5z" />
-          <path
-            id="tower-outer-outline"
-            fill="#263D52"
-            d="M531 229H395.5V47.3H531V229zm-133.5-2H529V49.3H397.5V227z"
-          />
+          <path id="tower-outer-outline" fill="#263D52" d="M531 229H395.5V47.3H531V229zm-133.5-2H529V49.3H397.5V227z" />
           <path id="tower-inner-fill" fill="#8BA8B0" d="M514 71v157h-99V71z" />
-          <path
-            id="tower-inner-outline"
-            fill="#2D495E"
-            d="M515 228H414V70h101v158zm-99-2h97V72h-97v154z"
-          />
+          <path id="tower-inner-outline" fill="#2D495E" d="M515 228H414V70h101v158zm-99-2h97V72h-97v154z" />
           <path id="tower-mount-fill" fill="#CCD7DC" d="M415.8 48.3h23.7v11.8h-23.7z" />
           <path
             id="tower-mount-outline"
@@ -288,10 +243,7 @@ function ErrorMessage() {
             />
             <path fill="#2D495E" d="M415.1 209.2h18.4v5.8h-18.4z" />
             <path fill="#195063" d="M465.7 186.2h2.3V200h-2.3zM472.6 186.2h2.3V200h-2.3z" />
-            <path
-              fill="#0DB58A"
-              d="M479.5 186.2h2.3V200h-2.3zM486.4 186.2h2.3V200h-2.3zM493.3 186.2h2.3V200h-2.3z"
-            />
+            <path fill="#0DB58A" d="M479.5 186.2h2.3V200h-2.3zM486.4 186.2h2.3V200h-2.3zM493.3 186.2h2.3V200h-2.3z" />
             <path fill="#8E8E8E" d="M500.2 186.2h2.3V200h-2.3z" />
           </g>
           <g id="Rack-two">
@@ -314,10 +266,7 @@ function ErrorMessage() {
             <path fill="#0DB58A" d="M448.4 145.4h16.1v2.3h-16.1z" />
             <path fill="#195063" d="M427.7 145.4h16.1v2.3h-16.1zM427.7 150h36.8v2.3h-36.8z" />
             <path fill="#00B284" d="M427.7 154.6h2.3v2.3h-2.3zM432.3 154.6h2.3v2.3h-2.3z" />
-            <path
-              fill="#0DB58A"
-              d="M436.9 154.6h2.3v2.3h-2.3zM441.5 154.6h2.3v2.3h-2.3zM446.1 154.6h2.3v2.3h-2.3z"
-            />
+            <path fill="#0DB58A" d="M436.9 154.6h2.3v2.3h-2.3zM441.5 154.6h2.3v2.3h-2.3zM446.1 154.6h2.3v2.3h-2.3z" />
             <path fill="#195063" d="M450.7 154.6h9.2v2.3h-9.2z" />
             <path fill="#00B284" d="M462.2 154.6h2.3v2.3h-2.3z" />
           </g>
@@ -351,11 +300,7 @@ function ErrorMessage() {
             fill="#F00"
             d="M378.3 97.9h7.8V119h-7.8c-5.8 0-10.6-4.8-10.6-10.6 0-5.7 4.8-10.5 10.6-10.5z"
           />
-          <path
-            id="lamp-inner"
-            fill="#FF4E1F"
-            d="M377.5 103.5h7.6v10h-7.6c-2.8 0-5-2.2-5-5 0-2.7 2.2-5 5-5z"
-          />
+          <path id="lamp-inner" fill="#FF4E1F" d="M377.5 103.5h7.6v10h-7.6c-2.8 0-5-2.2-5-5 0-2.7 2.2-5 5-5z" />
           <path id="lamp-base-fill" fill="#8BA8B0" d="M386.1 90.7h10.3v35.7h-10.3z" />
           <path
             id="lamp-base-outline"
@@ -381,16 +326,8 @@ function ErrorMessage() {
             className="emitted-ember emitted-ember-alt"
             style={{ animationDelay: '-0.5s' }}
           />
-          <use
-            xlinkHref="#ember-emit"
-            className="emitted-ember"
-            style={{ animationDelay: '-0.7s' }}
-          />
-          <use
-            xlinkHref="#ember-emit"
-            className="emitted-ember emitted-ember-alt"
-            style={{ animationDelay: '-1s' }}
-          />
+          <use xlinkHref="#ember-emit" className="emitted-ember" style={{ animationDelay: '-0.7s' }} />
+          <use xlinkHref="#ember-emit" className="emitted-ember emitted-ember-alt" style={{ animationDelay: '-1s' }} />
           <circle
             id="smoke-base-1"
             className="smoke"
