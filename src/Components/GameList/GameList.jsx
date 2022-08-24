@@ -1,14 +1,11 @@
 /* eslint-disable react/jsx-no-bind */
 /* eslint-disable react/prop-types */
-/* eslint-disable no-unused-vars */
 import { motion, AnimatePresence } from 'framer-motion';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams, useLocation } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
-import {
-  Flex, Button, Skeleton, Heading, List, ListItem, Image,
-} from '@chakra-ui/react';
+import { Flex, Button, Skeleton, Heading, List, ListItem, Image } from '@chakra-ui/react';
 import { AiOutlinePlusCircle } from 'react-icons/ai';
 import RAWG from '../../services/RAWG';
 import { fetchCurrentGenre } from '../../slices/genresSlice';
@@ -103,9 +100,7 @@ function GameList({ genreName, mainTitle, descr }) {
                   exit={{ opacity: 0 }}
                   transition={{ duration: 1 }}
                 >
-                  {loadingImage && (
-                    <Skeleton maxW="256px" maxH="144px" w="100%" h="100%" mb="10px" />
-                  )}
+                  {loadingImage && <Skeleton maxW="256px" maxH="144px" w="100%" h="100%" mb="10px" />}
                   <Image
                     src={game.background_image}
                     alt={game.background_image}
@@ -142,15 +137,8 @@ function GameList({ genreName, mainTitle, descr }) {
                       <span>Add to cart</span>
                       <AiOutlinePlusCircle size="15px" />
                     </Heading>
-                    <Heading
-                      as="h4"
-                      fontWeight="400"
-                      fontSize="14px"
-                      textAlign="left"
-                      color="#d4d4d4"
-                    >
-                      $
-                      {getSumNumber(game.id)}
+                    <Heading as="h4" fontWeight="400" fontSize="14px" textAlign="left" color="#d4d4d4">
+                      ${getSumNumber(game.id)}
                     </Heading>
                   </Flex>
 
