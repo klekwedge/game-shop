@@ -1,14 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Heading, List, ListItem, Image } from '@chakra-ui/react';
-import { AdditionsListProps } from './AdditionsList.props';
+import { AdditionsListProps, IAddition } from './AdditionsList.props';
 
 function AdditionsList ({ additions }: AdditionsListProps):JSX.Element {
   return (
     <section>
       {additions ? (
         <List className="flex gap-5 flex-wrap" p="20px 0px">
-          {additions.map((additionItem) => (
+          {additions.map((additionItem: IAddition) => (
             <ListItem
               flex="1 1 25%"
               maxW="256px"

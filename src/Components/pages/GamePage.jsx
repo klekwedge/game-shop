@@ -45,7 +45,7 @@ import RAWG from '../../services/RAWG';
 import { fetchScreenshots } from '../../slices/screenshotsSlice';
 
 // import { trailersFetched, trailersFetchingError } from '../../slices/trailersSlice';
-import Spinner from '../Spinner/Spinner.tsx';
+import Spinner from '../Spinner/Spinner';
 
 import './GamePage.scss';
 import AdditionsList from '../AdditionsList/AdditionsList';

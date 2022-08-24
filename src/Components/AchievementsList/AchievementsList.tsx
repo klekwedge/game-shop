@@ -1,27 +1,22 @@
 /* eslint-disable react/prop-types */
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link, useParams } from 'react-router-dom';
-import { v4 as uuidv4 } from 'uuid';
+import React from 'react';
 import cn from 'classnames';
-import {
-  Flex, Box, Button, Text, Heading, List, ListItem, Image,
-} from '@chakra-ui/react';
+import { v4 as uuidv4 } from 'uuid';
+import { Flex, Box, Button, Text, Heading, List, ListItem, Image } from '@chakra-ui/react';
+import { AchievementsListProps } from './AchievementsList.props';
 
 function AchievementsList({
   achievements,
   achievementsAmount,
   nextAchievementsPage,
   loadMoreAchievements,
-}) {
+}: AchievementsListProps): JSX.Element {
   return (
     <section>
       {achievements.length > 0 ? (
         <Flex flexDirection="column" alignItems="center" pt="20px">
           <Heading as="h4" fontWeight="600" fontSize="30px" mb="40px" alignSelf="flex-start">
-            Achievements
-            {' '}
-            {`(${achievementsAmount})`}
+            Achievements {`(${achievementsAmount})`}
           </Heading>
           <List display="flex" justifyContent="center" gap="35px" flexWrap="wrap" mb="60px">
             {achievements.map((achievementItem) => (
@@ -41,8 +36,7 @@ function AchievementsList({
                     className={cn('AchievementIconWrapper', {
                       LegendaryAchievement: achievementItem.percent <= 5,
                       EpicAchievement: achievementItem.percent <= 10 && achievementItem.percent > 5,
-                      RareAchievement:
-                        achievementItem.percent > 10 && achievementItem.percent <= 15,
+                      RareAchievement: achievementItem.percent > 10 && achievementItem.percent <= 15,
                     })}
                   >
                     {+achievementItem.percent < 20 ? (
@@ -64,13 +58,7 @@ function AchievementsList({
                   </div>
                 </Box>
 
-                <Heading
-                  as="h4"
-                  textAlign="center"
-                  fontWeight="500"
-                  fontSize="20px"
-                  p="0px 10px 10px"
-                >
+                <Heading as="h4" textAlign="center" fontWeight="500" fontSize="20px" p="0px 10px 10px">
                   {achievementItem.name}
                 </Heading>
                 <Box className="AchiveAdditionalContainer">
@@ -82,14 +70,11 @@ function AchievementsList({
                       fontSize="16px"
                       className={cn('AchievementIconWrapper', {
                         LegendaryAchievementColor: achievementItem.percent <= 5,
-                        EpicAchievementColor:
-                          achievementItem.percent <= 10 && achievementItem.percent > 5,
-                        RareAchievementColor:
-                          achievementItem.percent > 10 && achievementItem.percent <= 15,
+                        EpicAchievementColor: achievementItem.percent <= 10 && achievementItem.percent > 5,
+                        RareAchievementColor: achievementItem.percent > 10 && achievementItem.percent <= 15,
                       })}
                     >
-                      {achievementItem.percent}
-                      %
+                      {achievementItem.percent}%
                     </Heading>
                     <Text textAlign="center" fontWeight="400" fontSize="16px">
                       {achievementItem.description}
