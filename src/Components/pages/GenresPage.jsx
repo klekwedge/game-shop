@@ -43,7 +43,6 @@ function GenresPage() {
                 <Heading as="h2" p="10px" fontWeight="500" fontSize="20px" textAlign="center">
                   <Link to={`/games/${genreItem.slug}`}>{genreItem.name}</Link>
                 </Heading>
-                {console.log(genreItem)}
               </ListItem>
             ))
             : null}

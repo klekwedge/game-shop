@@ -4,13 +4,9 @@
 import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { useSelector, useDispatch } from 'react-redux';
-import {
-  Tabs, TabList, TabPanels, Tab, TabPanel, Box, Image,
-} from '@chakra-ui/react';
+import { Tabs, TabList, TabPanels, Tab, TabPanel, Box, Image } from '@chakra-ui/react';
 import { Link, useParams } from 'react-router-dom';
-import {
-  Navigation, Pagination, Scrollbar, A11y,
-} from 'swiper';
+import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -19,14 +15,7 @@ import 'swiper/css/scrollbar';
 
 import { MdKeyboardBackspace } from 'react-icons/md';
 
-import {
-  SiXbox,
-  SiPlaystation3,
-  SiPlaystation4,
-  SiPlaystation5,
-  SiNintendoswitch,
-  SiWindows,
-} from 'react-icons/si';
+import { SiXbox, SiPlaystation3, SiPlaystation4, SiPlaystation5, SiNintendoswitch, SiWindows } from 'react-icons/si';
 import { AiOutlineQuestionCircle } from 'react-icons/ai';
 import {
   fetchGame,
@@ -39,20 +28,20 @@ import {
   fetchGameSeries,
   gameSeriesReset,
   additionsReset,
-} from '../../slices/currentGameSlice';
-import RAWG from '../../services/RAWG';
+} from '../../../slices/currentGameSlice';
+import RAWG from '../../../services/RAWG';
 
-import { fetchScreenshots } from '../../slices/screenshotsSlice';
+import { fetchScreenshots } from '../../../slices/screenshotsSlice';
 
 // import { trailersFetched, trailersFetchingError } from '../../slices/trailersSlice';
-import Spinner from '../Spinner/Spinner';
+import Spinner from '../../Spinner/Spinner';
 
 import './GamePage.scss';
-import AdditionsList from '../AdditionsList/AdditionsList';
-import AchievementsList from '../AchievementsList/AchievementsList';
-import GameSeries from '../GameSeries/GameSeries';
-import GameInfo from '../GameInfo/GameInfo';
-import ErrorMessage from '../ErrorMessage/ErrorMessage';
+import AdditionsList from '../../AdditionsList/AdditionsList';
+import AchievementsList from '../../AchievementsList/AchievementsList';
+import GameSeries from '../../GameSeries/GameSeries';
+import GameInfo from '../../GameInfo/GameInfo';
+import ErrorMessage from '../../ErrorMessage/ErrorMessage';
 
 function GamePage() {
   const { gameId } = useParams();
@@ -89,6 +78,7 @@ function GamePage() {
     achievementsAmount,
     additions,
     gamesOfSeries,
+    countGamesOfSeries,
   } = useSelector((state) => state.currentGame);
   const { screenshots } = useSelector((state) => state.screenshots);
   const { movies } = useSelector((state) => state.movies);
@@ -139,14 +129,8 @@ function GamePage() {
   return (
     <>
       <Helmet>
-        <meta
-          name="description"
-          content={`${currentGame ? currentGame.name : 'Current Game'} - Game Shop`}
-        />
-        <title>
-          {currentGame ? currentGame.name : 'Current Game'}
-          - Game Shop
-        </title>
+        <meta name="description" content={`${currentGame ? currentGame.name : 'Current Game'} - Game Shop`} />
+        <title>{currentGame ? currentGame.name : 'Current Game'}- Game Shop</title>
       </Helmet>
       <main className="max-w-screen-2xl mx-auto px-20 pt-3 pb-8">
         {currentGame ? (
@@ -158,19 +142,11 @@ function GamePage() {
                   Store
                 </Link>
               </h2>
-              <Box
-                alignSelf="flex-end"
-                display="flex"
-                gap="15px"
-                flexDirection="column"
-                alignItems="flex-end"
-              >
+              <Box alignSelf="flex-end" display="flex" gap="15px" flexDirection="column" alignItems="flex-end">
                 <h1 className="text-5xl mb-4 text-right">{currentGame.name}</h1>
                 <Box display="inline-flex" gap="20px" alignItems="center" justifyContent="flex-end">
                   {currentGame.platforms.map((platformItem) => (
-                    <h3 key={platformItem.platform.id}>
-                      {choosePlatformIcon(platformItem.platform.name)}
-                    </h3>
+                    <h3 key={platformItem.platform.id}>{choosePlatformIcon(platformItem.platform.name)}</h3>
                   ))}
                 </Box>
               </Box>
@@ -190,20 +166,20 @@ function GamePage() {
                 </SwiperSlide>
                 {screenshots && screenshots.results.length > 0
                   ? screenshots.results.map((screenshot) => (
-                    <SwiperSlide key={screenshot.id}>
-                      <Image src={screenshot.image} alt={`Screenshot from ${currentGame.name}`} />
-                    </SwiperSlide>
-                  ))
+                      <SwiperSlide key={screenshot.id}>
+                        <Image src={screenshot.image} alt={`Screenshot from ${currentGame.name}`} />
+                      </SwiperSlide>
+                    ))
                   : null}
 
                 {movies && movies.results.length > 0
                   ? movies.results.map((movie) => (
-                    <SwiperSlide key={movie.id}>
-                      <video controls poster={movie.preview}>
-                        <source src={movie.data.max} />
-                      </video>
-                    </SwiperSlide>
-                  ))
+                      <SwiperSlide key={movie.id}>
+                        <video controls poster={movie.preview}>
+                          <source src={movie.data.max} />
+                        </video>
+                      </SwiperSlide>
+                    ))
                   : null}
               </Swiper>
 
@@ -233,7 +209,7 @@ function GamePage() {
                   <AdditionsList additions={additions} />
                 </TabPanel>
                 <TabPanel>
-                  <GameSeries gamesOfSeries={gamesOfSeries} />
+                  <GameSeries gamesOfSeries={gamesOfSeries} countGamesOfSeries={countGamesOfSeries} />
                 </TabPanel>
               </TabPanels>
             </Tabs>

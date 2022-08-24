@@ -1,11 +1,10 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import { Link } from 'react-router-dom';
-import {
-  Flex, Heading, List, ListItem, Image,
-} from '@chakra-ui/react';
+import { Flex, Heading, List, ListItem, Image } from '@chakra-ui/react';
+import { GameSeriesProps } from './GameSeries.props';
 
-function GameSeries({ gamesOfSeries }) {
+function GameSeries({ gamesOfSeries, countGamesOfSeries }: GameSeriesProps): JSX.Element {
   return (
     <Flex
       as="main"
@@ -15,14 +14,14 @@ function GameSeries({ gamesOfSeries }) {
       margin="0 auto"
       padding="0px 20px 10px 20px"
     >
-      {gamesOfSeries && gamesOfSeries.count > 0 ? (
+      {gamesOfSeries.length > 0 ? (
         <div>
           <Heading fontSize="40px" mb="32px" fontWeight="500">
             List of games that are part of the same series:
-            {` ${gamesOfSeries.count}`}
+            {` ${countGamesOfSeries}`}
           </Heading>
           <List display="flex" flexWrap="wrap" gap="20px">
-            {gamesOfSeries.results.map((gameItem) => (
+            {gamesOfSeries.map((gameItem) => (
               <ListItem
                 key={gameItem.id}
                 display="flex"

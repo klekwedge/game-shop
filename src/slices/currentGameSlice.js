@@ -10,8 +10,9 @@ const initialState = {
   nextAchievementsPage: null,
   achievementsAmount: 0,
   additions: [],
-  gamesOfSeries: null,
+  gamesOfSeries: [],
   gamesOfSeriesLoadingStatus: 'idle',
+  countGamesOfSeries: null
 };
 
 export const fetchGame = createAsyncThunk('currentGame/fetchGame', (url) => {
@@ -58,7 +59,8 @@ const currentGameSlice = createSlice({
       state.achievementsAmount = action.payload;
     },
     gameSeriesReset: (state) => {
-      state.gamesOfSeries = null;
+      state.gamesOfSeries = [];
+      state.countGamesOfSeries = null;
     },
     additionsReset: (state) => {
       state.achievements = [];
@@ -92,7 +94,8 @@ const currentGameSlice = createSlice({
         state.gamesOfSeriesLoadingStatus = 'loading';
       })
       .addCase(fetchGameSeries.fulfilled, (state, action) => {
-        state.gamesOfSeries = action.payload;
+        state.gamesOfSeries = action.payload.results;
+        state.countGamesOfSeries = action.payload.count;
         state.gamesOfSeriesLoadingStatus = 'idle';
       })
       .addCase(fetchGameSeries.rejected, (state) => {

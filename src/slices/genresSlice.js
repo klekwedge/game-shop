@@ -3,7 +3,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import useHttp from '../hooks/http.hook';
 
 const initialState = {
-  genres: null,
+  genres: [],
   genresLoadingStatus: 'idle',
   currentGenre: null,
   currentGenreLoadingStatus: 'idle',
@@ -30,7 +30,7 @@ const genresSlice = createSlice({
         state.genresLoadingStatus = 'loading';
       })
       .addCase(fetchGenres.fulfilled, (state, action) => {
-        state.genres = action.payload;
+        state.genres = action.payload.results;
         state.genresLoadingStatus = 'idle';
       })
       .addCase(fetchGenres.rejected, (state) => {

@@ -3,14 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useSelector, useDispatch } from 'react-redux/es/exports';
 import { NavLink, Link } from 'react-router-dom';
 import { Flex, Box } from '@chakra-ui/react';
-import {
-  FaFistRaised,
-  FaHorseHead,
-  FaMountain,
-  FaSnowboarding,
-  FaChessBoard,
-  FaTruck,
-} from 'react-icons/fa';
+import { FaFistRaised, FaHorseHead, FaMountain, FaSnowboarding, FaChessBoard, FaTruck } from 'react-icons/fa';
 import { SiApplearcade } from 'react-icons/si';
 import { RiTeamFill } from 'react-icons/ri';
 import {
@@ -25,6 +18,7 @@ import { MdFamilyRestroom, MdPerson } from 'react-icons/md';
 import { IoExtensionPuzzleSharp, IoCarSport, IoSchool } from 'react-icons/io5';
 import RAWG from '../../services/RAWG';
 import { fetchGenres } from '../../slices/genresSlice';
+import { ISidePanel } from './SidePanel.types';
 
 function SidePanel() {
   const listItemVariants = {
@@ -85,28 +79,28 @@ function SidePanel() {
       </h2>
       <AnimatePresence>
         <ul className="flex flex-col gap-1 text-xl w-64">
-          {genres && genres.results.length > 0
-            ? genres.results.map((genre, i) => (
-              <motion.li
-                key={genre.id}
-                className="cursor-pointer p-1"
-                variants={listItemVariants}
-                initial="hidden"
-                animate="visible"
-              >
-                <NavLink
-                  to={`/games/${genre.slug}`}
-                  style={({ isActive }) => (isActive ? { color: '#6d28d9' } : undefined)}
-                  className="flex items-center gap-3"
+          {genres.length > 0
+            ? genres.map((genre: ISidePanel, i: number) => (
+                <motion.li
+                  key={genre.id}
+                  className="cursor-pointer p-1"
+                  variants={listItemVariants}
+                  initial="hidden"
+                  animate="visible"
                 >
-                  <Flex alignItems="center" justifyContent="center" bg="#27272a" p="5px">
-                    {genresIcons[i] ? genresIcons[i] : null}
-                  </Flex>
+                  <NavLink
+                    to={`/games/${genre.slug}`}
+                    style={({ isActive }) => (isActive ? { color: '#6d28d9' } : undefined)}
+                    className="flex items-center gap-3"
+                  >
+                    <Flex alignItems="center" justifyContent="center" bg="#27272a" p="5px">
+                      {genresIcons[i] ? genresIcons[i] : null}
+                    </Flex>
 
-                  {genre.name}
-                </NavLink>
-              </motion.li>
-            ))
+                    {genre.name}
+                  </NavLink>
+                </motion.li>
+              ))
             : null}
         </ul>
       </AnimatePresence>

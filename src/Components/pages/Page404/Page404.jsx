@@ -63,7 +63,10 @@ function Page404() {
       </svg>
 
       <h1 className="message mb-3">Page not found</h1>
-      <Link to="/" className="text-white p-2 border-violet-700 border-solid border-2 duration-300 hover:bg-violet-700 rounded-lg">
+      <Link
+        to="/"
+        className="text-white p-2 border-violet-700 border-solid border-2 duration-300 hover:bg-violet-700 rounded-lg"
+      >
         Home Page
       </Link>
     </div>

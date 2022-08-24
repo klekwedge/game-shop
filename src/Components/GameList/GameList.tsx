@@ -11,8 +11,9 @@ import RAWG from '../../services/RAWG';
 import { fetchCurrentGenre } from '../../slices/genresSlice';
 import { fetchGames, resetGames } from '../../slices/gamesSlice';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
+import { GameListProps, Game } from './GameList.props';
 
-function GameList({ genreName, mainTitle, descr }) {
+function GameList({ genreName, mainTitle, descr }: GameListProps):JSX.Element {
   const [loadingImage, setLoadingImage] = useState(true);
   const { genre } = useParams();
   const { currentGenre, genres } = useSelector((state) => state.genres);
@@ -22,7 +23,7 @@ function GameList({ genreName, mainTitle, descr }) {
   const rawgService = new RAWG();
 
   const handleOnLoad = () => {
-    setLoadingImage(false);
+    setLoadingImage(false); 
   };
 
   useEffect(() => {
@@ -60,7 +61,6 @@ function GameList({ genreName, mainTitle, descr }) {
   }
 
   function defineDescription() {
-    console.log(currentGenre);
     if (useLocation().pathname === '/') {
       return descr;
     }
@@ -70,7 +70,7 @@ function GameList({ genreName, mainTitle, descr }) {
     return null;
   }
 
-  function getSumNumber(num) {
+  function getSumNumber(num: number) {
     let sum = 0;
     let tmp;
     while (num) {
@@ -90,7 +90,7 @@ function GameList({ genreName, mainTitle, descr }) {
         <Flex gap="70px" flexDirection="column">
           <AnimatePresence>
             <List className="flex gap-5 flex-wrap">
-              {games.map((game) => (
+              {games.map((game: Game) => (
                 <ListItem
                   as={motion.li}
                   className="flex flex-col items-center gap-2 bg-zinc-900 basis-1/5 grow pb-2 rounded-lg hover:scale-105 duration-300"
@@ -98,62 +98,64 @@ function GameList({ genreName, mainTitle, descr }) {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  transition={{ duration: 1 }}
+                  transition={{ duration: '1' }}
                 >
-                  {loadingImage && <Skeleton maxW="256px" maxH="144px" w="100%" h="100%" mb="10px" />}
-                  <Image
-                    src={game.background_image}
-                    alt={game.background_image}
-                    objectFit="cover"
-                    maxW="256px"
-                    maxH="144px"
-                    w="100%"
-                    h="100%"
-                    mb="10px"
-                    onLoad={handleOnLoad}
-                  />
-                  <Flex
-                    w="100%"
-                    alignItems="center"
-                    justifyContent="space-between"
-                    gap="20px"
-                    padding="0px 10px"
-                    mb="5px"
-                    alignSelf="flex-start"
-                  >
+                  <>
+                    {loadingImage && <Skeleton maxW="256px" maxH="144px" w="100%" h="100%" mb="10px" />}
+                    <Image
+                      src={game.background_image}
+                      alt={game.background_image}
+                      objectFit="cover"
+                      maxW="256px"
+                      maxH="144px"
+                      w="100%"
+                      h="100%"
+                      mb="10px"
+                      onLoad={handleOnLoad}
+                    />
+                    <Flex
+                      w="100%"
+                      alignItems="center"
+                      justifyContent="space-between"
+                      gap="20px"
+                      padding="0px 10px"
+                      mb="5px"
+                      alignSelf="flex-start"
+                    >
+                      <Heading
+                        as="h4"
+                        fontWeight="400"
+                        fontSize="14px"
+                        textAlign="left"
+                        color="#d4d4d4"
+                        cursor="pointer"
+                        transition="all 0.5s ease"
+                        _hover={{ color: 'purple.400' }}
+                        display="flex"
+                        alignItems="center"
+                        gap="5px"
+                      >
+                        <span>Add to cart</span>
+                        <AiOutlinePlusCircle size="15px" />
+                      </Heading>
+                      <Heading as="h4" fontWeight="400" fontSize="14px" textAlign="left" color="#d4d4d4">
+                        ${getSumNumber(game.id)}
+                      </Heading>
+                    </Flex>
+
                     <Heading
                       as="h4"
-                      fontWeight="400"
-                      fontSize="14px"
+                      fontWeight="500"
+                      fontSize="16px"
+                      alignSelf="flex-start"
+                      padding="0px 10px"
+                      transition="all 0.3s ease"
+                      _hover={{ color: '#d4d4d4' }}
                       textAlign="left"
-                      color="#d4d4d4"
-                      cursor="pointer"
-                      transition="all 0.5s ease"
-                      _hover={{ color: 'purple.400' }}
-                      display="flex"
-                      alignItems="center"
-                      gap="5px"
                     >
-                      <span>Add to cart</span>
-                      <AiOutlinePlusCircle size="15px" />
+                      <Link to={`/${game.id}`}>{game.name}</Link>
                     </Heading>
-                    <Heading as="h4" fontWeight="400" fontSize="14px" textAlign="left" color="#d4d4d4">
-                      ${getSumNumber(game.id)}
-                    </Heading>
-                  </Flex>
-
-                  <Heading
-                    as="h4"
-                    fontWeight="500"
-                    fontSize="16px"
-                    alignSelf="flex-start"
-                    padding="0px 10px"
-                    transition="all 0.3s ease"
-                    _hover={{ color: '#d4d4d4' }}
-                    textAlign="left"
-                  >
-                    <Link to={`/${game.id}`}>{game.name}</Link>
-                  </Heading>
+                  </>
                 </ListItem>
               ))}
             </List>
