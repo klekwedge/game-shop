@@ -16,9 +16,10 @@ import {
   SiWindows,
 } from 'react-icons/si';
 import { AiFillShopping, AiOutlineQuestionCircle, AiOutlineInfoCircle } from 'react-icons/ai';
+import { GameInfoProps } from './GameInfo.props';
 
-function GameInfo({ currentGame }) {
-  function chooseStoreIcon(storeName) {
+function GameInfo({ currentGame }: GameInfoProps): JSX.Element {
+  function chooseStoreIcon(storeName: string): JSX.Element {
     switch (storeName) {
       case 'GOG':
         return <SiGogdotcom size="23" />;
@@ -39,7 +40,7 @@ function GameInfo({ currentGame }) {
     }
   }
 
-  function choosePlatformIcon(platformName) {
+  function choosePlatformIcon(platformName: string): JSX.Element {
     switch (platformName) {
       case 'PlayStation 3':
         return <SiPlaystation3 size="23" title={platformName} />;
@@ -110,11 +111,7 @@ function GameInfo({ currentGame }) {
           <AiFillShopping className="self-center mb-3" size="40" />
           <h2 className="font-medium text-lg mb-2">The shops:</h2>
           {currentGame.stores.map((storeItem) => (
-            <a
-              key={storeItem.store.id}
-              href={storeItem.store.domain}
-              className="flex items-center gap-3 mb-2"
-            >
+            <a key={storeItem.store.id} href={storeItem.store.domain} className="flex items-center gap-3 mb-2">
               {storeItem.store.name}
               {chooseStoreIcon(storeItem.store.name)}
             </a>
