@@ -1,16 +1,16 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { v4 as uuidv4 } from 'uuid';
 import { Link } from 'react-router-dom';
 import {
   Flex, Heading, List, ListItem, Image,
 } from '@chakra-ui/react';
+import { useAppSelector } from '../../../hooks/hook';
 import SidePanel from '../../SidePanel/SidePanel';
-import { GenreInfo } from './GenresPage.types';
+import { IGenre } from './GenresPage.types';
 
 function GenresPage() {
-  const { genres } = useSelector((state) => state.genres);
+  const { genres } = useAppSelector((state) => state.genres);
 
   return (
     <>
@@ -23,7 +23,7 @@ function GenresPage() {
         <SidePanel />
         <List display="flex" flexWrap="wrap" gap="20px 20px">
           {genres.length > 0
-            ? genres.map((genreItem: GenreInfo) => (
+            ? genres.map((genreItem: IGenre) => (
               <ListItem
                 display="flex"
                 flexDirection="column"
@@ -32,7 +32,6 @@ function GenresPage() {
                 bg="#3f3f46"
                 borderRadius="10px"
               >
-                {/* {console.log(genreItem)} */}
                 <Image
                   src={genreItem.image_background}
                   alt={genreItem.name}

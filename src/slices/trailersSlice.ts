@@ -1,8 +1,14 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = {
-  trailers: null,
+
+type TrailersState = {
+  trailers: [],
+  trailersLoadingStatus: string,
+};
+
+const initialState: TrailersState = {
+  trailers: [],
   trailersLoadingStatus: 'idle',
 };
 
@@ -15,13 +21,13 @@ const trailersSlice = createSlice({
     },
     trailersFetched: (state, action) => {
       state.trailersLoadingStatus = 'idle';
-      state.trailers = action.payload;
+      state.trailers = action.payload.results;
     },
     trailersFetchingError: (state) => {
       state.trailersLoadingStatus = 'error';
     },
     trailersReset: (state) => {
-      state.trailers = null;
+      state.trailers = [];
     },
   },
 });

@@ -1,10 +1,28 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { IGame } from '../Components/pages/GamePage/GamePage.types';
 import useHttp from '../hooks/http.hook';
 
-const initialState = {
+type CurrentGameState = {
+  currentGame: null | IGame,
+  currentGameLoadingStatus: string,
+  screenshots: [],
+  screenshotsLoadingStatus: string,
+  achievements: [],
+  achievementsLoadingStatus: string,
+  nextAchievementsPage: null | string,
+  achievementsAmount: number,
+  additions: [],
+  gamesOfSeries: [],
+  gamesOfSeriesLoadingStatus: string,
+  countGamesOfSeries: null | number
+};
+
+const initialState: CurrentGameState = {
   currentGame: null,
   currentGameLoadingStatus: 'idle',
+  screenshots: [],
+  screenshotsLoadingStatus: 'idle',
   achievements: [],
   achievementsLoadingStatus: 'idle',
   nextAchievementsPage: null,
@@ -15,22 +33,27 @@ const initialState = {
   countGamesOfSeries: null
 };
 
-export const fetchGame = createAsyncThunk('currentGame/fetchGame', (url) => {
+export const fetchGame = createAsyncThunk('currentGame/fetchGame', (url: string) => {
   const { request } = useHttp();
   return request(url);
 });
 
-export const fetchAchievements = createAsyncThunk('currentGame/fetchAchievements', (url) => {
+export const fetchScreenshots = createAsyncThunk('screenshots/fetchScreenshots', (url: string) => {
   const { request } = useHttp();
   return request(url);
 });
 
-export const fetchAdditions = createAsyncThunk('currentGame/fetchAdditions', (url) => {
+export const fetchAchievements = createAsyncThunk('currentGame/fetchAchievements', (url: string) => {
   const { request } = useHttp();
   return request(url);
 });
 
-export const fetchGameSeries = createAsyncThunk('currentGame/fetchGameSeries', (url) => {
+export const fetchAdditions = createAsyncThunk('currentGame/fetchAdditions', (url: string) => {
+  const { request } = useHttp();
+  return request(url);
+});
+
+export const fetchGameSeries = createAsyncThunk('currentGame/fetchGameSeries', (url: string) => {
   const { request } = useHttp();
   return request(url);
 });
@@ -78,6 +101,16 @@ const currentGameSlice = createSlice({
       .addCase(fetchGame.rejected, (state) => {
         state.currentGameLoadingStatus = 'error';
       })
+      .addCase(fetchScreenshots.pending, (state) => {
+        state.screenshotsLoadingStatus = 'loading';
+      })
+      .addCase(fetchScreenshots.fulfilled, (state, action) => {
+        state.screenshotsLoadingStatus = 'idle';
+        state.screenshots = action.payload.results;
+      })
+      .addCase(fetchScreenshots.rejected, (state) => {
+        state.screenshotsLoadingStatus = 'error';
+      })
       .addCase(fetchAchievements.pending, (state) => {
         state.achievementsLoadingStatus = 'loading';
       })
@@ -111,7 +144,7 @@ const currentGameSlice = createSlice({
       .addCase(fetchAdditions.rejected, (state) => {
         state.achievementsLoadingStatus = 'error';
       })
-      .addDefaultCase(() => {});
+      .addDefaultCase(() => { });
   },
 });
 

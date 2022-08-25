@@ -1,8 +1,3 @@
-// export interface GameSeriesProps {
-//   gamesOfSeries: IGameSeries[];
-//   countGamesOfSeries: number;
-// }
-
 export interface IGame {
   id: number;
   slug: string;

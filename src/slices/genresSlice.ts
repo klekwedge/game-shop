@@ -1,20 +1,28 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import useHttp from '../hooks/http.hook';
+import { IGenre } from '../Components/pages/GenresPage/GenresPage.types';
 
-const initialState = {
+type GenresState = {
+  genres: [],
+  genresLoadingStatus: string,
+  currentGenre: null | IGenre,
+  currentGenreLoadingStatus: string,
+};
+
+const initialState: GenresState = {
   genres: [],
   genresLoadingStatus: 'idle',
   currentGenre: null,
   currentGenreLoadingStatus: 'idle',
 };
 
-export const fetchGenres = createAsyncThunk('genres/fetchGenres', (url) => {
+export const fetchGenres = createAsyncThunk('genres/fetchGenres', (url: string) => {
   const { request } = useHttp();
   return request(url);
 });
 
-export const fetchCurrentGenre = createAsyncThunk('genres/fetchCurrentGenre', (url) => {
+export const fetchCurrentGenre = createAsyncThunk('genres/fetchCurrentGenre', (url: string) => {
   const { request } = useHttp();
   return request(url);
 });
@@ -46,10 +54,9 @@ const genresSlice = createSlice({
       .addCase(fetchCurrentGenre.rejected, (state) => {
         state.currentGenreLoadingStatus = 'error';
       })
-      .addDefaultCase(() => {});
+      .addDefaultCase(() => { });
   },
 });
 
-// eslint-disable-next-line no-unused-vars
 const { actions, reducer } = genresSlice;
 export default reducer;

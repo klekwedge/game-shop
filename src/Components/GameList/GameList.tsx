@@ -2,7 +2,6 @@
 /* eslint-disable react/prop-types */
 import { motion, AnimatePresence } from 'framer-motion';
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams, useLocation } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import { Flex, Button, Skeleton, Heading, List, ListItem, Image } from '@chakra-ui/react';
@@ -11,19 +10,21 @@ import RAWG from '../../services/RAWG';
 import { fetchCurrentGenre } from '../../slices/genresSlice';
 import { fetchGames, resetGames } from '../../slices/gamesSlice';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
+import { useAppDispatch, useAppSelector } from '../../hooks/hook';
 import { GameListProps, Game } from './GameList.props';
+import { IGenre } from '../pages/GenresPage/GenresPage.types';
 
-function GameList({ genreName, mainTitle, descr }: GameListProps):JSX.Element {
+function GameList({ genreName, mainTitle, descr }: GameListProps): JSX.Element {
   const [loadingImage, setLoadingImage] = useState(true);
   const { genre } = useParams();
-  const { currentGenre, genres } = useSelector((state) => state.genres);
-  const { games, nextPage, gamesLoadingStatus } = useSelector((state) => state.games);
+  const { currentGenre, genres } = useAppSelector((state) => state.genres);
+  const { games, nextPage, gamesLoadingStatus } = useAppSelector((state) => state.games);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const rawgService = new RAWG();
 
   const handleOnLoad = () => {
-    setLoadingImage(false); 
+    setLoadingImage(false);
   };
 
   useEffect(() => {
@@ -37,8 +38,10 @@ function GameList({ genreName, mainTitle, descr }: GameListProps):JSX.Element {
 
   useEffect(() => {
     if (genres.length > 0 && genre) {
-      const desiredGenre = genres.find((genreItem) => genreItem.slug === genre);
-      dispatch(fetchCurrentGenre(rawgService.getGenreDetail(desiredGenre.id)));
+      const desiredGenre = genres.find((genreItem: IGenre) => genreItem.slug === genre);
+      if (desiredGenre) {
+        dispatch(fetchCurrentGenre(rawgService.getGenreDetail(desiredGenre.id)));
+      }
     }
   }, [genreName, genres]);
 
@@ -53,7 +56,9 @@ function GameList({ genreName, mainTitle, descr }: GameListProps):JSX.Element {
   }
 
   function loadMoreGames() {
-    dispatch(fetchGames(nextPage));
+    if (nextPage) {
+      dispatch(fetchGames(nextPage));
+    }
   }
 
   if (gamesLoadingStatus === 'error') {
@@ -84,8 +89,12 @@ function GameList({ genreName, mainTitle, descr }: GameListProps):JSX.Element {
 
   return (
     <section>
-      <h2 className="text-5xl font-bold mb-2 capitalize">{genre ? `${genre} games` : mainTitle}</h2>
-      <h3 className="text-base mb-8">{defineDescription()}</h3>
+      <Heading as="h2" fontSize="48px" textTransform="capitalize" mb="8px" fontWeight="700">
+        {genre ? `${genre} games` : mainTitle}
+      </Heading>
+      <Heading as="h3" fontSize="16px" mb="32px">
+        {defineDescription()}
+      </Heading>
       {games.length > 0 ? (
         <Flex gap="70px" flexDirection="column">
           <AnimatePresence>
@@ -166,7 +175,7 @@ function GameList({ genreName, mainTitle, descr }: GameListProps):JSX.Element {
             _hover={{ bg: 'purple.700' }}
             _active={{ bg: 'purple.500' }}
             onClick={() => loadMoreGames()}
-            display={games.next === null ? 'none' : 'block'}
+            display={nextPage === null ? 'none' : 'block'}
           >
             Load more
           </Button>

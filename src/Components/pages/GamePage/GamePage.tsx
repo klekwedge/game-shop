@@ -3,7 +3,6 @@
 /* eslint-disable react/jsx-no-bind */
 import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
-import { useSelector, useDispatch } from 'react-redux';
 import { Tabs, TabList, TabPanels, Tab, TabPanel, Box, Image } from '@chakra-ui/react';
 import { Link, useParams } from 'react-router-dom';
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
@@ -12,13 +11,12 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
-
 import { MdKeyboardBackspace } from 'react-icons/md';
-
 import { SiXbox, SiPlaystation3, SiPlaystation4, SiPlaystation5, SiNintendoswitch, SiWindows } from 'react-icons/si';
 import { AiOutlineQuestionCircle } from 'react-icons/ai';
 import {
   fetchGame,
+  fetchScreenshots,
   achievementsFetched,
   achievementsFetchingError,
   achievementsReset,
@@ -30,15 +28,15 @@ import {
   additionsReset,
 } from '../../../slices/currentGameSlice';
 import RAWG from '../../../services/RAWG';
-import { fetchScreenshots } from '../../../slices/screenshotsSlice';
 import Spinner from '../../Spinner/Spinner';
 import AdditionsList from '../../AdditionsList/AdditionsList';
 import AchievementsList from '../../AchievementsList/AchievementsList';
 import GameSeries from '../../GameSeries/GameSeries';
 import GameInfo from '../../GameInfo/GameInfo';
 import ErrorMessage from '../../ErrorMessage/ErrorMessage';
+import { useAppSelector, useAppDispatch } from '../../../hooks/hook';
 import './GamePage.scss';
-import { IScreenshot, IPlatformItem, IGame } from './GamePage.types';
+import { IScreenshot, IPlatformItem } from './GamePage.types';
 
 function GamePage() {
   const { gameId } = useParams();
@@ -76,15 +74,17 @@ function GamePage() {
     additions,
     gamesOfSeries,
     countGamesOfSeries,
-  } = useSelector((state) => state.currentGame);
-  const { screenshots } = useSelector((state) => state.screenshots);
-  const { movies } = useSelector((state) => state.movies);
-  const dispatch = useDispatch();
+  } = useAppSelector((state) => state.currentGame);
+  const { screenshots } = useAppSelector((state) => state.currentGame);
+  const { trailers } = useAppSelector((state) => state.trailers);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(achievementsReset());
-    dispatch(fetchGame(rawgService.getGame(gameId)));
-    dispatch(fetchScreenshots(rawgService.getGameScreenshots(gameId)));
+    if (gameId) {
+      dispatch(fetchGame(rawgService.getGame(gameId)));
+      dispatch(fetchScreenshots(rawgService.getGameScreenshots(gameId)));
+    }
 
     // rawgService
     //   .getGameTrailers(gameId)
@@ -93,25 +93,27 @@ function GamePage() {
   }, [gameId]);
 
   function loadSection(tabIndex: number) {
-    if (tabIndex === 1 && achievements.length === 0) {
+    if (tabIndex === 1 && achievements.length === 0 && gameId) {
       dispatch(fetchAchievements(rawgService.getGameAchievements(gameId)));
-    } else if (tabIndex === 2 && additions.length === 0) {
+    } else if (tabIndex === 2 && additions.length === 0 && gameId) {
       dispatch(additionsReset());
       dispatch(fetchAdditions(rawgService.getGameAdditions(gameId)));
-    } else if (tabIndex === 3 && currentGame) {
+    } else if (tabIndex === 3 && currentGame && gameId) {
       dispatch(gameSeriesReset());
       dispatch(fetchGameSeries(rawgService.getListOfGamesSeries(gameId)));
     }
   }
 
   function loadMoreAchievements() {
-    rawgService
-      .getData(nextAchievementsPage)
-      .then((achievementsData) => {
-        dispatch(nextAchievements(achievementsData.next));
-        dispatch(achievementsFetched(achievementsData.results));
-      })
-      .catch(() => dispatch(achievementsFetchingError()));
+    if (nextAchievementsPage) {
+      rawgService
+        .getData(nextAchievementsPage)
+        .then((achievementsData) => {
+          dispatch(nextAchievements(achievementsData.next));
+          dispatch(achievementsFetched(achievementsData.results));
+        })
+        .catch(() => dispatch(achievementsFetchingError()));
+    }
   }
 
   if (currentGameLoadingStatus === 'loading') {
@@ -142,9 +144,7 @@ function GamePage() {
                 <h1 className="text-5xl mb-4 text-right">{currentGame.name}</h1>
                 <Box display="inline-flex" gap="20px" alignItems="center" justifyContent="flex-end">
                   {currentGame.platforms.map((platformItem: IPlatformItem) => (
-                    <h3 key={platformItem.platform.id}>
-                      {choosePlatformIcon(platformItem.platform.name)}
-                    </h3>
+                    <h3 key={platformItem.platform.id}>{choosePlatformIcon(platformItem.platform.name)}</h3>
                   ))}
                 </Box>
               </Box>

@@ -41,7 +41,6 @@ function GameSeries({ gamesOfSeries, countGamesOfSeries }: GameSeriesProps): JSX
                   w="100%"
                   h="100%"
                   maxH="180px"
-                  // className="object-cover"
                 />
                 <Heading
                   as="h3"

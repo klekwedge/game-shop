@@ -7,7 +7,6 @@ import GameList from '../../GameList/GameList';
 
 function GenrePage() {
   const { genre } = useParams();
-  console.log(genre);
   return (
     <>
       <Helmet>

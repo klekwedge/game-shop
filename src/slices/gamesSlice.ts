@@ -1,14 +1,20 @@
 /* eslint-disable no-param-reassign */
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import useHttp from '../hooks/http.hook';
 
-const initialState = {
+type GamesState = {
+  games: [],
+  nextPage: null | string,
+  gamesLoadingStatus: string,
+};
+
+const initialState: GamesState = {
   games: [],
   nextPage: null,
   gamesLoadingStatus: 'idle',
 };
 
-export const fetchGames = createAsyncThunk('games/fetchGames', (url) => {
+export const fetchGames = createAsyncThunk('games/fetchGames', (url: string) => {
   const { request } = useHttp();
   return request(url);
 });
@@ -34,11 +40,11 @@ const gamesSlice = createSlice({
       .addCase(fetchGames.rejected, (state) => {
         state.gamesLoadingStatus = 'error';
       })
-      .addDefaultCase(() => {});
+      .addDefaultCase(() => { });
   },
 });
 
-// eslint-disable-next-line no-unused-vars
+
 const { actions, reducer } = gamesSlice;
 export const { resetGames } = actions;
 export default reducer;

@@ -15,32 +15,32 @@ class RAWG extends Component {
     return res;
   }
 
-  getGame(id) {
+  getGame(id: string) {
     const res = `https://api.rawg.io/api/games/${id}?key=${this.apiKey}`;
     return res;
   }
 
-  getGameAchievements(gameId) {
+  getGameAchievements(gameId: string) {
     const res = `https://api.rawg.io/api/games/${gameId}/achievements?key=${this.apiKey}`;
     return res;
   }
 
-  getGameAdditions(gameId) {
+  getGameAdditions(gameId: string) {
     return `https://api.rawg.io/api/games/${gameId}/additions?key=${this.apiKey}`;
   }
 
-  getListOfGamesSeries(id) {
+  getListOfGamesSeries(id: string) {
     const res = `https://api.rawg.io/api/games/${id}/game-series?key=${this.apiKey}`;
     return res;
   }
 
-  async getGameTrailers(id) {
+  async getGameTrailers(id: string) {
     const res = await fetch(`https://api.rawg.io/api/games/${id}/movies?key=${this.apiKey}`);
     const data = await res.json();
     return data;
   }
 
-  getGameScreenshots(id) {
+  getGameScreenshots(id: string) {
     const res = `https://api.rawg.io/api/games/${id}/screenshots?key=${this.apiKey}`;
     return res;
   }
@@ -50,12 +50,12 @@ class RAWG extends Component {
     return res;
   }
 
-  getGenreDetail(genreId) {
+  getGenreDetail(genreId: string) {
     const res = `https://api.rawg.io/api/genres/${genreId}?key=${this.apiKey}`;
     return res;
   }
 
-  async getData(url) {
+  async getData(url: string) {
     const res = await fetch(url);
     const data = await res.json();
     return data;

@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { useSelector, useDispatch } from 'react-redux/es/exports';
+import { MdFamilyRestroom, MdPerson } from 'react-icons/md';
 import { NavLink, Link } from 'react-router-dom';
 import { Flex, Box } from '@chakra-ui/react';
+import { IoExtensionPuzzleSharp, IoCarSport, IoSchool } from 'react-icons/io5';
 import { FaFistRaised, FaHorseHead, FaMountain, FaSnowboarding, FaChessBoard, FaTruck } from 'react-icons/fa';
 import { SiApplearcade } from 'react-icons/si';
 import { RiTeamFill } from 'react-icons/ri';
@@ -14,8 +15,7 @@ import {
   GiFlatPlatform,
   GiSandSnake,
 } from 'react-icons/gi';
-import { MdFamilyRestroom, MdPerson } from 'react-icons/md';
-import { IoExtensionPuzzleSharp, IoCarSport, IoSchool } from 'react-icons/io5';
+import { useAppSelector, useAppDispatch } from '../../hooks/hook';
 import RAWG from '../../services/RAWG';
 import { fetchGenres } from '../../slices/genresSlice';
 import { ISidePanel } from './SidePanel.types';
@@ -31,7 +31,7 @@ function SidePanel() {
 
   const rawgService = new RAWG();
 
-  const { genres } = useSelector((state) => state.genres);
+  const { genres } = useAppSelector((state) => state.genres);
 
   const genresIcons = [
     <FaFistRaised />,
@@ -55,7 +55,7 @@ function SidePanel() {
     <GiCardAceDiamonds />,
   ];
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(fetchGenres(rawgService.getGenres()));
   }, []);
