@@ -26,7 +26,7 @@ import {
   fetchGameSeries,
   gameSeriesReset,
   additionsReset,
-} from '../../../slices/currentGameSlice';
+} from '../../../slices/currentGameSlice/currentGameSlice';
 import RAWG from '../../../services/RAWG';
 import Spinner from '../../Spinner/Spinner';
 import AdditionsList from '../../AdditionsList/AdditionsList';
@@ -76,9 +76,9 @@ function GamePage() {
     countGamesOfSeries,
   } = useAppSelector((state) => state.currentGame);
   const { screenshots } = useAppSelector((state) => state.currentGame);
-  const { trailers } = useAppSelector((state) => state.trailers);
+  // const { trailers } = useAppSelector((state) => state.trailers);
   const dispatch = useAppDispatch();
-
+  console.log(achievements);
   useEffect(() => {
     dispatch(achievementsReset());
     if (gameId) {

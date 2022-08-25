@@ -1,12 +1,7 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import useHttp from '../hooks/http.hook';
-
-type GamesState = {
-  games: [],
-  nextPage: null | string,
-  gamesLoadingStatus: string,
-};
+import useHttp from '../../hooks/http.hook';
+import { GamesState, GamesAction } from './gamesSlice.types';
 
 const initialState: GamesState = {
   games: [],
@@ -32,7 +27,7 @@ const gamesSlice = createSlice({
       .addCase(fetchGames.pending, (state) => {
         state.gamesLoadingStatus = 'loading';
       })
-      .addCase(fetchGames.fulfilled, (state, action) => {
+      .addCase(fetchGames.fulfilled, (state, action: PayloadAction<GamesAction>) => {
         state.gamesLoadingStatus = 'idle';
         state.games.push(...action.payload.results);
         state.nextPage = action.payload.next;

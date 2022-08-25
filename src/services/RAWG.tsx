@@ -5,7 +5,7 @@ import { Component } from 'react';
 class RAWG extends Component {
   apiKey = '9c6f34d35ac04b2bbe700fdadfb26801';
 
-  getGameList(genre = '') {
+  getGameList(genre: string | "" = '') {
     let res;
     if (genre) {
       res = `https://api.rawg.io/api/games?key=${this.apiKey}&genres=${genre}`;
@@ -60,8 +60,6 @@ class RAWG extends Component {
     const data = await res.json();
     return data;
   }
-
-  // https://api.rawg.io/api/games?key=9c6f34d35ac04b2bbe700fdadfb26801&search=witcher-3
 }
 
 export default RAWG;

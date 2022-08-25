@@ -17,7 +17,7 @@ import {
 } from 'react-icons/gi';
 import { useAppSelector, useAppDispatch } from '../../hooks/hook';
 import RAWG from '../../services/RAWG';
-import { fetchGenres } from '../../slices/genresSlice';
+import { fetchGenres } from '../../slices/genresSlice/genresSlice';
 import { ISidePanel } from './SidePanel.types';
 
 function SidePanel() {
