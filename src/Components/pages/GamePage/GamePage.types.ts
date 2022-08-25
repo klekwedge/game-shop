@@ -137,11 +137,6 @@ export interface IScreenshot {
   is_deleted: boolean;
 }
 
-export interface IPlatformItem {
-  platform: Platform;
-  released_at: string;
-  requirements: Record<string, unknown>;
-}
 
 export interface Platform {
   id: number;

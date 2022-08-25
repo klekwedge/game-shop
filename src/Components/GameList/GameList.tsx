@@ -11,7 +11,7 @@ import { fetchCurrentGenre } from '../../slices/genresSlice/genresSlice';
 import { fetchGames, resetGames } from '../../slices/gamesSlice/gamesSlice';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import { useAppDispatch, useAppSelector } from '../../hooks/hook';
-import { GameListProps, Game } from './GameList.props';
+import { GameListProps } from './GameList.props';
 import { IGenre } from '../pages/GenresPage/GenresPage.types';
 
 function GameList({ genreName, mainTitle, descr }: GameListProps): JSX.Element {
@@ -99,7 +99,7 @@ function GameList({ genreName, mainTitle, descr }: GameListProps): JSX.Element {
         <Flex gap="70px" flexDirection="column">
           <AnimatePresence>
             <List className="flex gap-5 flex-wrap">
-              {games.map((game: Game) => (
+              {games.map((game) => (
                 <ListItem
                   as={motion.li}
                   className="flex flex-col items-center gap-2 bg-zinc-900 basis-1/5 grow pb-2 rounded-lg hover:scale-105 duration-300"

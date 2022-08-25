@@ -36,7 +36,7 @@ import GameInfo from '../../GameInfo/GameInfo';
 import ErrorMessage from '../../ErrorMessage/ErrorMessage';
 import { useAppSelector, useAppDispatch } from '../../../hooks/hook';
 import './GamePage.scss';
-import { IScreenshot, IPlatformItem } from './GamePage.types';
+import { IScreenshot } from './GamePage.types';
 
 function GamePage() {
   const { gameId } = useParams();
@@ -142,7 +142,7 @@ function GamePage() {
               <Box alignSelf="flex-end" display="flex" gap="15px" flexDirection="column" alignItems="flex-end">
                 <h1 className="text-5xl mb-4 text-right">{currentGame.name}</h1>
                 <Box display="inline-flex" gap="20px" alignItems="center" justifyContent="flex-end">
-                  {currentGame.platforms.map((platformItem: IPlatformItem) => (
+                  {currentGame.platforms.map((platformItem) => (
                     <h3 key={platformItem.platform.id}>{choosePlatformIcon(platformItem.platform.name)}</h3>
                   ))}
                 </Box>
@@ -182,7 +182,6 @@ function GamePage() {
 
               <p className="bg-zinc-800 p-10 rounded-lg max-w-xl">{currentGame.description_raw}</p>
             </div>
-            {console.log(achievements)}
             <Tabs variant="solid-rounded" onChange={(tabIndex) => loadSection(tabIndex)}>
               <TabList>
                 <Tab _selected={{ color: 'white', bg: 'purple.600' }}>Game Info </Tab>

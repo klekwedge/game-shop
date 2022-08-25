@@ -18,7 +18,6 @@ import {
 import { useAppSelector, useAppDispatch } from '../../hooks/hook';
 import RAWG from '../../services/RAWG';
 import { fetchGenres } from '../../slices/genresSlice/genresSlice';
-import { ISidePanel } from './SidePanel.types';
 
 function SidePanel() {
   const listItemVariants = {
@@ -80,7 +79,7 @@ function SidePanel() {
       <AnimatePresence>
         <ul className="flex flex-col gap-1 text-xl w-64">
           {genres.length > 0
-            ? genres.map((genre: ISidePanel, i: number) => (
+            ? genres.map((genre, i: number) => (
                 <motion.li
                   key={genre.id}
                   className="cursor-pointer p-1"

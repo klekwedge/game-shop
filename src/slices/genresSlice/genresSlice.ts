@@ -4,7 +4,7 @@ import useHttp from '../../hooks/http.hook';
 import { IGenre } from '../../Components/pages/GenresPage/GenresPage.types';
 
 type GenresState = {
-  genres: [],
+  genres: IGenre[],
   genresLoadingStatus: string,
   currentGenre: null | IGenre,
   currentGenreLoadingStatus: string,

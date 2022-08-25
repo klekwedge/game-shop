@@ -4,16 +4,6 @@ export interface GameListProps {
   genreName?: string;
 }
 
-// export interface GenreInfo {
-//   id: number;
-//   name: string;
-//   slug: string;
-//   games_count: number;
-//   image_background: string;
-//   description: string;
-// }
-
-
 export interface Game {
   id: number;
   slug: string;
