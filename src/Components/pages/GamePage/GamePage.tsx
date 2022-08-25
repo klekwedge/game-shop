@@ -78,7 +78,7 @@ function GamePage() {
   const { screenshots } = useAppSelector((state) => state.currentGame);
   // const { trailers } = useAppSelector((state) => state.trailers);
   const dispatch = useAppDispatch();
-
+  console.log(achievements);
   useEffect(() => {
     dispatch(achievementsReset());
     if (gameId) {
