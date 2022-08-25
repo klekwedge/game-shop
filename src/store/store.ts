@@ -1,15 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
-import games from '../slices/gamesSlice';
-import currentGame from '../slices/currentGameSlice';
-import genres from '../slices/genresSlice';
-import trailers from '../slices/trailersSlice';
+import games from '../slices/gamesSlice/gamesSlice';
+import currentGame from '../slices/currentGameSlice/currentGameSlice';
+import genres from '../slices/genresSlice/genresSlice';
 
 const store = configureStore({
   reducer: {
     games,
     currentGame,
     genres,
-    trailers,
   },
   devTools: process.env.NODE_ENV !== 'production',
 });

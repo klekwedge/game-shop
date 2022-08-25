@@ -21,7 +21,7 @@ import {
 } from '@chakra-ui/react';
 import { AiOutlineSearch, AiOutlineShopping } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
-import { fetchGames, resetGames } from '../../slices/gamesSlice';
+import { fetchGames, resetGames } from '../../slices/gamesSlice/gamesSlice';
 
 function Header() {
   const { isOpen, onOpen, onClose } = useDisclosure();

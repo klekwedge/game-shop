@@ -1,3 +1,5 @@
+import { IAchievement } from '../../slices/currentGameSlice/currentGameSlice.types';
+
 export interface AchievementsListProps {
   achievements: IAchievement[];
   achievementsAmount: number;
@@ -5,10 +7,10 @@ export interface AchievementsListProps {
   loadMoreAchievements: () => void;
 }
 
-export interface IAchievement {
-  description: string;
-  id: number;
-  image: string;
-  name: string;
-  percent: number;
-}
+// export interface IAchievement {
+//   description: string;
+//   id: number;
+//   image: string;
+//   name: string;
+//   percent: number;
+// }

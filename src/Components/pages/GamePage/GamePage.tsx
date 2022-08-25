@@ -26,7 +26,7 @@ import {
   fetchGameSeries,
   gameSeriesReset,
   additionsReset,
-} from '../../../slices/currentGameSlice';
+} from '../../../slices/currentGameSlice/currentGameSlice';
 import RAWG from '../../../services/RAWG';
 import Spinner from '../../Spinner/Spinner';
 import AdditionsList from '../../AdditionsList/AdditionsList';
@@ -40,7 +40,7 @@ import { IScreenshot, IPlatformItem } from './GamePage.types';
 
 function GamePage() {
   const { gameId } = useParams();
-  const rawgService = new RAWG();
+  const { getGame, getGameScreenshots, getGameAchievements, getGameAdditions, getListOfGamesSeries, getData } = RAWG();
 
   function choosePlatformIcon(platformName: string) {
     switch (platformName) {
@@ -76,14 +76,14 @@ function GamePage() {
     countGamesOfSeries,
   } = useAppSelector((state) => state.currentGame);
   const { screenshots } = useAppSelector((state) => state.currentGame);
-  const { trailers } = useAppSelector((state) => state.trailers);
+  // const { trailers } = useAppSelector((state) => state.trailers);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(achievementsReset());
     if (gameId) {
-      dispatch(fetchGame(rawgService.getGame(gameId)));
-      dispatch(fetchScreenshots(rawgService.getGameScreenshots(gameId)));
+      dispatch(fetchGame(getGame(gameId)));
+      dispatch(fetchScreenshots(getGameScreenshots(gameId)));
     }
 
     // rawgService
@@ -94,20 +94,19 @@ function GamePage() {
 
   function loadSection(tabIndex: number) {
     if (tabIndex === 1 && achievements.length === 0 && gameId) {
-      dispatch(fetchAchievements(rawgService.getGameAchievements(gameId)));
+      dispatch(fetchAchievements(getGameAchievements(gameId)));
     } else if (tabIndex === 2 && additions.length === 0 && gameId) {
       dispatch(additionsReset());
-      dispatch(fetchAdditions(rawgService.getGameAdditions(gameId)));
+      dispatch(fetchAdditions(getGameAdditions(gameId)));
     } else if (tabIndex === 3 && currentGame && gameId) {
       dispatch(gameSeriesReset());
-      dispatch(fetchGameSeries(rawgService.getListOfGamesSeries(gameId)));
+      dispatch(fetchGameSeries(getListOfGamesSeries(gameId)));
     }
   }
 
   function loadMoreAchievements() {
     if (nextAchievementsPage) {
-      rawgService
-        .getData(nextAchievementsPage)
+      getData(nextAchievementsPage)
         .then((achievementsData) => {
           dispatch(nextAchievements(achievementsData.next));
           dispatch(achievementsFetched(achievementsData.results));
@@ -183,7 +182,7 @@ function GamePage() {
 
               <p className="bg-zinc-800 p-10 rounded-lg max-w-xl">{currentGame.description_raw}</p>
             </div>
-
+            {console.log(achievements)}
             <Tabs variant="solid-rounded" onChange={(tabIndex) => loadSection(tabIndex)}>
               <TabList>
                 <Tab _selected={{ color: 'white', bg: 'purple.600' }}>Game Info </Tab>
@@ -196,18 +195,22 @@ function GamePage() {
                   <GameInfo currentGame={currentGame} />
                 </TabPanel>
                 <TabPanel>
-                  <AchievementsList
-                    achievements={achievements}
-                    achievementsAmount={achievementsAmount}
-                    nextAchievementsPage={nextAchievementsPage}
-                    loadMoreAchievements={loadMoreAchievements}
-                  />
+                  {nextAchievementsPage ? (
+                    <AchievementsList
+                      achievements={achievements}
+                      achievementsAmount={achievementsAmount}
+                      nextAchievementsPage={nextAchievementsPage}
+                      loadMoreAchievements={loadMoreAchievements}
+                    />
+                  ) : null}
                 </TabPanel>
                 <TabPanel>
                   <AdditionsList additions={additions} />
                 </TabPanel>
                 <TabPanel>
-                  <GameSeries gamesOfSeries={gamesOfSeries} countGamesOfSeries={countGamesOfSeries} />
+                  {countGamesOfSeries ? (
+                    <GameSeries gamesOfSeries={gamesOfSeries} countGamesOfSeries={countGamesOfSeries} />
+                  ) : null}
                 </TabPanel>
               </TabPanels>
             </Tabs>

@@ -1,67 +1,69 @@
 /* eslint-disable class-methods-use-this */
 /* eslint-disable react/no-unused-class-component-methods */
-import { Component } from 'react';
 
-class RAWG extends Component {
-  apiKey = '9c6f34d35ac04b2bbe700fdadfb26801';
+function RAWG() {
+  const apiKey = '9c6f34d35ac04b2bbe700fdadfb26801';
 
-  getGameList(genre = '') {
+  function getGameList(genre: string | '' = '') {
     let res;
     if (genre) {
-      res = `https://api.rawg.io/api/games?key=${this.apiKey}&genres=${genre}`;
+      res = `https://api.rawg.io/api/games?key=${apiKey}&genres=${genre}`;
     } else {
-      res = `https://api.rawg.io/api/games?key=${this.apiKey}`;
+      res = `https://api.rawg.io/api/games?key=${apiKey}`;
     }
     return res;
   }
 
-  getGame(id: string) {
-    const res = `https://api.rawg.io/api/games/${id}?key=${this.apiKey}`;
-    return res;
+  function getGame(id: string) {
+    return `https://api.rawg.io/api/games/${id}?key=${apiKey}`;
   }
 
-  getGameAchievements(gameId: string) {
-    const res = `https://api.rawg.io/api/games/${gameId}/achievements?key=${this.apiKey}`;
-    return res;
+  function getGameAchievements(gameId: string) {
+    return `https://api.rawg.io/api/games/${gameId}/achievements?key=${apiKey}`;
   }
 
-  getGameAdditions(gameId: string) {
-    return `https://api.rawg.io/api/games/${gameId}/additions?key=${this.apiKey}`;
+  function getGameAdditions(gameId: string) {
+    return `https://api.rawg.io/api/games/${gameId}/additions?key=${apiKey}`;
   }
 
-  getListOfGamesSeries(id: string) {
-    const res = `https://api.rawg.io/api/games/${id}/game-series?key=${this.apiKey}`;
-    return res;
+  function getListOfGamesSeries(id: string) {
+    return `https://api.rawg.io/api/games/${id}/game-series?key=${apiKey}`;
   }
 
-  async getGameTrailers(id: string) {
-    const res = await fetch(`https://api.rawg.io/api/games/${id}/movies?key=${this.apiKey}`);
-    const data = await res.json();
-    return data;
+  function getGameTrailers(id: string) {
+    return `https://api.rawg.io/api/games/${id}/movies?key=${apiKey}`;
   }
 
-  getGameScreenshots(id: string) {
-    const res = `https://api.rawg.io/api/games/${id}/screenshots?key=${this.apiKey}`;
-    return res;
+  function getGameScreenshots(id: string) {
+    return `https://api.rawg.io/api/games/${id}/screenshots?key=${apiKey}`;
   }
 
-  getGenres() {
-    const res = `https://api.rawg.io/api/genres?key=${this.apiKey}`;
-    return res;
+  function getGenres() {
+    return `https://api.rawg.io/api/genres?key=${apiKey}`;
   }
 
-  getGenreDetail(genreId: string) {
-    const res = `https://api.rawg.io/api/genres/${genreId}?key=${this.apiKey}`;
-    return res;
+  function getGenreDetail(genreId: string | number) {
+    return `https://api.rawg.io/api/genres/${genreId}?key=${apiKey}`;
   }
 
-  async getData(url: string) {
+  async function getData(url: string) {
     const res = await fetch(url);
     const data = await res.json();
     return data;
   }
 
-  // https://api.rawg.io/api/games?key=9c6f34d35ac04b2bbe700fdadfb26801&search=witcher-3
+  return {
+    getGameList,
+    getGame,
+    getGameAchievements,
+    getGameAdditions,
+    getListOfGamesSeries,
+    getGameTrailers,
+    getGameScreenshots,
+    getGenres,
+    getGenreDetail,
+    getData
+  };
 }
 
 export default RAWG;

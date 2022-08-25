@@ -12,7 +12,6 @@ function Page404() {
         x="0px"
         y="0px"
         viewBox="0 0 200 82.7"
-        style={{ enableBackground: 'new 0 0 200 82.7' }}
         xmlSpace="preserve"
       >
         <g id="Calque_1">

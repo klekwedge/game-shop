@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
 import cn from 'classnames';
 import { v4 as uuidv4 } from 'uuid';
@@ -34,9 +33,9 @@ function AchievementsList({
                 <Box className="wrap" w="100%" h="100%" mb="20px">
                   <div
                     className={cn('AchievementIconWrapper', {
-                      LegendaryAchievement: achievementItem.percent <= 5,
-                      EpicAchievement: achievementItem.percent <= 10 && achievementItem.percent > 5,
-                      RareAchievement: achievementItem.percent > 10 && achievementItem.percent <= 15,
+                      LegendaryAchievement: +achievementItem.percent <= 5,
+                      EpicAchievement: +achievementItem.percent <= 10 && +achievementItem.percent > 5,
+                      RareAchievement: +achievementItem.percent > 10 && +achievementItem.percent <= 15,
                     })}
                   >
                     {+achievementItem.percent < 20 ? (
@@ -69,9 +68,9 @@ function AchievementsList({
                       fontWeight="400"
                       fontSize="16px"
                       className={cn('AchievementIconWrapper', {
-                        LegendaryAchievementColor: achievementItem.percent <= 5,
-                        EpicAchievementColor: achievementItem.percent <= 10 && achievementItem.percent > 5,
-                        RareAchievementColor: achievementItem.percent > 10 && achievementItem.percent <= 15,
+                        LegendaryAchievementColor: +achievementItem.percent <= 5,
+                        EpicAchievementColor: +achievementItem.percent <= 10 && +achievementItem.percent > 5,
+                        RareAchievementColor: +achievementItem.percent > 10 && +achievementItem.percent <= 15,
                       })}
                     >
                       {achievementItem.percent}%

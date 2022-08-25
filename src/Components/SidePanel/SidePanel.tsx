@@ -17,7 +17,7 @@ import {
 } from 'react-icons/gi';
 import { useAppSelector, useAppDispatch } from '../../hooks/hook';
 import RAWG from '../../services/RAWG';
-import { fetchGenres } from '../../slices/genresSlice';
+import { fetchGenres } from '../../slices/genresSlice/genresSlice';
 import { ISidePanel } from './SidePanel.types';
 
 function SidePanel() {
@@ -29,7 +29,7 @@ function SidePanel() {
     hidden: { opacity: 0, x: -100 },
   };
 
-  const rawgService = new RAWG();
+  const { getGenres } = RAWG();
 
   const { genres } = useAppSelector((state) => state.genres);
 
@@ -57,7 +57,7 @@ function SidePanel() {
 
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(fetchGenres(rawgService.getGenres()));
+    dispatch(fetchGenres(getGenres()));
   }, []);
 
   return (
@@ -67,7 +67,7 @@ function SidePanel() {
         <li className="cursor-pointer">
           <NavLink
             to="/"
-            style={({ isActive }) => (isActive ? { color: '#6d28d9' } : undefined)}
+            style={({ isActive }) => (isActive ? { color: '#6d28d9' } : { color: 'white' })}
             className="flex items-center gap-3"
           >
             Popular games
@@ -90,7 +90,7 @@ function SidePanel() {
                 >
                   <NavLink
                     to={`/games/${genre.slug}`}
-                    style={({ isActive }) => (isActive ? { color: '#6d28d9' } : undefined)}
+                    style={({ isActive }) => (isActive ? { color: '#6d28d9' } : { color: 'white' })}
                     className="flex items-center gap-3"
                   >
                     <Flex alignItems="center" justifyContent="center" bg="#27272a" p="5px">

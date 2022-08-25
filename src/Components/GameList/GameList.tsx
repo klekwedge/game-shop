@@ -7,8 +7,8 @@ import { v4 as uuidv4 } from 'uuid';
 import { Flex, Button, Skeleton, Heading, List, ListItem, Image } from '@chakra-ui/react';
 import { AiOutlinePlusCircle } from 'react-icons/ai';
 import RAWG from '../../services/RAWG';
-import { fetchCurrentGenre } from '../../slices/genresSlice';
-import { fetchGames, resetGames } from '../../slices/gamesSlice';
+import { fetchCurrentGenre } from '../../slices/genresSlice/genresSlice';
+import { fetchGames, resetGames } from '../../slices/gamesSlice/gamesSlice';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import { useAppDispatch, useAppSelector } from '../../hooks/hook';
 import { GameListProps, Game } from './GameList.props';
@@ -21,7 +21,7 @@ function GameList({ genreName, mainTitle, descr }: GameListProps): JSX.Element {
   const { games, nextPage, gamesLoadingStatus } = useAppSelector((state) => state.games);
 
   const dispatch = useAppDispatch();
-  const rawgService = new RAWG();
+  const { getGameList, getGenreDetail} = RAWG();
 
   const handleOnLoad = () => {
     setLoadingImage(false);
@@ -30,9 +30,9 @@ function GameList({ genreName, mainTitle, descr }: GameListProps): JSX.Element {
   useEffect(() => {
     dispatch(resetGames());
     if (genreName) {
-      dispatch(fetchGames(rawgService.getGameList(genreName)));
+      dispatch(fetchGames(getGameList(genreName)));
     } else {
-      dispatch(fetchGames(rawgService.getGameList()));
+      dispatch(fetchGames(getGameList()));
     }
   }, [genreName]);
 
@@ -40,7 +40,7 @@ function GameList({ genreName, mainTitle, descr }: GameListProps): JSX.Element {
     if (genres.length > 0 && genre) {
       const desiredGenre = genres.find((genreItem: IGenre) => genreItem.slug === genre);
       if (desiredGenre) {
-        dispatch(fetchCurrentGenre(rawgService.getGenreDetail(desiredGenre.id)));
+        dispatch(fetchCurrentGenre(getGenreDetail(desiredGenre.id)));
       }
     }
   }, [genreName, genres]);

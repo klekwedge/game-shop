@@ -1,28 +1,15 @@
 /* eslint-disable no-param-reassign */
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { IGame } from '../Components/pages/GamePage/GamePage.types';
-import useHttp from '../hooks/http.hook';
-
-type CurrentGameState = {
-  currentGame: null | IGame,
-  currentGameLoadingStatus: string,
-  screenshots: [],
-  screenshotsLoadingStatus: string,
-  achievements: [],
-  achievementsLoadingStatus: string,
-  nextAchievementsPage: null | string,
-  achievementsAmount: number,
-  additions: [],
-  gamesOfSeries: [],
-  gamesOfSeriesLoadingStatus: string,
-  countGamesOfSeries: null | number
-};
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import useHttp from '../../hooks/http.hook';
+import { CurrentGameState, IAchievementResponse } from './currentGameSlice.types';
 
 const initialState: CurrentGameState = {
   currentGame: null,
   currentGameLoadingStatus: 'idle',
   screenshots: [],
   screenshotsLoadingStatus: 'idle',
+  trailers: [],
+  trailersLoadingStatus: 'idle',
   achievements: [],
   achievementsLoadingStatus: 'idle',
   nextAchievementsPage: null,
@@ -38,7 +25,12 @@ export const fetchGame = createAsyncThunk('currentGame/fetchGame', (url: string)
   return request(url);
 });
 
-export const fetchScreenshots = createAsyncThunk('screenshots/fetchScreenshots', (url: string) => {
+export const fetchScreenshots = createAsyncThunk('currentGame/fetchScreenshots', (url: string) => {
+  const { request } = useHttp();
+  return request(url);
+});
+
+export const fetchTrailes = createAsyncThunk('currentGame/fetchTrailes', (url: string) => {
   const { request } = useHttp();
   return request(url);
 });
@@ -57,6 +49,7 @@ export const fetchGameSeries = createAsyncThunk('currentGame/fetchGameSeries', (
   const { request } = useHttp();
   return request(url);
 });
+
 
 const currentGameSlice = createSlice({
   name: 'currentGame',
@@ -111,10 +104,20 @@ const currentGameSlice = createSlice({
       .addCase(fetchScreenshots.rejected, (state) => {
         state.screenshotsLoadingStatus = 'error';
       })
+      .addCase(fetchTrailes.pending, (state) => {
+        state.trailersLoadingStatus = 'loading';
+      })
+      .addCase(fetchTrailes.fulfilled, (state, action) => {
+        state.trailersLoadingStatus = 'idle';
+      state.trailers = action.payload.results;
+      })
+      .addCase(fetchTrailes.rejected, (state) => {
+        state.trailersLoadingStatus = 'error';
+      })
       .addCase(fetchAchievements.pending, (state) => {
         state.achievementsLoadingStatus = 'loading';
       })
-      .addCase(fetchAchievements.fulfilled, (state, action) => {
+      .addCase(fetchAchievements.fulfilled, (state, action: PayloadAction<IAchievementResponse>) => {
         state.achievementsLoadingStatus = 'idle';
         state.achievements.push(...action.payload.results);
         state.nextAchievementsPage = action.payload.next;
