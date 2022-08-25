@@ -30,24 +30,21 @@ import {
   additionsReset,
 } from '../../../slices/currentGameSlice';
 import RAWG from '../../../services/RAWG';
-
 import { fetchScreenshots } from '../../../slices/screenshotsSlice';
-
-// import { trailersFetched, trailersFetchingError } from '../../slices/trailersSlice';
 import Spinner from '../../Spinner/Spinner';
-
-import './GamePage.scss';
 import AdditionsList from '../../AdditionsList/AdditionsList';
 import AchievementsList from '../../AchievementsList/AchievementsList';
 import GameSeries from '../../GameSeries/GameSeries';
 import GameInfo from '../../GameInfo/GameInfo';
 import ErrorMessage from '../../ErrorMessage/ErrorMessage';
+import './GamePage.scss';
+import { IScreenshot, IPlatformItem, IGame } from './GamePage.types';
 
 function GamePage() {
   const { gameId } = useParams();
   const rawgService = new RAWG();
 
-  function choosePlatformIcon(platformName) {
+  function choosePlatformIcon(platformName: string) {
     switch (platformName) {
       case 'PlayStation 3':
         return <SiPlaystation3 size="23" title={platformName} />;
@@ -82,7 +79,6 @@ function GamePage() {
   } = useSelector((state) => state.currentGame);
   const { screenshots } = useSelector((state) => state.screenshots);
   const { movies } = useSelector((state) => state.movies);
-
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -96,7 +92,7 @@ function GamePage() {
     //   .catch(() => dispatch(trailersFetchingError()));
   }, [gameId]);
 
-  function loadSection(tabIndex) {
+  function loadSection(tabIndex: number) {
     if (tabIndex === 1 && achievements.length === 0) {
       dispatch(fetchAchievements(rawgService.getGameAchievements(gameId)));
     } else if (tabIndex === 2 && additions.length === 0) {
@@ -145,8 +141,10 @@ function GamePage() {
               <Box alignSelf="flex-end" display="flex" gap="15px" flexDirection="column" alignItems="flex-end">
                 <h1 className="text-5xl mb-4 text-right">{currentGame.name}</h1>
                 <Box display="inline-flex" gap="20px" alignItems="center" justifyContent="flex-end">
-                  {currentGame.platforms.map((platformItem) => (
-                    <h3 key={platformItem.platform.id}>{choosePlatformIcon(platformItem.platform.name)}</h3>
+                  {currentGame.platforms.map((platformItem: IPlatformItem) => (
+                    <h3 key={platformItem.platform.id}>
+                      {choosePlatformIcon(platformItem.platform.name)}
+                    </h3>
                   ))}
                 </Box>
               </Box>
@@ -164,15 +162,15 @@ function GamePage() {
                 <SwiperSlide>
                   <Image src={currentGame.background_image} alt={currentGame.background_image} />
                 </SwiperSlide>
-                {screenshots && screenshots.results.length > 0
-                  ? screenshots.results.map((screenshot) => (
+                {screenshots.length > 0
+                  ? screenshots.map((screenshot: IScreenshot) => (
                       <SwiperSlide key={screenshot.id}>
                         <Image src={screenshot.image} alt={`Screenshot from ${currentGame.name}`} />
                       </SwiperSlide>
                     ))
                   : null}
 
-                {movies && movies.results.length > 0
+                {/* {movies && movies.results.length > 0
                   ? movies.results.map((movie) => (
                       <SwiperSlide key={movie.id}>
                         <video controls poster={movie.preview}>
@@ -180,7 +178,7 @@ function GamePage() {
                         </video>
                       </SwiperSlide>
                     ))
-                  : null}
+                  : null} */}
               </Swiper>
 
               <p className="bg-zinc-800 p-10 rounded-lg max-w-xl">{currentGame.description_raw}</p>

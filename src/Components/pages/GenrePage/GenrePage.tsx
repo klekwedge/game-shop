@@ -2,12 +2,12 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import { useParams } from 'react-router-dom';
 import { Flex } from '@chakra-ui/react';
-import SidePanel from '../SidePanel/SidePanel';
-import GameList from '../GameList/GameList';
+import SidePanel from '../../SidePanel/SidePanel';
+import GameList from '../../GameList/GameList';
 
 function GenrePage() {
   const { genre } = useParams();
-
+  console.log(genre);
   return (
     <>
       <Helmet>

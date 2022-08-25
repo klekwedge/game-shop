@@ -4,11 +4,11 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Header from '../Header/Header';
 import Spinner from '../Spinner/Spinner';
 
-const MainPage = lazy(() => import('../pages/MainPage'));
+const MainPage = lazy(() => import('../pages/MainPage/MainPage'));
 const GamePage = lazy(() => import('../pages/GamePage/GamePage'));
 const Page404 = lazy(() => import('../pages/Page404/Page404'));
-const GenrePage = lazy(() => import('../pages/GenrePage'));
-const GenresPage = lazy(() => import('../pages/GenresPage'));
+const GenrePage = lazy(() => import('../pages/GenrePage/GenrePage'));
+const GenresPage = lazy(() => import('../pages/GenresPage/GenresPage'));
 
 function App() {
   return (

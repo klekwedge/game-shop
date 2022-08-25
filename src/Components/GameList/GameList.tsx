@@ -36,8 +36,8 @@ function GameList({ genreName, mainTitle, descr }: GameListProps):JSX.Element {
   }, [genreName]);
 
   useEffect(() => {
-    if (genres && genre) {
-      const desiredGenre = genres.results.find((genreItem) => genreItem.slug === genre);
+    if (genres.length > 0 && genre) {
+      const desiredGenre = genres.find((genreItem) => genreItem.slug === genre);
       dispatch(fetchCurrentGenre(rawgService.getGenreDetail(desiredGenre.id)));
     }
   }, [genreName, genres]);

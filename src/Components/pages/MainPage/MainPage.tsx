@@ -1,8 +1,8 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Flex } from '@chakra-ui/react';
-import SidePanel from '../SidePanel/SidePanel';
-import GameList from '../GameList/GameList';
+import SidePanel from '../../SidePanel/SidePanel';
+import GameList from '../../GameList/GameList';
 
 function MainPage() {
   return (

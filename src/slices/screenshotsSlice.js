@@ -3,7 +3,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import useHttp from '../hooks/http.hook';
 
 const initialState = {
-  screenshots: null,
+  screenshots: [],
   screenshotsLoadingStatus: 'idle',
 };
 
@@ -24,7 +24,7 @@ const screenshotsSlice = createSlice({
       })
       .addCase(fetchScreenshots.fulfilled, (state, action) => {
         state.screenshotsLoadingStatus = 'idle';
-        state.screenshots = action.payload;
+        state.screenshots = action.payload.results;
       })
       .addCase(fetchScreenshots.rejected, (state) => {
         state.screenshotsLoadingStatus = 'error';

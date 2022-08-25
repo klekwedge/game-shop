@@ -6,7 +6,8 @@ import { Link } from 'react-router-dom';
 import {
   Flex, Heading, List, ListItem, Image,
 } from '@chakra-ui/react';
-import SidePanel from '../SidePanel/SidePanel';
+import SidePanel from '../../SidePanel/SidePanel';
+import { GenreInfo } from './GenresPage.types';
 
 function GenresPage() {
   const { genres } = useSelector((state) => state.genres);
@@ -21,8 +22,8 @@ function GenresPage() {
       <Flex as="main" p="20px 20px">
         <SidePanel />
         <List display="flex" flexWrap="wrap" gap="20px 20px">
-          {genres && genres.results.length > 0
-            ? genres.results.map((genreItem) => (
+          {genres.length > 0
+            ? genres.map((genreItem: GenreInfo) => (
               <ListItem
                 display="flex"
                 flexDirection="column"
@@ -31,6 +32,7 @@ function GenresPage() {
                 bg="#3f3f46"
                 borderRadius="10px"
               >
+                {/* {console.log(genreItem)} */}
                 <Image
                   src={genreItem.image_background}
                   alt={genreItem.name}
