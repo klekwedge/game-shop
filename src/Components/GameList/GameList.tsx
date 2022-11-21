@@ -5,7 +5,6 @@ import React, { useEffect, useState } from 'react';
 import { Link, useParams, useLocation } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import { Flex, Button, Skeleton, Heading, List, ListItem, Image } from '@chakra-ui/react';
-import { AiOutlinePlusCircle } from 'react-icons/ai';
 import RAWG from '../../services/RAWG';
 import { fetchCurrentGenre } from '../../slices/genresSlice/genresSlice';
 import { fetchGames, resetGames } from '../../slices/gamesSlice/gamesSlice';
@@ -75,17 +74,17 @@ function GameList({ genreName, mainTitle, descr }: GameListProps): JSX.Element {
     return null;
   }
 
-  function getSumNumber(num: number) {
-    let sum = 0;
-    let tmp;
-    while (num) {
-      tmp = num % 10;
-      // eslint-disable-next-line no-param-reassign
-      num = (num - tmp) / 10;
-      sum += tmp;
-    }
-    return sum;
-  }
+  // function getSumNumber(num: number) {
+  //   let sum = 0;
+  //   let tmp;
+  //   while (num) {
+  //     tmp = num % 10;
+  //     // eslint-disable-next-line no-param-reassign
+  //     num = (num - tmp) / 10;
+  //     sum += tmp;
+  //   }
+  //   return sum;
+  // }
 
   return (
     <section>
@@ -131,7 +130,7 @@ function GameList({ genreName, mainTitle, descr }: GameListProps): JSX.Element {
                       mb="5px"
                       alignSelf="flex-start"
                     >
-                      <Heading
+                      {/* <Heading
                         as="h4"
                         fontWeight="400"
                         fontSize="14px"
@@ -149,7 +148,7 @@ function GameList({ genreName, mainTitle, descr }: GameListProps): JSX.Element {
                       </Heading>
                       <Heading as="h4" fontWeight="400" fontSize="14px" textAlign="left" color="#d4d4d4">
                         ${getSumNumber(game.id)}
-                      </Heading>
+                      </Heading> */}
                     </Flex>
 
                     <Heading

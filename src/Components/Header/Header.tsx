@@ -2,31 +2,23 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable react/no-children-prop */
-import React, { useState, createRef } from 'react';
+import React, { useState } from 'react';
 import {
-  Drawer,
-  DrawerBody,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerOverlay,
-  DrawerContent,
   Flex,
-  Button,
   Heading,
-  useDisclosure,
   Input,
   InputGroup,
   InputLeftElement,
 } from '@chakra-ui/react';
-import { AiOutlineSearch, AiOutlineShopping } from 'react-icons/ai';
+import { AiOutlineSearch } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks/hook';
 import { fetchGames, resetGames } from '../../slices/gamesSlice/gamesSlice';
 
 function Header() {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  // const { isOpen, onOpen, onClose } = useDisclosure();
   const [inputValue, setInputValue] = useState('');
-  const btnRef = createRef<HTMLDivElement>();
+  // const btnRef = createRef<HTMLDivElement>();
   const dispatch = useAppDispatch();
 
   function searchGame() {
@@ -86,13 +78,13 @@ function Header() {
           </InputGroup>
 
           <a href="https://rawg.io/">Rawg</a>
-          <div ref={btnRef} onClick={onOpen} className="flex items-center gap-2 cursor-pointer">
+          {/* <div ref={btnRef} onClick={onOpen} className="flex items-center gap-2 cursor-pointer">
             <AiOutlineShopping color="white" size="30" className="w-8" />
             <h2 className="font-medium text-lg">Cart: 0</h2>
-          </div>
+          </div> */}
         </Flex>
       </div>
-      <Drawer isOpen={isOpen} placement="right" onClose={onClose} finalFocusRef={btnRef}>
+      {/* <Drawer isOpen={isOpen} placement="right" onClose={onClose} finalFocusRef={btnRef}>
         <DrawerOverlay />
         <DrawerContent backgroundColor="#1A1A1A">
           <DrawerHeader display="flex" alignItems="flex-end" justifyContent="space-between">
@@ -115,7 +107,7 @@ function Header() {
             </Button>
           </DrawerFooter>
         </DrawerContent>
-      </Drawer>
+      </Drawer> */}
     </header>
   );
 }
