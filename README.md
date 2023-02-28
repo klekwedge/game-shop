@@ -30,7 +30,7 @@ You can also read this README in [русский](https://github.com/klekwedge/g
 ### Links
 
 - [Solution URL](https://github.com/klekwedge/game-shop)
-- [Live Site URL](klekwedge-game-shop.vercel.app)
+- [Live Site URL](https://klekwedge-game-shop.vercel.app/)
 
 ## My process
 
