@@ -1,4 +1,4 @@
-# Todo
+# Game shop
 
 Вы также можете прочитать этот README на [английском](https://github.com/klekwedge/game-shop/blob/main/README.md)
 
