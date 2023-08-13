@@ -1,7 +1,3 @@
-/* eslint-disable react/jsx-no-bind */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable react/no-children-prop */
 import React, { useState } from 'react';
 import {
   Flex,
@@ -16,15 +12,19 @@ import { useAppDispatch } from '../../hooks/hook';
 import { fetchGames, resetGames } from '../../slices/gamesSlice/gamesSlice';
 
 function Header() {
-  // const { isOpen, onOpen, onClose } = useDisclosure();
   const [inputValue, setInputValue] = useState('');
-  // const btnRef = createRef<HTMLDivElement>();
   const dispatch = useAppDispatch();
 
   function searchGame() {
     if (inputValue) {
       dispatch(resetGames());
       dispatch(fetchGames(`https://api.rawg.io/api/games?key=9c6f34d35ac04b2bbe700fdadfb26801&search=${inputValue}`));
+    }
+  }
+
+  function keyDownHandler(e: React.KeyboardEvent) {
+    if (e.code === 'Enter') {
+      searchGame();
     }
   }
 
@@ -65,10 +65,9 @@ function Header() {
         </Flex>
         <Flex alignItems="center" gap="30px">
           <InputGroup>
-            <InputLeftElement
-              children={<AiOutlineSearch size="22" className="cursor-pointer" onClick={searchGame} />}
-            />
+            <InputLeftElement><AiOutlineSearch size="22" className="cursor-pointer" onClick={() => searchGame()} /></InputLeftElement>
             <Input
+            onKeyDown={(e) => keyDownHandler(e)}
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               placeholder="Search game"
@@ -76,38 +75,9 @@ function Header() {
               minW="250px"
             />
           </InputGroup>
-
           <a href="https://rawg.io/">Rawg</a>
-          {/* <div ref={btnRef} onClick={onOpen} className="flex items-center gap-2 cursor-pointer">
-            <AiOutlineShopping color="white" size="30" className="w-8" />
-            <h2 className="font-medium text-lg">Cart: 0</h2>
-          </div> */}
         </Flex>
       </div>
-      {/* <Drawer isOpen={isOpen} placement="right" onClose={onClose} finalFocusRef={btnRef}>
-        <DrawerOverlay />
-        <DrawerContent backgroundColor="#1A1A1A">
-          <DrawerHeader display="flex" alignItems="flex-end" justifyContent="space-between">
-            <Heading as="h2" fontSize="20px" fontWeight="500">
-              Games...
-            </Heading>
-            <Button background="transparent" _hover={{ background: 'transparent' }}>
-              Clear
-            </Button>
-          </DrawerHeader>
-
-          <DrawerBody>Content</DrawerBody>
-
-          <DrawerFooter display="flex" justifyContent="space-between">
-            <Heading as="h2" fontSize="20px" fontWeight="500">
-              Total:
-            </Heading>
-            <Button colorScheme="blue" mr={3} onClick={onClose}>
-              Cancel
-            </Button>
-          </DrawerFooter>
-        </DrawerContent>
-      </Drawer> */}
     </header>
   );
 }
