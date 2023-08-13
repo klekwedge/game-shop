@@ -65,8 +65,11 @@ function SidePanel() {
 
   return (
     <Box flex="1 1 30%">
-      <Button colorScheme='teal' onClick={onOpen}>
-        Open
+      <Button  onClick={onOpen}
+      // background='black'
+
+      >
+        Choose genre
       </Button>
       <Drawer
         isOpen={isOpen}

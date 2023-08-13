@@ -102,7 +102,7 @@ function GameList({ genreName, mainTitle, descr }: GameListProps): JSX.Element {
                       alt={game.background_image}
                       objectFit="cover"
                       maxW="100%"
-                      // maxH="144px"
+                      maxH="160px"
                       w="100%"
                       h="100%"
                       mb="10px"
@@ -128,6 +128,7 @@ function GameList({ genreName, mainTitle, descr }: GameListProps): JSX.Element {
           <Button
             m="0 auto"
             bg="purple.600"
+            color='white'
             _hover={{ bg: 'purple.700' }}
             _active={{ bg: 'purple.500' }}
             onClick={() => loadMoreGames()}

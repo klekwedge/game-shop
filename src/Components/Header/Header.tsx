@@ -10,6 +10,7 @@ import { AiOutlineSearch } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks/hook';
 import { fetchGames, resetGames } from '../../slices/gamesSlice/gamesSlice';
+import SidePanel from '../SidePanel/SidePanel';
 
 function Header() {
   const [inputValue, setInputValue] = useState('');
@@ -31,8 +32,23 @@ function Header() {
   return (
     <header className="px-5 py-4 w-full">
       <div className="max-w-screen-2xl flex justify-between items-center">
-        <Flex gap="60px" alignItems="center">
-          <Heading as="h1">
+        <Flex alignItems="center" gap="30px">
+          <SidePanel />
+          <InputGroup>
+            <InputLeftElement><AiOutlineSearch size="22" className="cursor-pointer" onClick={() => searchGame()} /></InputLeftElement>
+            <Input
+              onKeyDown={(e) => keyDownHandler(e)}
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+              placeholder="Search game"
+              border="1px solid #553C9A"
+              minW="250px"
+            />
+          </InputGroup>
+        </Flex>
+        <Flex gap="20px" alignItems="center">
+        <a href="https://rawg.io/">Rawg</a>
+            <Heading as="h1">
             <Link
               to="/"
               className="flex gap-2 items-center fill-white hover:text-violet-700 hover:fill-violet-700 duration-300 font-semibold text-lg cursor-pointer"
@@ -62,20 +78,6 @@ function Header() {
               Game Shop
             </Link>
           </Heading>
-        </Flex>
-        <Flex alignItems="center" gap="30px">
-          <InputGroup>
-            <InputLeftElement><AiOutlineSearch size="22" className="cursor-pointer" onClick={() => searchGame()} /></InputLeftElement>
-            <Input
-            onKeyDown={(e) => keyDownHandler(e)}
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
-              placeholder="Search game"
-              border="1px solid #553C9A"
-              minW="250px"
-            />
-          </InputGroup>
-          <a href="https://rawg.io/">Rawg</a>
         </Flex>
       </div>
     </header>
