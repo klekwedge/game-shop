@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useEffect, useState } from 'react';
-import { Link, useParams, useLocation } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import { Flex, Button, Skeleton, Heading, List, ListItem, Image } from '@chakra-ui/react';
 import RAWG from '../../services/RAWG';
@@ -70,7 +70,10 @@ function GameList({ genreName, mainTitle }: GameListProps): JSX.Element {
       }
     }
 
-    return null
+    return {
+      __html: ''
+    }
+
   }
 
   return (
@@ -78,7 +81,10 @@ function GameList({ genreName, mainTitle }: GameListProps): JSX.Element {
       <Heading as="h2" fontSize="48px" textTransform="capitalize" mb="8px" fontWeight="700">
         {genre ? `${genre} games` : mainTitle}
       </Heading>
-      <Heading as="h3" fontSize="16px" mb="32px" dangerouslySetInnerHTML={defineDescription()} />
+      {
+        currentGenre && <Heading as="h3" fontSize="16px" mb="32px" dangerouslySetInnerHTML={defineDescription()} />
+
+      }
       {games.length > 0 ? (
         <Flex gap="70px" flexDirection="column">
           <AnimatePresence>
