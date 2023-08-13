@@ -19,7 +19,7 @@ function GameList({ genreName, mainTitle, descr }: GameListProps): JSX.Element {
   const { games, nextPage, gamesLoadingStatus } = useAppSelector((state) => state.games);
 
   const dispatch = useAppDispatch();
-  const { getGameList, getGenreDetail} = RAWG();
+  const { getGameList, getGenreDetail } = RAWG();
 
   const handleOnLoad = () => {
     setLoadingImage(false);
@@ -67,10 +67,14 @@ function GameList({ genreName, mainTitle, descr }: GameListProps): JSX.Element {
     if (useLocation().pathname === '/') {
       return descr;
     }
+
     if (currentGenre) {
-      return currentGenre.description;
+      return {
+        __html: currentGenre.description
+      }
     }
-    return null;
+
+    return null
   }
 
   return (
@@ -78,9 +82,7 @@ function GameList({ genreName, mainTitle, descr }: GameListProps): JSX.Element {
       <Heading as="h2" fontSize="48px" textTransform="capitalize" mb="8px" fontWeight="700">
         {genre ? `${genre} games` : mainTitle}
       </Heading>
-      <Heading as="h3" fontSize="16px" mb="32px">
-        {defineDescription()}
-      </Heading>
+      <Heading as="h3" fontSize="16px" mb="32px" dangerouslySetInnerHTML={defineDescription()} />
       {games.length > 0 ? (
         <Flex gap="70px" flexDirection="column">
           <AnimatePresence>
