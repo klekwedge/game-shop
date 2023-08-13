@@ -13,7 +13,7 @@ const GenresPage = lazy(() => import('../../pages/GenresPage/GenresPage'));
 function App() {
   return (
     <Router>
-      <Flex justifyContent='center' flexDir='column' m='0 auto' maxWidth="1400px" p="10px 20px">
+      <Flex justifyContent='center' flexDir='column' m='0 auto' maxWidth="1400px" p="20px">
         <Header />
         <Suspense fallback={<Spinner />}>
           <Routes>

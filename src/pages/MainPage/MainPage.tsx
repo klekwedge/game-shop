@@ -15,7 +15,6 @@ function MainPage() {
         justifyContent="space-between"
         alignItems="flex-start"
         gap="96px"
-        padding="20px 20px"
       >
         <GameList mainTitle="games" descr="Popular games" />
       </Flex>

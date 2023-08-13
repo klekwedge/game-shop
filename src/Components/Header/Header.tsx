@@ -30,8 +30,8 @@ function Header() {
   }
 
   return (
-    <header className="px-5 py-4 w-full">
-      <div className="max-w-screen-2xl flex justify-between items-center">
+    <header className="mb-5">
+      <Flex justifyContent='space-between' alignItems='center'>
         <Flex alignItems="center" gap="30px">
           <SidePanel />
           <InputGroup>
@@ -79,7 +79,7 @@ function Header() {
             </Link>
           </Heading>
         </Flex>
-      </div>
+      </Flex>
     </header>
   );
 }

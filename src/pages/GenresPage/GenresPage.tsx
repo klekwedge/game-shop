@@ -17,14 +17,14 @@ function GenresPage() {
         <title>All game genres - Game Shop</title>
       </Helmet>
 
-      <Flex as="main" p="20px 20px">
-        <List display="flex" flexWrap="wrap" gap="20px 20px">
+      <Flex as="main">
+        <List display="flex" flexWrap="wrap" gap="20px">
           {genres.length > 0
             ? genres.map((genreItem: IGenre) => (
               <ListItem
                 display="flex"
                 flexDirection="column"
-                flex="0 1 20%"
+                flex="1 1 20%"
                 key={uuidv4()}
                 bg="#3f3f46"
                 borderRadius="10px"

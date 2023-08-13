@@ -121,7 +121,7 @@ function GamePage() {
         <meta name="description" content={`${currentGame ? currentGame.name : 'Current Game'} - Game Shop`} />
         <title>{currentGame ? currentGame.name : 'Current Game'}- Game Shop</title>
       </Helmet>
-      <main className="max-w-screen-2xl mx-auto px-20 pt-3 pb-8">
+      <main>
         {currentGame ? (
           <>
             <div className="flex justify-between items-center mb-8">
@@ -141,7 +141,7 @@ function GamePage() {
               </Box>
             </div>
 
-            <div className="flex gap-10 items-center mb-20">
+            <div className="flex gap-10 mb-20">
               <Swiper
                 modules={[Navigation, Pagination, Scrollbar, A11y]}
                 allowTouchMove={false}
