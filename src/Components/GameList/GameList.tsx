@@ -11,7 +11,7 @@ import { fetchGames, resetGames } from '../../slices/gamesSlice/gamesSlice';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import { useAppDispatch, useAppSelector } from '../../hooks/hook';
 import { GameListProps } from './GameList.props';
-import { IGenre } from '../pages/GenresPage/GenresPage.types';
+import { IGenre } from '../../pages/GenresPage/GenresPage.types';
 
 function GameList({ genreName, mainTitle, descr }: GameListProps): JSX.Element {
   const [loadingImage, setLoadingImage] = useState(true);

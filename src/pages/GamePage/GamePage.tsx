@@ -5,8 +5,8 @@ import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { Tabs, TabList, TabPanels, Tab, TabPanel, Box, Image } from '@chakra-ui/react';
 import { Link, useParams } from 'react-router-dom';
-// import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
-// import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -26,15 +26,15 @@ import {
   fetchGameSeries,
   gameSeriesReset,
   additionsReset,
-} from '../../../slices/currentGameSlice/currentGameSlice';
-import RAWG from '../../../services/RAWG';
-import Spinner from '../../Spinner/Spinner';
-import AdditionsList from '../../AdditionsList/AdditionsList';
-import AchievementsList from '../../AchievementsList/AchievementsList';
-import GameSeries from '../../GameSeries/GameSeries';
-import GameInfo from '../../GameInfo/GameInfo';
-import ErrorMessage from '../../ErrorMessage/ErrorMessage';
-import { useAppSelector, useAppDispatch } from '../../../hooks/hook';
+} from '../../slices/currentGameSlice/currentGameSlice';
+import RAWG from '../../services/RAWG';
+import Spinner from '../../components/Spinner/Spinner';
+import AdditionsList from '../../components/AdditionsList/AdditionsList';
+import AchievementsList from '../../components/AchievementsList/AchievementsList';
+import GameSeries from '../../components/GameSeries/GameSeries';
+import GameInfo from '../../components/GameInfo/GameInfo';
+import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
+import { useAppSelector, useAppDispatch } from '../../hooks/hook';
 import './GamePage.scss';
 import { IScreenshot } from './GamePage.types';
 
@@ -150,7 +150,7 @@ function GamePage() {
             </div>
 
             <div className="flex gap-10 items-center mb-20">
-              {/* <Swiper
+              <Swiper
                 modules={[Navigation, Pagination, Scrollbar, A11y]}
                 allowTouchMove={false}
                 navigation
@@ -178,7 +178,7 @@ function GamePage() {
                       </SwiperSlide>
                     ))
                   : null} */}
-              {/* </Swiper> */}
+              </Swiper>
 
               <p className="bg-zinc-800 p-10 rounded-lg max-w-xl">{currentGame.description_raw}</p>
             </div>

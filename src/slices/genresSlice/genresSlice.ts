@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import useHttp from '../../hooks/http.hook';
-import { IGenre } from '../../Components/pages/GenresPage/GenresPage.types';
+import { IGenre } from '../../pages/GenresPage/GenresPage.types';
 
 type GenresState = {
   genres: IGenre[],

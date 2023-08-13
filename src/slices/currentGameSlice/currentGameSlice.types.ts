@@ -1,4 +1,4 @@
-import { IGame } from '../../Components/pages/GamePage/GamePage.types';
+import { IGame } from '../../pages/GamePage/GamePage.types';
 
 export type CurrentGameState = {
   currentGame: null | IGame,

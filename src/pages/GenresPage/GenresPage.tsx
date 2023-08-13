@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom';
 import {
   Flex, Heading, List, ListItem, Image,
 } from '@chakra-ui/react';
-import { useAppSelector } from '../../../hooks/hook';
-import SidePanel from '../../SidePanel/SidePanel';
+import { useAppSelector } from '../../hooks/hook';
+import SidePanel from '../../components/SidePanel/SidePanel';
 import { IGenre } from './GenresPage.types';
 
 function GenresPage() {

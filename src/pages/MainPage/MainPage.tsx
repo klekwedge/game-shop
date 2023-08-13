@@ -1,21 +1,15 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import { useParams } from 'react-router-dom';
 import { Flex } from '@chakra-ui/react';
-import SidePanel from '../../SidePanel/SidePanel';
-import GameList from '../../GameList/GameList';
+import SidePanel from '../../components/SidePanel/SidePanel';
+import GameList from '../../components/GameList/GameList';
 
-function GenrePage() {
-  const { genre } = useParams();
+function MainPage() {
   return (
     <>
       <Helmet>
-        <meta name="description" content=" - Game Shop" />
-        <title>
-          {genre}
-          {' '}
-          - Game Shop
-        </title>
+        <meta name="description" content="Game Shop" />
+        <title>Game Shop</title>
       </Helmet>
       <Flex
         as="main"
@@ -27,10 +21,10 @@ function GenrePage() {
         padding="20px 20px"
       >
         <SidePanel />
-        <GameList genreName={genre} />
+        <GameList mainTitle="games" descr="Popular games" />
       </Flex>
     </>
   );
 }
 
-export default GenrePage;
+export default MainPage;
