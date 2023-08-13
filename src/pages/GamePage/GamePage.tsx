@@ -1,6 +1,3 @@
-/* eslint-disable import/no-unresolved */
-/* eslint-disable jsx-a11y/media-has-caption */
-/* eslint-disable react/jsx-no-bind */
 import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { Tabs, TabList, TabPanels, Tab, TabPanel, Box, Image } from '@chakra-ui/react';
@@ -199,7 +196,7 @@ function GamePage() {
                       achievements={achievements}
                       achievementsAmount={achievementsAmount}
                       nextAchievementsPage={nextAchievementsPage}
-                      loadMoreAchievements={loadMoreAchievements}
+                      loadMoreAchievements={() => loadMoreAchievements()}
                     />
                   ) : null}
                 </TabPanel>
