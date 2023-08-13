@@ -16,7 +16,7 @@ function MainPage() {
         alignItems="flex-start"
         gap="96px"
       >
-        <GameList mainTitle="games" descr="Popular games" />
+        <GameList mainTitle="games" />
       </Flex>
     </>
   );

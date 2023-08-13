@@ -12,7 +12,7 @@ import { GameListProps } from './GameList.props';
 import { IGenre } from '../../pages/GenresPage/GenresPage.types';
 import './GameList.scss'
 
-function GameList({ genreName, mainTitle, descr }: GameListProps): JSX.Element {
+function GameList({ genreName, mainTitle }: GameListProps): JSX.Element {
   const [loadingImage, setLoadingImage] = useState(true);
   const { genre } = useParams();
   const { currentGenre, genres } = useAppSelector((state) => state.genres);
@@ -64,10 +64,6 @@ function GameList({ genreName, mainTitle, descr }: GameListProps): JSX.Element {
   }
 
   function defineDescription() {
-    if (useLocation().pathname === '/') {
-      return descr;
-    }
-
     if (currentGenre) {
       return {
         __html: currentGenre.description

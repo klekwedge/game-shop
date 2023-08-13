@@ -36,7 +36,6 @@ function GenresPage() {
                   h="100%"
                   w="100%"
                   maxH="175px"
-                  maxW="280px"
                 />
                 <Heading as="h2" p="10px" fontWeight="500" fontSize="20px" textAlign="center">
                   <Link to={`/games/${genreItem.slug}`}>{genreItem.name}</Link>
