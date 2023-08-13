@@ -45,7 +45,7 @@ function GameSeries({ gamesOfSeries, countGamesOfSeries }: GameSeriesProps): JSX
                   fontSize="20px"
                   textAlign="center"
                   alignSelf="center"
-                  padding="0px 10px 5px 10px"
+                  padding="5px 10px 5px 10px"
                   transition="all 0.3s ease"
                   _hover={{ color: '#d4d4d4' }}
                 >

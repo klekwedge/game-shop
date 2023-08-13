@@ -45,9 +45,9 @@ function GameList({ genreName, mainTitle, descr }: GameListProps): JSX.Element {
 
   if (gamesLoadingStatus === 'loading' && games.length === 0) {
     return (
-      <Flex gap="20px" flexWrap="wrap" minWidth="1000px">
-        {[...Array(16).keys()].map(() => (
-          <Skeleton key={uuidv4()} width="220px" height="135px" borderRadius="10px" />
+      <Flex gap="20px" flexWrap="wrap">
+        {[...Array(20).keys()].map(() => (
+          <Skeleton key={uuidv4()} width="256px" h='200px' flex='1 1 20%' borderRadius="10px" />
         ))}
       </Flex>
     );
