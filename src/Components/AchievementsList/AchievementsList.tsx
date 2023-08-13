@@ -27,41 +27,34 @@ function AchievementsList({
                 display="flex"
                 flexDirection="column"
                 bg="#202020"
-                className={cn('AchievementIconWrapper', {
+                className={cn({
                   LegendaryAchievement: +achievementItem.percent <= 5,
                   EpicAchievement: +achievementItem.percent <= 10 && +achievementItem.percent > 5,
                   RareAchievement: +achievementItem.percent > 10 && +achievementItem.percent <= 15,
                 })}
               >
-                  {+achievementItem.percent < 20 ? (
-                    <div className="AchievementIconGlowContainerRoot">
-                      <div className="AchievementIconGlowContainer">
-                        <div className="AchievementIconGlow" />
-                      </div>
-                    </div>
-                  ) : null}
-                  <div>
-                    <Image
-                      src={achievementItem.image}
-                      objectFit="cover"
-                      w="100%"
-                      mb='10px'
-                    />
-                    <Heading as="h4" textAlign="center" fontWeight="500" fontSize="20px" p="0px 10px 10px">
-                      {achievementItem.name}<span
-                        className={cn('AchievementIconWrapper', {
-                          LegendaryAchievementColor: +achievementItem.percent <= 5,
-                          EpicAchievementColor: +achievementItem.percent <= 10 && +achievementItem.percent > 5,
-                          RareAchievementColor: +achievementItem.percent > 10 && +achievementItem.percent <= 15,
-                        })}
-                      >
-                       {" "}({achievementItem.percent}%)
-                      </span>
-                    </Heading>
-                    <Text textAlign="center" fontWeight="400" fontSize="16px">
-                      {achievementItem.description}
-                    </Text>
-                  </div>
+                <Image
+                  borderRadius='10px'
+                  src={achievementItem.image}
+                  objectFit="cover"
+                  w="100%"
+                  mb='10px'
+                />
+                <Box p='10px'>
+                  <Heading as="h4" textAlign="center" fontWeight="500" fontSize="20px" p="0px 10px 10px">
+                    {achievementItem.name}<span
+                      className={cn({
+                        LegendaryAchievementColor: +achievementItem.percent <= 5,
+                        EpicAchievementColor: +achievementItem.percent <= 10 && +achievementItem.percent > 5,
+                        RareAchievementColor: +achievementItem.percent > 10 && +achievementItem.percent <= 15,
+                      })}
+                    >
+                      {" "}({achievementItem.percent}%)
+                    </span>
+                  </Heading>
+                  <Text textAlign="center" fontWeight="400" fontSize="16px">
+                    {achievementItem.description}
+                  </Text></Box>
               </ListItem>
             ))}
           </List>
