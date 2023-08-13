@@ -17,7 +17,6 @@ function MainPage() {
         justifyContent="space-between"
         alignItems="flex-start"
         gap="96px"
-        maxWidth="1400px"
         padding="20px 20px"
       >
         <SidePanel />

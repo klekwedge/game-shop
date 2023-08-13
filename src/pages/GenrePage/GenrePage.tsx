@@ -12,7 +12,7 @@ function GenrePage() {
       <Helmet>
         <meta name="description" content=" - Game Shop" />
         <title>
-          {genre}
+          {genre && genre[0].toUpperCase() + genre.slice(1)}
           {' '}
           - Game Shop
         </title>
@@ -23,7 +23,6 @@ function GenrePage() {
         justifyContent="space-between"
         alignItems="flex-start"
         gap="96px"
-        maxWidth="1400px"
         padding="20px 20px"
       >
         <SidePanel />

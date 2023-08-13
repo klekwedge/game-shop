@@ -10,7 +10,6 @@ function GameSeries({ gamesOfSeries, countGamesOfSeries }: GameSeriesProps): JSX
       as="main"
       flexDirection="column"
       justifyContent="space-between"
-      maxWidth="1400px"
       margin="0 auto"
       padding="0px 20px 10px 20px"
     >

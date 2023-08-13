@@ -1,5 +1,3 @@
-/* eslint-disable react/jsx-no-bind */
-/* eslint-disable react/prop-types */
 import { motion, AnimatePresence } from 'framer-motion';
 import React, { useEffect, useState } from 'react';
 import { Link, useParams, useLocation } from 'react-router-dom';
@@ -74,18 +72,6 @@ function GameList({ genreName, mainTitle, descr }: GameListProps): JSX.Element {
     return null;
   }
 
-  // function getSumNumber(num: number) {
-  //   let sum = 0;
-  //   let tmp;
-  //   while (num) {
-  //     tmp = num % 10;
-  //     // eslint-disable-next-line no-param-reassign
-  //     num = (num - tmp) / 10;
-  //     sum += tmp;
-  //   }
-  //   return sum;
-  // }
-
   return (
     <section>
       <Heading as="h2" fontSize="48px" textTransform="capitalize" mb="8px" fontWeight="700">
@@ -121,36 +107,6 @@ function GameList({ genreName, mainTitle, descr }: GameListProps): JSX.Element {
                       mb="10px"
                       onLoad={handleOnLoad}
                     />
-                    <Flex
-                      w="100%"
-                      alignItems="center"
-                      justifyContent="space-between"
-                      gap="20px"
-                      padding="0px 10px"
-                      mb="5px"
-                      alignSelf="flex-start"
-                    >
-                      {/* <Heading
-                        as="h4"
-                        fontWeight="400"
-                        fontSize="14px"
-                        textAlign="left"
-                        color="#d4d4d4"
-                        cursor="pointer"
-                        transition="all 0.5s ease"
-                        _hover={{ color: 'purple.400' }}
-                        display="flex"
-                        alignItems="center"
-                        gap="5px"
-                      >
-                        <span>Add to cart</span>
-                        <AiOutlinePlusCircle size="15px" />
-                      </Heading>
-                      <Heading as="h4" fontWeight="400" fontSize="14px" textAlign="left" color="#d4d4d4">
-                        ${getSumNumber(game.id)}
-                      </Heading> */}
-                    </Flex>
-
                     <Heading
                       as="h4"
                       fontWeight="500"

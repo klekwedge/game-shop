@@ -1,5 +1,5 @@
 import React, { lazy, Suspense } from 'react';
-import { Box } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Header from '../Header/Header';
 import Spinner from '../Spinner/Spinner';
@@ -13,7 +13,7 @@ const GenresPage = lazy(() => import('../../pages/GenresPage/GenresPage'));
 function App() {
   return (
     <Router>
-      <Box p="10px 20px" className="flex flex-col items-center">
+      <Flex justifyContent='center' flexDir='column' m='0 auto' maxWidth="1400px" p="10px 20px">
         <Header />
         <Suspense fallback={<Spinner />}>
           <Routes>
@@ -24,7 +24,7 @@ function App() {
             <Route path="*" element={<Page404 />} />
           </Routes>
         </Suspense>
-      </Box>
+      </Flex>
     </Router>
   );
 }
