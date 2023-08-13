@@ -5,7 +5,6 @@ import {
   Flex, Heading, List, ListItem, Image,
 } from '@chakra-ui/react';
 import { useAppSelector } from '../../hooks/hook';
-import SidePanel from '../../components/SidePanel/SidePanel';
 import { IGenre } from './GenresPage.types';
 
 function GenresPage() {
@@ -19,7 +18,6 @@ function GenresPage() {
       </Helmet>
 
       <Flex as="main" p="20px 20px">
-        <SidePanel />
         <List display="flex" flexWrap="wrap" gap="20px 20px">
           {genres.length > 0
             ? genres.map((genreItem: IGenre) => (

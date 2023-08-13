@@ -1,7 +1,6 @@
 import { Helmet } from 'react-helmet';
 import { useParams } from 'react-router-dom';
 import { Flex } from '@chakra-ui/react';
-import SidePanel from '../../components/SidePanel/SidePanel';
 import GameList from '../../components/GameList/GameList';
 
 function GenrePage() {
@@ -24,7 +23,6 @@ function GenrePage() {
         gap="96px"
         padding="20px 20px"
       >
-        <SidePanel />
         <GameList genreName={genre} />
       </Flex>
     </>
