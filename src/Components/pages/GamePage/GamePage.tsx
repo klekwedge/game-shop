@@ -5,8 +5,8 @@ import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { Tabs, TabList, TabPanels, Tab, TabPanel, Box, Image } from '@chakra-ui/react';
 import { Link, useParams } from 'react-router-dom';
-import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
-import { Swiper, SwiperSlide } from 'swiper/react';
+// import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
+// import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -150,7 +150,7 @@ function GamePage() {
             </div>
 
             <div className="flex gap-10 items-center mb-20">
-              <Swiper
+              {/* <Swiper
                 modules={[Navigation, Pagination, Scrollbar, A11y]}
                 allowTouchMove={false}
                 navigation
@@ -178,7 +178,7 @@ function GamePage() {
                       </SwiperSlide>
                     ))
                   : null} */}
-              </Swiper>
+              {/* </Swiper> */}
 
               <p className="bg-zinc-800 p-10 rounded-lg max-w-xl">{currentGame.description_raw}</p>
             </div>
