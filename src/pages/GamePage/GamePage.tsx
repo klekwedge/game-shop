@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { Tabs, TabList, TabPanels, Tab, TabPanel, Box, Image } from '@chakra-ui/react';
 import { Link, useParams } from 'react-router-dom';
@@ -73,9 +73,8 @@ function GamePage() {
     countGamesOfSeries,
   } = useAppSelector((state) => state.currentGame);
   const { screenshots } = useAppSelector((state) => state.currentGame);
-  // const { trailers } = useAppSelector((state) => state.trailers);
   const dispatch = useAppDispatch();
-  console.log(achievements);
+
   useEffect(() => {
     dispatch(achievementsReset());
     if (gameId) {
@@ -83,10 +82,6 @@ function GamePage() {
       dispatch(fetchScreenshots(getGameScreenshots(gameId)));
     }
 
-    // rawgService
-    //   .getGameTrailers(gameId)
-    //   .then((trailersData) => dispatch(trailersFetched(trailersData)))
-    //   .catch(() => dispatch(trailersFetchingError()));
   }, [gameId]);
 
   function loadSection(tabIndex: number) {
@@ -153,7 +148,6 @@ function GamePage() {
                 navigation
                 pagination={{ clickable: true }}
                 className="GamePageSwiper"
-                // onSwiper={(swiper) => console.log(swiper)}
               >
                 <SwiperSlide>
                   <Image src={currentGame.background_image} alt={currentGame.background_image} />
@@ -165,16 +159,6 @@ function GamePage() {
                       </SwiperSlide>
                     ))
                   : null}
-
-                {/* {movies && movies.results.length > 0
-                  ? movies.results.map((movie) => (
-                      <SwiperSlide key={movie.id}>
-                        <video controls poster={movie.preview}>
-                          <source src={movie.data.max} />
-                        </video>
-                      </SwiperSlide>
-                    ))
-                  : null} */}
               </Swiper>
 
               <p className="bg-zinc-800 p-10 rounded-lg max-w-xl">{currentGame.description_raw}</p>

@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useParams, useLocation } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import { Flex, Button, Skeleton, Heading, List, ListItem, Image } from '@chakra-ui/react';
@@ -10,6 +10,7 @@ import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import { useAppDispatch, useAppSelector } from '../../hooks/hook';
 import { GameListProps } from './GameList.props';
 import { IGenre } from '../../pages/GenresPage/GenresPage.types';
+import './GameList.scss'
 
 function GameList({ genreName, mainTitle, descr }: GameListProps): JSX.Element {
   const [loadingImage, setLoadingImage] = useState(true);
@@ -87,7 +88,7 @@ function GameList({ genreName, mainTitle, descr }: GameListProps): JSX.Element {
               {games.map((game) => (
                 <ListItem
                   as={motion.li}
-                  className="flex flex-col items-center gap-2 bg-zinc-900 basis-1/5 grow pb-2 rounded-lg hover:scale-105 duration-300"
+                  className='game-item'
                   key={game.id}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -100,8 +101,8 @@ function GameList({ genreName, mainTitle, descr }: GameListProps): JSX.Element {
                       src={game.background_image}
                       alt={game.background_image}
                       objectFit="cover"
-                      maxW="256px"
-                      maxH="144px"
+                      maxW="100%"
+                      // maxH="144px"
                       w="100%"
                       h="100%"
                       mb="10px"

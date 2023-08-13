@@ -1,5 +1,3 @@
-/* eslint-disable react/prop-types */
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { Flex, Heading, List, ListItem, Image } from '@chakra-ui/react';
 import { GameSeriesProps } from './GameSeries.props';

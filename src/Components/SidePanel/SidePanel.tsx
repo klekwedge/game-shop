@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { MdFamilyRestroom, MdPerson } from 'react-icons/md';
 import { NavLink, Link } from 'react-router-dom';

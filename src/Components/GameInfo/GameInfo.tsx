@@ -1,5 +1,3 @@
-/* eslint-disable react/prop-types */
-import React from 'react';
 import { FcReddit } from 'react-icons/fc';
 import { MdGames } from 'react-icons/md';
 import {

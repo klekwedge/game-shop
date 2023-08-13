@@ -1,4 +1,3 @@
-import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Flex } from '@chakra-ui/react';
 import SidePanel from '../../components/SidePanel/SidePanel';

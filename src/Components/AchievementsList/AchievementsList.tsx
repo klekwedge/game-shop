@@ -1,4 +1,3 @@
-import React from 'react';
 import cn from 'classnames';
 import { v4 as uuidv4 } from 'uuid';
 import { Flex, Box, Button, Text, Heading, List, ListItem, Image } from '@chakra-ui/react';

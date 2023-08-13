@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { Heading, List, ListItem, Image } from '@chakra-ui/react';
 import { AdditionsListProps, IAddition } from './AdditionsList.props';
