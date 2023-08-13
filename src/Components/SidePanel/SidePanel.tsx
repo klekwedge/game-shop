@@ -1,8 +1,8 @@
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { MdFamilyRestroom, MdPerson } from 'react-icons/md';
 import { NavLink, Link } from 'react-router-dom';
-import { Flex, Box, Drawer, DrawerBody, DrawerFooter, DrawerHeader, DrawerOverlay, DrawerContent, DrawerCloseButton, useDisclosure, Button, Input } from '@chakra-ui/react';
+import { Flex, Box, Drawer, DrawerBody, DrawerFooter, DrawerOverlay, DrawerContent, DrawerCloseButton, useDisclosure, Button } from '@chakra-ui/react';
 import { IoExtensionPuzzleSharp, IoCarSport, IoSchool } from 'react-icons/io5';
 import { FaFistRaised, FaHorseHead, FaMountain, FaSnowboarding, FaChessBoard, FaTruck } from 'react-icons/fa';
 import { SiApplearcade } from 'react-icons/si';
@@ -65,10 +65,7 @@ function SidePanel() {
 
   return (
     <Box flex="1 1 30%">
-      <Button  onClick={onOpen}
-      // background='black'
-
-      >
+      <Button  onClick={onOpen}>
         Choose genre
       </Button>
       <Drawer

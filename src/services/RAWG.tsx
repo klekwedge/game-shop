@@ -1,6 +1,3 @@
-/* eslint-disable class-methods-use-this */
-/* eslint-disable react/no-unused-class-component-methods */
-
 function RAWG() {
   const apiKey = '9c6f34d35ac04b2bbe700fdadfb26801';
 
