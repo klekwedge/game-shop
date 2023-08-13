@@ -20,65 +20,48 @@ function AchievementsList({
             {achievements.map((achievementItem) => (
               <ListItem
                 key={uuidv4()}
-                w="100%"
+                flex='1 1 17%'
                 minH="100%"
-                maxW="240px"
+                minW="230px"
+                borderRadius='10px'
                 display="flex"
                 flexDirection="column"
                 bg="#202020"
-                cursor="pointer"
-                className="AchiveItem"
+                className={cn('AchievementIconWrapper', {
+                  LegendaryAchievement: +achievementItem.percent <= 5,
+                  EpicAchievement: +achievementItem.percent <= 10 && +achievementItem.percent > 5,
+                  RareAchievement: +achievementItem.percent > 10 && +achievementItem.percent <= 15,
+                })}
               >
-                <Box className="wrap" w="100%" h="100%" mb="20px">
-                  <div
-                    className={cn('AchievementIconWrapper', {
-                      LegendaryAchievement: +achievementItem.percent <= 5,
-                      EpicAchievement: +achievementItem.percent <= 10 && +achievementItem.percent > 5,
-                      RareAchievement: +achievementItem.percent > 10 && +achievementItem.percent <= 15,
-                    })}
-                  >
-                    {+achievementItem.percent < 20 ? (
-                      <div className="AchievementIconGlowContainerRoot">
-                        <div className="AchievementIconGlowContainer">
-                          <div className="AchievementIconGlow" />
-                        </div>
+                  {+achievementItem.percent < 20 ? (
+                    <div className="AchievementIconGlowContainerRoot">
+                      <div className="AchievementIconGlowContainer">
+                        <div className="AchievementIconGlow" />
                       </div>
-                    ) : null}
-
+                    </div>
+                  ) : null}
+                  <div>
                     <Image
                       src={achievementItem.image}
                       objectFit="cover"
                       w="100%"
-                      h="100%"
-                      className="AchieveIcon"
-                      borderRadius="10px 10px 0px 0px"
+                      mb='10px'
                     />
-                  </div>
-                </Box>
-
-                <Heading as="h4" textAlign="center" fontWeight="500" fontSize="20px" p="0px 10px 10px">
-                  {achievementItem.name}
-                </Heading>
-                <Box className="AchiveAdditionalContainer">
-                  <Box className="AchiveAdditional" p="5px 10px 20px" bg="#202020">
-                    <Heading
-                      as="h5"
-                      textAlign="center"
-                      fontWeight="400"
-                      fontSize="16px"
-                      className={cn('AchievementIconWrapper', {
-                        LegendaryAchievementColor: +achievementItem.percent <= 5,
-                        EpicAchievementColor: +achievementItem.percent <= 10 && +achievementItem.percent > 5,
-                        RareAchievementColor: +achievementItem.percent > 10 && +achievementItem.percent <= 15,
-                      })}
-                    >
-                      {achievementItem.percent}%
+                    <Heading as="h4" textAlign="center" fontWeight="500" fontSize="20px" p="0px 10px 10px">
+                      {achievementItem.name}<span
+                        className={cn('AchievementIconWrapper', {
+                          LegendaryAchievementColor: +achievementItem.percent <= 5,
+                          EpicAchievementColor: +achievementItem.percent <= 10 && +achievementItem.percent > 5,
+                          RareAchievementColor: +achievementItem.percent > 10 && +achievementItem.percent <= 15,
+                        })}
+                      >
+                       {" "}({achievementItem.percent}%)
+                      </span>
                     </Heading>
                     <Text textAlign="center" fontWeight="400" fontSize="16px">
                       {achievementItem.description}
                     </Text>
-                  </Box>
-                </Box>
+                  </div>
               </ListItem>
             ))}
           </List>
