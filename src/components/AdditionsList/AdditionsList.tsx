@@ -1,6 +1,11 @@
 import { Link } from 'react-router-dom';
 import { Heading, List, ListItem, Image } from '@chakra-ui/react';
-import { AdditionsListProps, IAddition } from './AdditionsList.props';
+import { IAddition } from '../../types';
+
+
+export interface AdditionsListProps {
+  additions: IAddition[];
+}
 
 function AdditionsList ({ additions }: AdditionsListProps):JSX.Element {
   return (

@@ -1,4 +1,3 @@
-/* eslint-disable react/require-default-props */
 import { motion, AnimatePresence } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
