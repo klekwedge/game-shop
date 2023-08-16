@@ -33,7 +33,7 @@ import GameInfo from '../../components/GameInfo/GameInfo';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import { useAppSelector, useAppDispatch } from '../../hooks/useRedux';
 import './GamePage.scss';
-import { IScreenshot } from './GamePage.types';
+import { IScreenshot } from '../../types';
 
 function GamePage() {
   const { gameId } = useParams();

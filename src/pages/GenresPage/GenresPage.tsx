@@ -5,7 +5,7 @@ import {
   Flex, Heading, List, ListItem, Image,
 } from '@chakra-ui/react';
 import { useAppSelector } from '../../hooks/useRedux';
-import { IGenre } from './GenresPage.types';
+import { IGenre } from '../../types';
 
 function GenresPage() {
   const { genres } = useAppSelector((state) => state.genres);
