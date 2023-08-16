@@ -31,7 +31,7 @@ import AchievementsList from '../../components/AchievementsList/AchievementsList
 import GameSeries from '../../components/GameSeries/GameSeries';
 import GameInfo from '../../components/GameInfo/GameInfo';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
-import { useAppSelector, useAppDispatch } from '../../hooks/hook';
+import { useAppSelector, useAppDispatch } from '../../hooks/useRedux';
 import './GamePage.scss';
 import { IScreenshot } from './GamePage.types';
 

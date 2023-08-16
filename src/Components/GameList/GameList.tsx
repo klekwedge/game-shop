@@ -7,7 +7,7 @@ import RAWG from '../../services/RAWG';
 import { fetchCurrentGenre } from '../../slices/genresSlice/genresSlice';
 import { fetchGames, resetGames } from '../../slices/gamesSlice/gamesSlice';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
-import { useAppDispatch, useAppSelector } from '../../hooks/hook';
+import { useAppDispatch, useAppSelector } from '../../hooks/useRedux';
 import { GameListProps } from './GameList.props';
 import { IGenre } from '../../pages/GenresPage/GenresPage.types';
 import './GameList.scss'

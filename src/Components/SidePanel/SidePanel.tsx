@@ -15,7 +15,7 @@ import {
   GiFlatPlatform,
   GiSandSnake,
 } from 'react-icons/gi';
-import { useAppSelector, useAppDispatch } from '../../hooks/hook';
+import { useAppSelector, useAppDispatch } from '../../hooks/useRedux';
 import RAWG from '../../services/RAWG';
 import { fetchGenres } from '../../slices/genresSlice/genresSlice';
 

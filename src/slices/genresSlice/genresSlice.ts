@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import useHttp from '../../hooks/http.hook';
+import useFetch from '../../hooks/useFetch';
 import { IGenre } from '../../pages/GenresPage/GenresPage.types';
 
 type GenresState = {
@@ -18,12 +18,12 @@ const initialState: GenresState = {
 };
 
 export const fetchGenres = createAsyncThunk('genres/fetchGenres', (url: string) => {
-  const { request } = useHttp();
+  const { request } = useFetch();
   return request(url);
 });
 
 export const fetchCurrentGenre = createAsyncThunk('genres/fetchCurrentGenre', (url: string) => {
-  const { request } = useHttp();
+  const { request } = useFetch();
   return request(url);
 });
 

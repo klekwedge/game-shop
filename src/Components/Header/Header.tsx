@@ -8,7 +8,7 @@ import {
 } from '@chakra-ui/react';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
-import { useAppDispatch } from '../../hooks/hook';
+import { useAppDispatch } from '../../hooks/useRedux';
 import { fetchGames, resetGames } from '../../slices/gamesSlice/gamesSlice';
 import SidePanel from '../SidePanel/SidePanel';
 

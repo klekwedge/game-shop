@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import useHttp from '../../hooks/http.hook';
+import useFetch from '../../hooks/useFetch';
 import { CurrentGameState, IAchievementResponse } from './currentGameSlice.types';
 
 const initialState: CurrentGameState = {
@@ -21,32 +21,32 @@ const initialState: CurrentGameState = {
 };
 
 export const fetchGame = createAsyncThunk('currentGame/fetchGame', (url: string) => {
-  const { request } = useHttp();
+  const { request } = useFetch();
   return request(url);
 });
 
 export const fetchScreenshots = createAsyncThunk('currentGame/fetchScreenshots', (url: string) => {
-  const { request } = useHttp();
+  const { request } = useFetch();
   return request(url);
 });
 
 export const fetchTrailes = createAsyncThunk('currentGame/fetchTrailes', (url: string) => {
-  const { request } = useHttp();
+  const { request } = useFetch();
   return request(url);
 });
 
 export const fetchAchievements = createAsyncThunk('currentGame/fetchAchievements', (url: string) => {
-  const { request } = useHttp();
+  const { request } = useFetch();
   return request(url);
 });
 
 export const fetchAdditions = createAsyncThunk('currentGame/fetchAdditions', (url: string) => {
-  const { request } = useHttp();
+  const { request } = useFetch();
   return request(url);
 });
 
 export const fetchGameSeries = createAsyncThunk('currentGame/fetchGameSeries', (url: string) => {
-  const { request } = useHttp();
+  const { request } = useFetch();
   return request(url);
 });
 

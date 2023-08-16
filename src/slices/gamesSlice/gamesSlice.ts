@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import useHttp from '../../hooks/http.hook';
+import useFetch from '../../hooks/useFetch';
 import { GamesState, GamesAction } from './gamesSlice.types';
 
 const initialState: GamesState = {
@@ -10,7 +10,7 @@ const initialState: GamesState = {
 };
 
 export const fetchGames = createAsyncThunk('games/fetchGames', (url: string) => {
-  const { request } = useHttp();
+  const { request } = useFetch();
   return request(url);
 });
 
