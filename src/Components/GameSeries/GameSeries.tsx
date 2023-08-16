@@ -1,6 +1,11 @@
 import { Link } from 'react-router-dom';
 import { Flex, Heading, List, ListItem, Image } from '@chakra-ui/react';
-import { GameSeriesProps } from './GameSeries.props';
+import { IGameSeries } from '../../types';
+
+interface GameSeriesProps {
+  gamesOfSeries: IGameSeries[];
+  countGamesOfSeries: number;
+}
 
 function GameSeries({ gamesOfSeries, countGamesOfSeries }: GameSeriesProps): JSX.Element {
   return (

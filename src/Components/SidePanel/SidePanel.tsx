@@ -30,8 +30,6 @@ function SidePanel() {
     hidden: { opacity: 0, x: -100 },
   };
 
-
-
   const { getGenres } = RAWG();
 
   const { genres } = useAppSelector((state) => state.genres);

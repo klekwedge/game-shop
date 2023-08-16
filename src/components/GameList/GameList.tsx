@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 import { motion, AnimatePresence } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
@@ -8,9 +9,14 @@ import { fetchCurrentGenre } from '../../slices/genresSlice/genresSlice';
 import { fetchGames, resetGames } from '../../slices/gamesSlice/gamesSlice';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import { useAppDispatch, useAppSelector } from '../../hooks/useRedux';
-import { GameListProps } from './GameList.props';
-import { IGenre } from '../../pages/GenresPage/GenresPage.types';
 import './GameList.scss'
+import { IGenre } from '../../types';
+
+interface GameListProps {
+  mainTitle?: string;
+  descr?: string;
+  genreName?: string;
+}
 
 function GameList({ genreName, mainTitle }: GameListProps): JSX.Element {
   const [loadingImage, setLoadingImage] = useState(true);

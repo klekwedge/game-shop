@@ -1,7 +1,14 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import useFetch from '../../hooks/useFetch';
-import { GamesState, GamesAction } from './gamesSlice.types';
+
+import { GamesAction, Result } from "../../types";
+
+export type GamesState = {
+  games: Result[],
+  nextPage: null | string,
+  gamesLoadingStatus: string,
+};
 
 const initialState: GamesState = {
   games: [],

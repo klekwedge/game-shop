@@ -14,7 +14,12 @@ import {
   SiWindows,
 } from 'react-icons/si';
 import { AiFillShopping, AiOutlineQuestionCircle, AiOutlineInfoCircle } from 'react-icons/ai';
-import { GameInfoProps } from './GameInfo.props';
+import { IGame } from '../../types';
+
+
+interface GameInfoProps {
+  currentGame: IGame;
+}
 
 function GameInfo({ currentGame }: GameInfoProps): JSX.Element {
   function chooseStoreIcon(storeName: string): JSX.Element {
