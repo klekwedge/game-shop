@@ -30,7 +30,7 @@
 ### Ссылки
 
 - [Ссылка на проект](https://github.com/klekwedge/game-shop)
-- [Деплой](https://klekwedge-game-shop.vercel.app/
+- [Деплой](https://klekwedge-game-shop.vercel.app/)
 
 ## Мой процесс
 
