@@ -48,12 +48,6 @@ export interface Genre {
     domain?: string;
     language?: string;
 }
-
-export interface Requirements {
-    minimum: string;
-    recommended?: string;
-}
-
 export interface ShortScreenshot {
     id: number;
     image: string;
@@ -63,9 +57,6 @@ export interface Store {
     id: number;
     store: Genre;
 }
-
-
-
 
 export interface Game {
     id: number;
@@ -178,23 +169,8 @@ export interface Result {
     short_screenshots: ShortScreenshot[];
 }
 
-export interface AddedByStatus {
-    yet: number;
-    owned: number;
-    beaten: number;
-    toplay: number;
-    dropped: number;
-    playing: number;
-}
-
 export enum Color {
     The0F0F0F = "0f0f0f",
-}
-
-export interface EsrbRating {
-    id: number;
-    name: string;
-    slug: string;
 }
 
 export enum Domain {
@@ -207,14 +183,6 @@ export enum Domain {
     PlayGoogleCOM = "play.google.com",
     StorePlaystationCOM = "store.playstation.com",
     StoreSteampoweredCOM = "store.steampowered.com",
-}
-
-export enum Language {
-    Eng = "eng",
-}
-
-export interface ParentPlatform {
-    platform: EsrbRating;
 }
 
 export interface PlatformElement {
@@ -412,4 +380,36 @@ export interface IAddition {
     tba: boolean
     updated: string;
     user_game: string | null
+}
+
+export interface GameListProps {
+    mainTitle?: string;
+    descr?: string;
+    genreName?: string;
+}
+
+export interface AddedByStatus {
+    yet: number;
+    owned: number;
+    beaten: number;
+    toplay: number;
+    dropped: number;
+    playing: number;
+}
+
+export interface EsrbRating {
+    id: number;
+    name: string;
+    slug: string;
+}
+
+
+export interface ParentPlatform {
+    platform: EsrbRating;
+}
+
+
+export interface Requirements {
+    minimum: string;
+    recommended?: string;
 }
