@@ -1,4 +1,4 @@
-const apiKey = import.meta.env.VITE_SOME_KEY;
+const apiKey = import.meta.env.VITE_API_KEY;
 
 function RAWG() {
   function getGameList(genre: string | '' = '') {
