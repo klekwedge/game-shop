@@ -1,6 +1,6 @@
-function RAWG() {
-  const apiKey = '9c6f34d35ac04b2bbe700fdadfb26801';
+const apiKey = import.meta.env.VITE_SOME_KEY;
 
+function RAWG() {
   function getGameList(genre: string | '' = '') {
     let res;
     if (genre) {
@@ -59,7 +59,7 @@ function RAWG() {
     getGameScreenshots,
     getGenres,
     getGenreDetail,
-    getData
+    getData,
   };
 }
 
