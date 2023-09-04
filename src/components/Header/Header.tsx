@@ -1,16 +1,11 @@
 import { useState } from 'react';
-import {
-  Flex,
-  Heading,
-  Input,
-  InputGroup,
-  InputLeftElement,
-} from '@chakra-ui/react';
+import { Flex, Heading, Input, InputGroup, InputLeftElement } from '@chakra-ui/react';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks/useRedux';
 import { fetchGames, resetGames } from '../../slices/gamesSlice/gamesSlice';
 import SidePanel from '../SidePanel/SidePanel';
+import './Header.scss';
 
 function Header() {
   const [inputValue, setInputValue] = useState('');
@@ -30,12 +25,14 @@ function Header() {
   }
 
   return (
-    <header className="mb-5">
-      <Flex justifyContent='space-between' alignItems='center'>
+    <header className="header">
+      <Flex justifyContent="space-between" alignItems="center">
         <Flex alignItems="center" gap="30px">
           <SidePanel />
           <InputGroup>
-            <InputLeftElement><AiOutlineSearch size="22" className="cursor-pointer" onClick={() => searchGame()} /></InputLeftElement>
+            <InputLeftElement>
+              <AiOutlineSearch size="22" style={{ cursor: 'pointer' }} onClick={() => searchGame()} />
+            </InputLeftElement>
             <Input
               onKeyDown={(e) => keyDownHandler(e)}
               value={inputValue}
@@ -47,14 +44,11 @@ function Header() {
           </InputGroup>
         </Flex>
         <Flex gap="20px" alignItems="center">
-        <a href="https://rawg.io/">Rawg</a>
-            <Heading as="h1">
-            <Link
-              to="/"
-              className="flex gap-2 items-center fill-white hover:text-violet-700 hover:fill-violet-700 duration-300 font-semibold text-lg cursor-pointer"
-            >
+          <a href="https://rawg.io/">Rawg</a>
+          <Heading as="h1">
+            <Link to="/" className="header__logo">
               <svg
-                className="w-8"
+                style={{ width: '32px' }}
                 version="1.1"
                 xmlns="http://www.w3.org/2000/svg"
                 xmlnsXlink="http://www.w3.org/1999/xlink"

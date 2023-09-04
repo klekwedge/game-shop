@@ -1,0 +1,19 @@
+.header {
+  margin-bottom: 20px;
+}
+
+.header__logo {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  fill: white;
+  font-weight: 600;
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    fill: #6d28d9;
+    color: #6d28d9;
+  }
+}
