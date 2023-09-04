@@ -96,11 +96,11 @@ function GameList({ genreName, mainTitle }: GameListProps) {
       {games.length > 0 ? (
         <Flex gap="70px" flexDirection="column">
           <AnimatePresence>
-            <List className="flex gap-5 flex-wrap">
+            <List className="game__list">
               {games.map((game) => (
                 <ListItem
                   as={motion.li}
-                  className="game-item"
+                  className="game__item"
                   cursor='pointer'
                   key={game.id}
                   initial={{ opacity: 0 }}
