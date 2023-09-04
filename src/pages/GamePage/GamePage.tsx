@@ -5,12 +5,10 @@ import { useParams } from 'react-router-dom';
 import {
   fetchGame,
   fetchScreenshots,
-  achievementsReset,
   fetchAdditions,
   fetchAchievements,
   fetchGameSeries,
-  gameSeriesReset,
-  additionsReset,
+  resetCurrentGame,
 } from '../../slices/currentGameSlice/currentGameSlice';
 import RAWG from '../../services/RAWG';
 import Spinner from '../../components/Spinner/Spinner';
@@ -33,7 +31,10 @@ function GamePage() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(achievementsReset());
+    dispatch(resetCurrentGame());
+  }, []);
+
+  useEffect(() => {
     if (gameId) {
       dispatch(fetchGame(getGame(gameId)));
       dispatch(fetchScreenshots(getGameScreenshots(gameId)));
@@ -44,10 +45,8 @@ function GamePage() {
     if (tabIndex === 1 && achievements.length === 0 && gameId) {
       dispatch(fetchAchievements(getGameAchievements(gameId)));
     } else if (tabIndex === 2 && additions.length === 0 && gameId) {
-      dispatch(additionsReset());
       dispatch(fetchAdditions(getGameAdditions(gameId)));
     } else if (tabIndex === 3 && currentGame && gameId) {
-      dispatch(gameSeriesReset());
       dispatch(fetchGameSeries(getListOfGamesSeries(gameId)));
     }
   }

@@ -79,17 +79,14 @@ const currentGameSlice = createSlice({
     achievementsFetchingError: (state) => {
       state.achievementsLoadingStatus = 'error';
     },
-    achievementsReset: (state) => {
-      state.achievements = [];
-    },
     nextAchievements: (state, action) => {
       state.nextAchievementsPage = action.payload;
     },
-    gameSeriesReset: (state) => {
-      state.gamesOfSeries = [];
-    },
-    additionsReset: (state) => {
+    resetCurrentGame: (state) => {
+      state.currentGame = null;
       state.achievements = [];
+      state.additions = [];
+      state.gamesOfSeries = []
     },
   },
   extraReducers: (builder) => {
@@ -166,8 +163,6 @@ export const {
   achievementsFetching,
   achievementsFetched,
   achievementsFetchingError,
-  achievementsReset,
   nextAchievements,
-  gameSeriesReset,
-  additionsReset,
+  resetCurrentGame
 } = actions;
