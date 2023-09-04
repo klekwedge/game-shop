@@ -1,21 +1,27 @@
 import cn from 'classnames';
 import { v4 as uuidv4 } from 'uuid';
 import { Flex, Box, Button, Text, Heading, List, ListItem, Image } from '@chakra-ui/react';
-import { IAchievement } from '../../types';
+import { useAppDispatch, useAppSelector } from '../../hooks/useRedux';
+import RAWG from '../../services/RAWG';
+import { achievementsFetched, achievementsFetchingError, nextAchievements } from '../../slices/currentGameSlice/currentGameSlice';
 
-export interface AchievementsListProps {
-  achievements: IAchievement[];
-  achievementsAmount: number;
-  nextAchievementsPage: string;
-  loadMoreAchievements: () => void;
-}
+function AchievementsList() {
+  const dispatch = useAppDispatch();
+  const { nextAchievementsPage,  achievements, achievementsAmount  } = useAppSelector((state) => state.currentGame);
+  const { getData } = RAWG();
 
-function AchievementsList({
-  achievements,
-  achievementsAmount,
-  nextAchievementsPage,
-  loadMoreAchievements,
-}: AchievementsListProps): JSX.Element {
+
+  function loadMoreAchievements() {
+    if (nextAchievementsPage) {
+      getData(nextAchievementsPage)
+        .then((achievementsData) => {
+          dispatch(nextAchievements(achievementsData.next));
+          dispatch(achievementsFetched(achievementsData.results));
+        })
+        .catch(() => dispatch(achievementsFetchingError()));
+    }
+  }
+
   return (
     <section>
       {achievements.length > 0 ? (
@@ -27,10 +33,10 @@ function AchievementsList({
             {achievements.map((achievementItem) => (
               <ListItem
                 key={uuidv4()}
-                flex='1 1 17%'
+                flex="1 1 17%"
                 minH="100%"
                 minW="230px"
-                borderRadius='10px'
+                borderRadius="10px"
                 display="flex"
                 flexDirection="column"
                 bg="#202020"
@@ -40,28 +46,25 @@ function AchievementsList({
                   RareAchievement: +achievementItem.percent > 10 && +achievementItem.percent <= 15,
                 })}
               >
-                <Image
-                  borderRadius='10px'
-                  src={achievementItem.image}
-                  objectFit="cover"
-                  w="100%"
-                  mb='10px'
-                />
-                <Box p='10px'>
+                <Image borderRadius="10px" src={achievementItem.image} objectFit="cover" w="100%" mb="10px" />
+                <Box p="10px">
                   <Heading as="h4" textAlign="center" fontWeight="500" fontSize="20px" p="0px 10px 10px">
-                    {achievementItem.name}<span
+                    {achievementItem.name}
+                    <span
                       className={cn({
                         LegendaryAchievementColor: +achievementItem.percent <= 5,
                         EpicAchievementColor: +achievementItem.percent <= 10 && +achievementItem.percent > 5,
                         RareAchievementColor: +achievementItem.percent > 10 && +achievementItem.percent <= 15,
                       })}
                     >
-                      {" "}({achievementItem.percent}%)
+                      {' '}
+                      ({achievementItem.percent}%)
                     </span>
                   </Heading>
                   <Text textAlign="center" fontWeight="400" fontSize="16px">
                     {achievementItem.description}
-                  </Text></Box>
+                  </Text>
+                </Box>
               </ListItem>
             ))}
           </List>

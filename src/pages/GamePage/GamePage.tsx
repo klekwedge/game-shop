@@ -5,10 +5,7 @@ import { useParams } from 'react-router-dom';
 import {
   fetchGame,
   fetchScreenshots,
-  achievementsFetched,
-  achievementsFetchingError,
   achievementsReset,
-  nextAchievements,
   fetchAdditions,
   fetchAchievements,
   fetchGameSeries,
@@ -28,17 +25,15 @@ import './GamePage.scss';
 
 function GamePage() {
   const { gameId } = useParams();
-  const { getGame, getGameScreenshots, getGameAchievements, getGameAdditions, getListOfGamesSeries, getData } = RAWG();
+  const { getGame, getGameScreenshots, getGameAchievements, getGameAdditions, getListOfGamesSeries } = RAWG();
 
   const {
     currentGame,
     currentGameLoadingStatus,
-    achievements,
-    nextAchievementsPage,
-    achievementsAmount,
     additions,
     gamesOfSeries,
     countGamesOfSeries,
+    achievements
   } = useAppSelector((state) => state.currentGame);
   const dispatch = useAppDispatch();
 
@@ -59,17 +54,6 @@ function GamePage() {
     } else if (tabIndex === 3 && currentGame && gameId) {
       dispatch(gameSeriesReset());
       dispatch(fetchGameSeries(getListOfGamesSeries(gameId)));
-    }
-  }
-
-  function loadMoreAchievements() {
-    if (nextAchievementsPage) {
-      getData(nextAchievementsPage)
-        .then((achievementsData) => {
-          dispatch(nextAchievements(achievementsData.next));
-          dispatch(achievementsFetched(achievementsData.results));
-        })
-        .catch(() => dispatch(achievementsFetchingError()));
     }
   }
 
@@ -103,14 +87,7 @@ function GamePage() {
                   <GameInfo currentGame={currentGame} />
                 </TabPanel>
                 <TabPanel>
-                  {nextAchievementsPage ? (
-                    <AchievementsList
-                      achievements={achievements}
-                      achievementsAmount={achievementsAmount}
-                      nextAchievementsPage={nextAchievementsPage}
-                      loadMoreAchievements={() => loadMoreAchievements()}
-                    />
-                  ) : null}
+                  <AchievementsList/>
                 </TabPanel>
                 <TabPanel>
                   <AdditionsList additions={additions} />
