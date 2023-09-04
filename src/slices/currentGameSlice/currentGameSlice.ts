@@ -1,22 +1,22 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import useFetch from '../../hooks/useFetch';
-import { IAchievement, IAchievementResponse, IGame } from '../../types';
+import { IAchievement, IAchievementResponse, IGame, Loading } from '../../types';
 
 
 export type CurrentGameState = {
   currentGame: null | IGame,
-  currentGameLoadingStatus: string,
+  currentGameLoadingStatus: Loading,
   screenshots: [],
-  screenshotsLoadingStatus: string,
+  screenshotsLoadingStatus: Loading,
   trailers: [],
   trailersLoadingStatus: string,
   achievements: IAchievement[],
-  achievementsLoadingStatus: string,
+  achievementsLoadingStatus: Loading,
   nextAchievementsPage: null | string,
   additions: [],
   gamesOfSeries: [],
-  gamesOfSeriesLoadingStatus: string
+  gamesOfSeriesLoadingStatus: Loading
 };
 
 const initialState: CurrentGameState = {

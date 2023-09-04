@@ -3,6 +3,13 @@ $lite: #fff;
 $brand: #6d28d9;
 $size: 80px;
 
+.loader__container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
 .loader {
   width: $size;
   height: $size;
@@ -14,7 +21,7 @@ $size: 80px;
   animation: rotation 1.5s linear infinite;
   &:after,
   &:before {
-    content: "";
+    content: '';
     position: absolute;
     left: 0;
     right: 0;

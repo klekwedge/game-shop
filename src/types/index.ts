@@ -413,3 +413,5 @@ export interface Requirements {
     minimum: string;
     recommended?: string;
 }
+
+export type Loading = 'idle' | 'loading' | 'error'

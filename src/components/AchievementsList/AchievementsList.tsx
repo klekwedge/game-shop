@@ -8,10 +8,14 @@ import {
   achievementsFetchingError,
   nextAchievements,
 } from '../../slices/currentGameSlice/currentGameSlice';
+import Spinner from '../Spinner/Spinner';
+import ErrorMessage from '../ErrorMessage/ErrorMessage';
 
 function AchievementsList({ achievementsAmount }: { achievementsAmount: number }) {
   const dispatch = useAppDispatch();
-  const { nextAchievementsPage, achievements } = useAppSelector((state) => state.currentGame);
+  const { nextAchievementsPage, achievements, achievementsLoadingStatus } = useAppSelector(
+    (state) => state.currentGame,
+  );
   const { getData } = RAWG();
 
   function loadMoreAchievements() {
@@ -23,6 +27,14 @@ function AchievementsList({ achievementsAmount }: { achievementsAmount: number }
         })
         .catch(() => dispatch(achievementsFetchingError()));
     }
+  }
+
+  if (achievementsLoadingStatus === 'loading') {
+    return <Spinner />;
+  }
+
+  if (achievementsLoadingStatus === 'error') {
+    return <ErrorMessage />;
   }
 
   return (
