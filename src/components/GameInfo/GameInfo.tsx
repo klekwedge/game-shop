@@ -1,4 +1,5 @@
 import { FcReddit } from 'react-icons/fc';
+import { Flex } from '@chakra-ui/react';
 import { MdGames } from 'react-icons/md';
 import {
   SiGogdotcom,
@@ -15,6 +16,7 @@ import {
 } from 'react-icons/si';
 import { AiFillShopping, AiOutlineQuestionCircle, AiOutlineInfoCircle } from 'react-icons/ai';
 import { IGame } from '../../types';
+import './GameInfo.scss';
 
 interface GameInfoProps {
   currentGame: IGame;
@@ -67,63 +69,45 @@ function GameInfo({ currentGame }: GameInfoProps) {
 
   return (
     <section>
-      <div className="flex gap-5 mb-14">
-        <div className="flex flex-col bg-slate-800 p-5 rounded-lg basis-1/4">
-          <AiOutlineInfoCircle className="self-center mb-3" size="40" />
-          <h2 className="font-medium text-lg mb-2">Info:</h2>
-
-          <h3>
-            Release date:
-            {` ${currentGame.released}`}
-          </h3>
-          <a href={`${currentGame.website}`}>Official website</a>
-
-          <h3 className="my-2">
-            Metacritic rating:
-            {` ${currentGame.metacritic}`}
-          </h3>
-
-          <h3 className="mb-2">
-            RAWG rating:
-            {` ${currentGame.rating}`}
-          </h3>
-          <h3 className="mb-2">
-            Achievements count:
-            {` ${currentGame.achievements_count}`}
-          </h3>
-
-          <h3 className="mb-2">
-            Developers:
-            {` ${currentGame.developers.map((developerItem) => developerItem.name)}`}
-          </h3>
-
-          <h3 className="mb-2">
-            Publishers:
-            {` ${currentGame.publishers.map((publisherItem) => publisherItem.name)}`}
-          </h3>
+      <div className="game__info info">
+        <div className="info__item">
+          <AiOutlineInfoCircle className="info__icon" size="40" />
+          <h2 className="info__title">Info:</h2>
+          <Flex gap="10px" flexDirection="column">
+            <h3>Release date: {currentGame.released}</h3>
+            <a href={`${currentGame.website}`}>Official website</a>
+            <h3>Metacritic rating: {currentGame.metacritic}</h3>
+            <h3>RAWG rating: {currentGame.rating}</h3>
+            <h3>Achievements count: {currentGame.achievements_count}</h3>
+            <h3>Developers: {currentGame.developers.map((developerItem) => developerItem.name)}</h3>
+            <h3>Publishers: {currentGame.publishers.map((publisherItem) => publisherItem.name)}</h3>
+          </Flex>
         </div>
-        <div className="flex flex-col bg-slate-800 p-5 rounded-lg basis-1/4">
-          <FcReddit className="self-center mb-3" size="40" />
-          <a href={`${currentGame.reddit_url}`} className="font-medium text-lg mb-2">
+
+        <div className="info__item">
+          <FcReddit className="info__icon" size="40" />
+          <a href={`${currentGame.reddit_url}`} className="info__title">
             {currentGame.reddit_name}
           </a>
           <p>{currentGame.reddit_description}</p>
         </div>
-        <div className="flex flex-col bg-slate-800 p-5 rounded-lg basis-1/4">
-          <AiFillShopping className="self-center mb-3" size="40" />
-          <h2 className="font-medium text-lg mb-2">The shops:</h2>
+
+        <div className="info__item">
+          <AiFillShopping className="info__icon" size="40" />
+          <h2 className="info__title">The shops:</h2>
           {currentGame.stores.map((storeItem) => (
-            <a key={storeItem.store.id} href={storeItem.store.domain} className="flex items-center gap-3 mb-2">
+            <a key={storeItem.store.id} href={storeItem.store.domain} className="info__shop">
               {storeItem.store.name}
               {chooseStoreIcon(storeItem.store.name)}
             </a>
           ))}
         </div>
-        <div className="flex flex-col bg-slate-800 p-5 rounded-lg basis-1/4">
-          <MdGames className="self-center mb-3" size="40" />
-          <h2 className="font-medium text-lg mb-2">Platforms:</h2>
+
+        <div className="info__item">
+          <MdGames className="info__icon" size="40" />
+          <h2 className="info__title">Platforms:</h2>
           {currentGame.platforms.map((platformItem) => (
-            <h3 key={platformItem.platform.id} className="flex items-center gap-3 mb-2">
+            <h3 key={platformItem.platform.id} className="info__platforms">
               {platformItem.platform.name}
               {choosePlatformIcon(platformItem.platform.name)}
             </h3>
