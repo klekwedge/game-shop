@@ -17,7 +17,7 @@ interface GameListProps {
   genreName?: string;
 }
 
-function GameList({ genreName, mainTitle }: GameListProps): JSX.Element {
+function GameList({ genreName, mainTitle }: GameListProps) {
   const navigate = useNavigate();
   const { genre } = useParams();
   const dispatch = useAppDispatch();

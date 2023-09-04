@@ -1,13 +1,21 @@
 import { Link } from 'react-router-dom';
 import { Heading, List, ListItem, Image } from '@chakra-ui/react';
 import { IAddition } from '../../types';
+import { useAppSelector } from '../../hooks/useRedux';
+import Spinner from '../Spinner/Spinner';
+import ErrorMessage from '../ErrorMessage/ErrorMessage';
 
+function AdditionsList() {
+  const { additions, additionsLoadingStatus } = useAppSelector((state) => state.currentGame);
 
-export interface AdditionsListProps {
-  additions: IAddition[];
-}
+  if (additionsLoadingStatus === 'loading') {
+    return <Spinner />;
+  }
 
-function AdditionsList ({ additions }: AdditionsListProps):JSX.Element {
+  if (additionsLoadingStatus === 'error') {
+    return <ErrorMessage />;
+  }
+
   return (
     <section>
       {additions ? (

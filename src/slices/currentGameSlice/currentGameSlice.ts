@@ -15,6 +15,7 @@ export type CurrentGameState = {
   achievementsLoadingStatus: Loading,
   nextAchievementsPage: null | string,
   additions: [],
+  additionsLoadingStatus: Loading,
   gamesOfSeries: [],
   gamesOfSeriesLoadingStatus: Loading
 };
@@ -30,6 +31,7 @@ const initialState: CurrentGameState = {
   achievementsLoadingStatus: 'idle',
   nextAchievementsPage: null,
   additions: [],
+  additionsLoadingStatus: 'idle',
   gamesOfSeries: [],
   gamesOfSeriesLoadingStatus: 'idle',
 };
@@ -116,7 +118,7 @@ const currentGameSlice = createSlice({
       })
       .addCase(fetchTrailes.fulfilled, (state, action) => {
         state.trailersLoadingStatus = 'idle';
-      state.trailers = action.payload.results;
+        state.trailers = action.payload.results;
       })
       .addCase(fetchTrailes.rejected, (state) => {
         state.trailersLoadingStatus = 'error';
@@ -143,16 +145,15 @@ const currentGameSlice = createSlice({
         state.gamesOfSeriesLoadingStatus = 'error';
       })
       .addCase(fetchAdditions.pending, (state) => {
-        state.achievementsLoadingStatus = 'loading';
+        state.additionsLoadingStatus = 'loading';
       })
       .addCase(fetchAdditions.fulfilled, (state, action) => {
-        state.achievementsLoadingStatus = 'idle';
+        state.additionsLoadingStatus = 'idle';
         state.additions = action.payload.results;
       })
       .addCase(fetchAdditions.rejected, (state) => {
-        state.achievementsLoadingStatus = 'error';
+        state.additionsLoadingStatus = 'error';
       })
-      .addDefaultCase(() => { });
   },
 });
 

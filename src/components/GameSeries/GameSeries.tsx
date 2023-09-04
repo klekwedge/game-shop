@@ -7,7 +7,7 @@ interface GameSeriesProps {
   countGamesOfSeries: number;
 }
 
-function GameSeries({ gamesOfSeries, countGamesOfSeries }: GameSeriesProps): JSX.Element {
+function GameSeries({ gamesOfSeries, countGamesOfSeries }: GameSeriesProps) {
   return (
     <Flex
       as="main"

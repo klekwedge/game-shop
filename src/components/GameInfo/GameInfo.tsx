@@ -16,13 +16,12 @@ import {
 import { AiFillShopping, AiOutlineQuestionCircle, AiOutlineInfoCircle } from 'react-icons/ai';
 import { IGame } from '../../types';
 
-
 interface GameInfoProps {
   currentGame: IGame;
 }
 
-function GameInfo({ currentGame }: GameInfoProps): JSX.Element {
-  function chooseStoreIcon(storeName: string): JSX.Element {
+function GameInfo({ currentGame }: GameInfoProps) {
+  function chooseStoreIcon(storeName: string) {
     switch (storeName) {
       case 'GOG':
         return <SiGogdotcom size="23" />;
@@ -43,7 +42,7 @@ function GameInfo({ currentGame }: GameInfoProps): JSX.Element {
     }
   }
 
-  function choosePlatformIcon(platformName: string): JSX.Element {
+  function choosePlatformIcon(platformName: string) {
     switch (platformName) {
       case 'PlayStation 3':
         return <SiPlaystation3 size="23" title={platformName} />;

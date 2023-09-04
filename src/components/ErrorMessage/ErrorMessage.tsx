@@ -1,7 +1,7 @@
 import { Flex, Heading } from '@chakra-ui/react';
 import './ErrorMessage.scss';
 
-function ErrorMessage(): JSX.Element {
+function ErrorMessage() {
   return (
     <Flex as="section" w="800px" gap="10px" flexDirection="column">
       <svg id="500_Bill" viewBox="-8.5 9.5 560 250">

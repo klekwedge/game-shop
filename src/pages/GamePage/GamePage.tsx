@@ -25,7 +25,7 @@ function GamePage() {
   const { gameId } = useParams();
   const { getGame, getGameScreenshots, getGameAchievements, getGameAdditions, getListOfGamesSeries } = RAWG();
 
-  const { currentGame, currentGameLoadingStatus, additions, gamesOfSeries, achievements } = useAppSelector(
+  const { currentGame, currentGameLoadingStatus, gamesOfSeries, achievements, additions } = useAppSelector(
     (state) => state.currentGame,
   );
   const dispatch = useAppDispatch();
@@ -93,7 +93,7 @@ function GamePage() {
                 ) : null}
                 {currentGame.additions_count ? (
                   <TabPanel>
-                    <AdditionsList additions={additions} />
+                    <AdditionsList />
                   </TabPanel>
                 ) : null}
                 {currentGame.game_series_count ? (
