@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom';
 import { Flex, Heading, List, ListItem, Image } from '@chakra-ui/react';
 import { IGameSeries } from '../../types';
+import { useAppSelector } from '../../hooks/useRedux';
+import Spinner from '../Spinner/Spinner';
+import ErrorMessage from '../ErrorMessage/ErrorMessage';
 
 interface GameSeriesProps {
   gamesOfSeries: IGameSeries[];
@@ -8,14 +11,18 @@ interface GameSeriesProps {
 }
 
 function GameSeries({ gamesOfSeries, countGamesOfSeries }: GameSeriesProps) {
+  const { gamesOfSeriesLoadingStatus } = useAppSelector((state) => state.currentGame);
+
+  if (gamesOfSeriesLoadingStatus === 'loading') {
+    return <Spinner />;
+  }
+
+  if (gamesOfSeriesLoadingStatus === 'error') {
+    return <ErrorMessage />;
+  }
+
   return (
-    <Flex
-      as="main"
-      flexDirection="column"
-      justifyContent="space-between"
-      margin="0 auto"
-      padding="0px 20px 10px 20px"
-    >
+    <Flex as="main" flexDirection="column" justifyContent="space-between" margin="0 auto" padding="0px 20px 10px 20px">
       {gamesOfSeries.length > 0 ? (
         <div>
           <Heading fontSize="40px" mb="32px" fontWeight="500">
