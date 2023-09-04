@@ -1,5 +1,34 @@
 .game__card {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.game__link {
+  font-size: 1.5rem;
+  align-self: flex-end;
+  transition: all 0.2s ease;
+
+  &:hover {
+    color:#6B46C1
+  }
+}
+
+.game__icon {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.game__title {
+  font-size: 3rem;
+  margin-bottom: 10px;
+  text-align: right;
+}
+
+.game__content {
+  display: flex;
   gap: 30px;
   margin-bottom: 40px;
 }
@@ -59,7 +88,7 @@
 }
 
 @media (max-width: 1024px) {
-  .game__card {
+  .game__content {
     flex-direction: column;
   }
 

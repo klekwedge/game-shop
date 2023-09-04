@@ -41,15 +41,15 @@ function GameCard({ currentGame }: { currentGame: IGame }) {
 
   return (
     <>
-      <div className="flex justify-between items-center mb-8">
-        <h2 className="text-2xl self-end ease-in duration-200 hover:text-violet-700">
-          <Link to="/" className="flex gap-2 items-center">
+      <div className="game__card">
+        <h2 className="game__link">
+          <Link to="/" className="game__icon">
             <MdKeyboardBackspace size="40" />
             Store
           </Link>
         </h2>
         <Box alignSelf="flex-end" display="flex" gap="15px" flexDirection="column" alignItems="flex-end">
-          <h1 className="text-5xl mb-4 text-right">{currentGame.name}</h1>
+          <h1 className="game__title">{currentGame.name}</h1>
           <Box display="inline-flex" gap="20px" alignItems="center" justifyContent="flex-end">
             {currentGame.platforms.map((platformItem) => (
               <h3 key={platformItem.platform.id}>{choosePlatformIcon(platformItem.platform.name)}</h3>
@@ -58,7 +58,7 @@ function GameCard({ currentGame }: { currentGame: IGame }) {
         </Box>
       </div>
 
-      <div className="game__card">
+      <div className="game__content">
         <Swiper
           modules={[Navigation, Pagination, Scrollbar, A11y]}
           allowTouchMove={false}
