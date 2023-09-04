@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import { Flex, Button, Skeleton, Heading, List, ListItem, Image } from '@chakra-ui/react';
 import RAWG from '../../services/RAWG';
@@ -8,7 +8,7 @@ import { fetchCurrentGenre } from '../../slices/genresSlice/genresSlice';
 import { fetchGames, resetGames } from '../../slices/gamesSlice/gamesSlice';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import { useAppDispatch, useAppSelector } from '../../hooks/useRedux';
-import './GameList.scss'
+import './GameList.scss';
 import { IGenre } from '../../types';
 
 interface GameListProps {
@@ -18,16 +18,23 @@ interface GameListProps {
 }
 
 function GameList({ genreName, mainTitle }: GameListProps): JSX.Element {
-  const [loadingImage, setLoadingImage] = useState(true);
+  const navigate = useNavigate();
   const { genre } = useParams();
+  const dispatch = useAppDispatch();
+
+  const [loadingImage, setLoadingImage] = useState(true);
+
   const { currentGenre, genres } = useAppSelector((state) => state.genres);
   const { games, nextPage, gamesLoadingStatus } = useAppSelector((state) => state.games);
 
-  const dispatch = useAppDispatch();
   const { getGameList, getGenreDetail } = RAWG();
 
   const handleOnLoad = () => {
     setLoadingImage(false);
+  };
+
+  const gameOnClick = (id: number) => {
+    navigate(`/${id}`);
   };
 
   useEffect(() => {
@@ -52,7 +59,7 @@ function GameList({ genreName, mainTitle }: GameListProps): JSX.Element {
     return (
       <Flex gap="20px" flexWrap="wrap">
         {[...Array(20).keys()].map(() => (
-          <Skeleton key={uuidv4()} width="256px" h='200px' flex='1 1 20%' borderRadius="10px" />
+          <Skeleton key={uuidv4()} width="256px" h="200px" flex="1 1 20%" borderRadius="10px" />
         ))}
       </Flex>
     );
@@ -71,14 +78,13 @@ function GameList({ genreName, mainTitle }: GameListProps): JSX.Element {
   function defineDescription() {
     if (currentGenre) {
       return {
-        __html: currentGenre.description
-      }
+        __html: currentGenre.description,
+      };
     }
 
     return {
-      __html: ''
-    }
-
+      __html: '',
+    };
   }
 
   return (
@@ -86,10 +92,7 @@ function GameList({ genreName, mainTitle }: GameListProps): JSX.Element {
       <Heading as="h2" fontSize="48px" textTransform="capitalize" mb="8px" fontWeight="700">
         {genre ? `${genre} games` : mainTitle}
       </Heading>
-      {
-        currentGenre && <Heading as="h3" fontSize="16px" mb="32px" dangerouslySetInnerHTML={defineDescription()} />
-
-      }
+      {currentGenre && <Heading as="h3" fontSize="16px" mb="32px" dangerouslySetInnerHTML={defineDescription()} />}
       {games.length > 0 ? (
         <Flex gap="70px" flexDirection="column">
           <AnimatePresence>
@@ -97,12 +100,14 @@ function GameList({ genreName, mainTitle }: GameListProps): JSX.Element {
               {games.map((game) => (
                 <ListItem
                   as={motion.li}
-                  className='game-item'
+                  className="game-item"
+                  cursor='pointer'
                   key={game.id}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: '1' }}
+                  onClick={() => gameOnClick(game.id)}
                 >
                   <>
                     {loadingImage && <Skeleton maxW="256px" maxH="144px" w="100%" h="100%" mb="10px" />}
@@ -127,7 +132,7 @@ function GameList({ genreName, mainTitle }: GameListProps): JSX.Element {
                       _hover={{ color: '#d4d4d4' }}
                       textAlign="left"
                     >
-                      <Link to={`/${game.id}`}>{game.name}</Link>
+                      {game.name}
                     </Heading>
                   </>
                 </ListItem>
@@ -137,7 +142,7 @@ function GameList({ genreName, mainTitle }: GameListProps): JSX.Element {
           <Button
             m="0 auto"
             bg="purple.600"
-            color='white'
+            color="white"
             _hover={{ bg: 'purple.700' }}
             _active={{ bg: 'purple.500' }}
             onClick={() => loadMoreGames()}
