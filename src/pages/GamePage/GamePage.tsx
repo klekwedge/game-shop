@@ -27,14 +27,8 @@ function GamePage() {
   const { gameId } = useParams();
   const { getGame, getGameScreenshots, getGameAchievements, getGameAdditions, getListOfGamesSeries } = RAWG();
 
-  const {
-    currentGame,
-    currentGameLoadingStatus,
-    additions,
-    gamesOfSeries,
-    countGamesOfSeries,
-    achievements
-  } = useAppSelector((state) => state.currentGame);
+  const { currentGame, currentGameLoadingStatus, additions, gamesOfSeries, countGamesOfSeries, achievements } =
+    useAppSelector((state) => state.currentGame);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -65,6 +59,8 @@ function GamePage() {
     return <ErrorMessage />;
   }
 
+  console.log(currentGame);
+
   return (
     <>
       <Helmet>
@@ -78,16 +74,22 @@ function GamePage() {
             <Tabs variant="solid-rounded" onChange={(tabIndex) => loadSection(tabIndex)}>
               <TabList>
                 <Tab _selected={{ color: 'white', bg: 'purple.600' }}>Game Info </Tab>
-                <Tab _selected={{ color: 'white', bg: 'purple.600' }}>Achievements</Tab>
-                <Tab _selected={{ color: 'white', bg: 'purple.600' }}>Additions</Tab>
-                <Tab _selected={{ color: 'white', bg: 'purple.600' }}>Game series</Tab>
+                {currentGame.additions_count ? (
+                  <Tab _selected={{ color: 'white', bg: 'purple.600' }}>Additions</Tab>
+                ) : null}
+                {currentGame.achievements_count ? (
+                  <Tab _selected={{ color: 'white', bg: 'purple.600' }}>Achievements</Tab>
+                ) : null}
+                {currentGame.game_series_count ? (
+                  <Tab _selected={{ color: 'white', bg: 'purple.600' }}>Game series</Tab>
+                ) : null}
               </TabList>
               <TabPanels p="20px 0px 60px">
                 <TabPanel>
                   <GameInfo currentGame={currentGame} />
                 </TabPanel>
                 <TabPanel>
-                  <AchievementsList/>
+                  <AchievementsList />
                 </TabPanel>
                 <TabPanel>
                   <AdditionsList additions={additions} />
