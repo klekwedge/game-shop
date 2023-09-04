@@ -11,6 +11,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import { IGame, IScreenshot } from '../../types';
 import { useAppSelector } from '../../hooks/useRedux';
+import './GameCard.scss'
 
 function GameCard({ currentGame }: { currentGame: IGame }) {
   const { screenshots } = useAppSelector((state) => state.currentGame);

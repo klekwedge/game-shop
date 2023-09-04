@@ -10,6 +10,7 @@ import {
 } from '../../slices/currentGameSlice/currentGameSlice';
 import Spinner from '../Spinner/Spinner';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
+import './AchievementsList.scss'
 
 function AchievementsList({ achievementsAmount }: { achievementsAmount: number }) {
   const dispatch = useAppDispatch();
