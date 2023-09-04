@@ -1,0 +1,15 @@
+.addition__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  border-radius: 10px;
+  padding-bottom: 10px;
+  background: #0F1011;
+  transition: all 0.5s ease;
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}

@@ -71,7 +71,7 @@ function GamePage() {
             <GameCard currentGame={currentGame} />
             <Tabs variant="solid-rounded" onChange={(tabIndex) => loadSection(tabIndex)}>
               <TabList>
-                <Tab _selected={{ color: 'white', bg: 'purple.600' }}>Game Info </Tab>
+                <Tab _selected={{ color: 'white', bg: 'purple.600' }}>Info </Tab>
                 {currentGame.achievements_count ? (
                   <Tab _selected={{ color: 'white', bg: 'purple.600' }}>Achievements</Tab>
                 ) : null}

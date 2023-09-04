@@ -1,12 +1,18 @@
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Heading, List, ListItem, Image } from '@chakra-ui/react';
 import { IAddition } from '../../types';
 import { useAppSelector } from '../../hooks/useRedux';
 import Spinner from '../Spinner/Spinner';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
+import './AdditionsList.scss';
 
 function AdditionsList() {
+  const navigate = useNavigate()
   const { additions, additionsLoadingStatus } = useAppSelector((state) => state.currentGame);
+
+  const gameOnClick = (id: number) => {
+    navigate(`/${id}`);
+  };
 
   if (additionsLoadingStatus === 'loading') {
     return <Spinner />;
@@ -18,14 +24,15 @@ function AdditionsList() {
 
   return (
     <section>
-      <List className="flex gap-5 flex-wrap" p="20px 0px">
+      <List display="flex" gap="20px" flexWrap="wrap" p="20px 0px">
         {additions.map((additionItem: IAddition) => (
           <ListItem
             flex="1 1 25%"
             maxW="256px"
             maxH="144px"
-            className="flex flex-col items-center gap-2 bg-zinc-900 pb-2 rounded-lg hover:scale-105 duration-300"
+            className="addition__item"
             key={additionItem.id}
+            onClick={() => gameOnClick(additionItem.id)}
           >
             <Image
               src={additionItem.background_image}
@@ -45,7 +52,7 @@ function AdditionsList() {
               transition="all 0.3s ease"
               _hover={{ color: '#d4d4d4' }}
             >
-              <Link to={`/${additionItem.id}`}>{additionItem.name}</Link>
+              {additionItem.name}
             </Heading>
           </ListItem>
         ))}
