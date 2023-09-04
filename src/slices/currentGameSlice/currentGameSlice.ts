@@ -14,11 +14,9 @@ export type CurrentGameState = {
   achievements: IAchievement[],
   achievementsLoadingStatus: string,
   nextAchievementsPage: null | string,
-  achievementsAmount: number,
   additions: [],
   gamesOfSeries: [],
-  gamesOfSeriesLoadingStatus: string,
-  countGamesOfSeries: null | number
+  gamesOfSeriesLoadingStatus: string
 };
 
 const initialState: CurrentGameState = {
@@ -31,11 +29,9 @@ const initialState: CurrentGameState = {
   achievements: [],
   achievementsLoadingStatus: 'idle',
   nextAchievementsPage: null,
-  achievementsAmount: 0,
   additions: [],
   gamesOfSeries: [],
   gamesOfSeriesLoadingStatus: 'idle',
-  countGamesOfSeries: null
 };
 
 export const fetchGame = createAsyncThunk('currentGame/fetchGame', (url: string) => {
@@ -89,12 +85,8 @@ const currentGameSlice = createSlice({
     nextAchievements: (state, action) => {
       state.nextAchievementsPage = action.payload;
     },
-    getAchievementsAmount: (state, action) => {
-      state.achievementsAmount = action.payload;
-    },
     gameSeriesReset: (state) => {
       state.gamesOfSeries = [];
-      state.countGamesOfSeries = null;
     },
     additionsReset: (state) => {
       state.achievements = [];
@@ -139,7 +131,6 @@ const currentGameSlice = createSlice({
         state.achievementsLoadingStatus = 'idle';
         state.achievements.push(...action.payload.results);
         state.nextAchievementsPage = action.payload.next;
-        state.achievementsAmount = action.payload.count;
       })
       .addCase(fetchAchievements.rejected, (state) => {
         state.achievementsLoadingStatus = 'error';
@@ -149,7 +140,6 @@ const currentGameSlice = createSlice({
       })
       .addCase(fetchGameSeries.fulfilled, (state, action) => {
         state.gamesOfSeries = action.payload.results;
-        state.countGamesOfSeries = action.payload.count;
         state.gamesOfSeriesLoadingStatus = 'idle';
       })
       .addCase(fetchGameSeries.rejected, (state) => {
@@ -178,7 +168,6 @@ export const {
   achievementsFetchingError,
   achievementsReset,
   nextAchievements,
-  getAchievementsAmount,
   gameSeriesReset,
   additionsReset,
 } = actions;

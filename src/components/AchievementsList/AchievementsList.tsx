@@ -3,13 +3,16 @@ import { v4 as uuidv4 } from 'uuid';
 import { Flex, Box, Button, Text, Heading, List, ListItem, Image } from '@chakra-ui/react';
 import { useAppDispatch, useAppSelector } from '../../hooks/useRedux';
 import RAWG from '../../services/RAWG';
-import { achievementsFetched, achievementsFetchingError, nextAchievements } from '../../slices/currentGameSlice/currentGameSlice';
+import {
+  achievementsFetched,
+  achievementsFetchingError,
+  nextAchievements,
+} from '../../slices/currentGameSlice/currentGameSlice';
 
-function AchievementsList() {
+function AchievementsList({ achievementsAmount }: { achievementsAmount: number }) {
   const dispatch = useAppDispatch();
-  const { nextAchievementsPage,  achievements, achievementsAmount  } = useAppSelector((state) => state.currentGame);
+  const { nextAchievementsPage, achievements } = useAppSelector((state) => state.currentGame);
   const { getData } = RAWG();
-
 
   function loadMoreAchievements() {
     if (nextAchievementsPage) {

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
-import { Tabs, TabList, TabPanels, Tab, TabPanel, Box, Image } from '@chakra-ui/react';
+import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react';
 import { useParams } from 'react-router-dom';
 import {
   fetchGame,
@@ -27,8 +27,9 @@ function GamePage() {
   const { gameId } = useParams();
   const { getGame, getGameScreenshots, getGameAchievements, getGameAdditions, getListOfGamesSeries } = RAWG();
 
-  const { currentGame, currentGameLoadingStatus, additions, gamesOfSeries, countGamesOfSeries, achievements } =
-    useAppSelector((state) => state.currentGame);
+  const { currentGame, currentGameLoadingStatus, additions, gamesOfSeries, achievements } = useAppSelector(
+    (state) => state.currentGame,
+  );
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -59,8 +60,6 @@ function GamePage() {
     return <ErrorMessage />;
   }
 
-  console.log(currentGame);
-
   return (
     <>
       <Helmet>
@@ -74,11 +73,11 @@ function GamePage() {
             <Tabs variant="solid-rounded" onChange={(tabIndex) => loadSection(tabIndex)}>
               <TabList>
                 <Tab _selected={{ color: 'white', bg: 'purple.600' }}>Game Info </Tab>
-                {currentGame.additions_count ? (
-                  <Tab _selected={{ color: 'white', bg: 'purple.600' }}>Additions</Tab>
-                ) : null}
                 {currentGame.achievements_count ? (
                   <Tab _selected={{ color: 'white', bg: 'purple.600' }}>Achievements</Tab>
+                ) : null}
+                {currentGame.additions_count ? (
+                  <Tab _selected={{ color: 'white', bg: 'purple.600' }}>Additions</Tab>
                 ) : null}
                 {currentGame.game_series_count ? (
                   <Tab _selected={{ color: 'white', bg: 'purple.600' }}>Game series</Tab>
@@ -88,17 +87,21 @@ function GamePage() {
                 <TabPanel>
                   <GameInfo currentGame={currentGame} />
                 </TabPanel>
-                <TabPanel>
-                  <AchievementsList />
-                </TabPanel>
-                <TabPanel>
-                  <AdditionsList additions={additions} />
-                </TabPanel>
-                <TabPanel>
-                  {countGamesOfSeries ? (
-                    <GameSeries gamesOfSeries={gamesOfSeries} countGamesOfSeries={countGamesOfSeries} />
-                  ) : null}
-                </TabPanel>
+                {currentGame.achievements_count ? (
+                  <TabPanel>
+                    <AchievementsList achievementsAmount={currentGame.achievements_count} />
+                  </TabPanel>
+                ) : null}
+                {currentGame.additions_count ? (
+                  <TabPanel>
+                    <AdditionsList additions={additions} />
+                  </TabPanel>
+                ) : null}
+                {currentGame.game_series_count ? (
+                  <TabPanel>
+                    <GameSeries gamesOfSeries={gamesOfSeries} countGamesOfSeries={currentGame.game_series_count} />
+                  </TabPanel>
+                ) : null}
               </TabPanels>
             </Tabs>
           </>
