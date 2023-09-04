@@ -1,0 +1,18 @@
+.sidepanel__title {
+  font-size: 24px;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.sidepanel__link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 20px;
+}
+
+.sidepanel__genres{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
