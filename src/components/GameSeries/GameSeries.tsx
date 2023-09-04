@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Flex, Heading, List, ListItem, Image } from '@chakra-ui/react';
 import { IGameSeries } from '../../types';
 import { useAppSelector } from '../../hooks/useRedux';
@@ -11,7 +11,12 @@ interface GameSeriesProps {
 }
 
 function GameSeries({ gamesOfSeries, countGamesOfSeries }: GameSeriesProps) {
+  const navigate = useNavigate();
   const { gamesOfSeriesLoadingStatus } = useAppSelector((state) => state.currentGame);
+
+  const gameOnClick = (id: number) => {
+    navigate(`/${id}`);
+  };
 
   if (gamesOfSeriesLoadingStatus === 'loading') {
     return <Spinner />;
@@ -32,6 +37,7 @@ function GameSeries({ gamesOfSeries, countGamesOfSeries }: GameSeriesProps) {
           {gamesOfSeries.map((gameItem) => (
             <ListItem
               key={gameItem.id}
+              cursor="pointer"
               display="flex"
               flexDirection="column"
               borderRadius="8px"
@@ -41,6 +47,7 @@ function GameSeries({ gamesOfSeries, countGamesOfSeries }: GameSeriesProps) {
               backgroundColor="#3f3f46"
               transition="all 0.4s ease"
               _hover={{ transform: 'scale(1.05)' }}
+              onClick={() => gameOnClick(gameItem.id)}
             >
               <Image
                 src={gameItem.background_image}
@@ -60,7 +67,7 @@ function GameSeries({ gamesOfSeries, countGamesOfSeries }: GameSeriesProps) {
                 transition="all 0.3s ease"
                 _hover={{ color: '#d4d4d4' }}
               >
-                <Link to={`/${gameItem.id}`}>{gameItem.name}</Link>
+                {gameItem.name}
               </Heading>
             </ListItem>
           ))}
