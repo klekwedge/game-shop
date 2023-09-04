@@ -1,4 +1,4 @@
-import { Box, Image } from '@chakra-ui/react';
+import { Box, Flex, Image } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import { MdKeyboardBackspace } from 'react-icons/md';
 import { SiXbox, SiPlaystation3, SiPlaystation4, SiPlaystation5, SiNintendoswitch, SiWindows } from 'react-icons/si';
@@ -11,7 +11,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import { IGame, IScreenshot } from '../../types';
 import { useAppSelector } from '../../hooks/useRedux';
-import './GameCard.scss'
+import './GameCard.scss';
 
 function GameCard({ currentGame }: { currentGame: IGame }) {
   const { screenshots } = useAppSelector((state) => state.currentGame);
@@ -58,13 +58,13 @@ function GameCard({ currentGame }: { currentGame: IGame }) {
         </Box>
       </div>
 
-      <div className="flex gap-10 mb-20">
+      <div className="game__card">
         <Swiper
           modules={[Navigation, Pagination, Scrollbar, A11y]}
           allowTouchMove={false}
           navigation
           pagination={{ clickable: true }}
-          className="GamePageSwiper"
+          className="game__carousel"
         >
           <SwiperSlide>
             <Image src={currentGame.background_image} alt={currentGame.background_image} />
@@ -78,7 +78,7 @@ function GameCard({ currentGame }: { currentGame: IGame }) {
             : null}
         </Swiper>
 
-        <p className="bg-zinc-800 p-10 rounded-lg max-w-xl">{currentGame.description_raw}</p>
+        <p className="game__description">{currentGame.description_raw}</p>
       </div>
     </>
   );
