@@ -36,18 +36,18 @@ function GamePage() {
 
   useEffect(() => {
     if (gameId) {
-      dispatch(fetchGame(getGame(gameId)));
-      dispatch(fetchScreenshots(getGameScreenshots(gameId)));
+      dispatch(fetchGame(gameId));
+      dispatch(fetchScreenshots(gameId));
     }
   }, [gameId]);
 
   function loadSection(tabIndex: number) {
     if (tabIndex === 1 && achievements.length === 0 && gameId) {
-      dispatch(fetchAchievements(getGameAchievements(gameId)));
+      dispatch(fetchAchievements(gameId));
     } else if (tabIndex === 2 && additions.length === 0 && gameId) {
-      dispatch(fetchAdditions(getGameAdditions(gameId)));
+      dispatch(fetchAdditions(gameId));
     } else if (tabIndex === 3 && currentGame && gameId) {
-      dispatch(fetchGameSeries(getListOfGamesSeries(gameId)));
+      dispatch(fetchGameSeries(gameId));
     }
   }
 

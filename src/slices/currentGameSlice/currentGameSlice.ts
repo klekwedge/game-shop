@@ -2,6 +2,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import useFetch from '../../hooks/useFetch';
 import { IAchievement, IAchievementResponse, IGame, Loading } from '../../types';
+import rawgService from '../../services/RAWG';
 
 
 export type CurrentGameState = {
@@ -36,34 +37,34 @@ const initialState: CurrentGameState = {
   gamesOfSeriesLoadingStatus: 'idle',
 };
 
-export const fetchGame = createAsyncThunk('currentGame/fetchGame', (url: string) => {
-  const { request } = useFetch();
-  return request(url);
+export const fetchGame = createAsyncThunk('currentGame/fetchGame', async (id: string) => {
+  const response = await rawgService.getGame(id);
+  return response;
 });
 
-export const fetchScreenshots = createAsyncThunk('currentGame/fetchScreenshots', (url: string) => {
-  const { request } = useFetch();
-  return request(url);
+export const fetchScreenshots = createAsyncThunk('currentGame/fetchScreenshots', async (id: string) => {
+  const response = await rawgService.getGameScreenshots(id);
+  return response;
 });
 
-export const fetchTrailes = createAsyncThunk('currentGame/fetchTrailes', (url: string) => {
-  const { request } = useFetch();
-  return request(url);
+// export const fetchTrailes = createAsyncThunk('currentGame/fetchTrailes', async(id: string) => {
+//   const response = await rawgService.getGameTrailers(id);
+//   return response;
+// });
+
+export const fetchAchievements = createAsyncThunk('currentGame/fetchAchievements', async (id: string) => {
+  const response = await rawgService.getGameAchievements(id);
+  return response;
 });
 
-export const fetchAchievements = createAsyncThunk('currentGame/fetchAchievements', (url: string) => {
-  const { request } = useFetch();
-  return request(url);
+export const fetchAdditions = createAsyncThunk('currentGame/fetchAdditions', async(id: string) => {
+  const response = await rawgService.getGameAdditions(id);
+  return response;
 });
 
-export const fetchAdditions = createAsyncThunk('currentGame/fetchAdditions', (url: string) => {
-  const { request } = useFetch();
-  return request(url);
-});
-
-export const fetchGameSeries = createAsyncThunk('currentGame/fetchGameSeries', (url: string) => {
-  const { request } = useFetch();
-  return request(url);
+export const fetchGameSeries = createAsyncThunk('currentGame/fetchGameSeries', async(id: string) => {
+  const response = await rawgService.getListOfGamesSeries(id);
+  return response;
 });
 
 
@@ -113,16 +114,16 @@ const currentGameSlice = createSlice({
       .addCase(fetchScreenshots.rejected, (state) => {
         state.screenshotsLoadingStatus = 'error';
       })
-      .addCase(fetchTrailes.pending, (state) => {
-        state.trailersLoadingStatus = 'loading';
-      })
-      .addCase(fetchTrailes.fulfilled, (state, action) => {
-        state.trailersLoadingStatus = 'idle';
-        state.trailers = action.payload.results;
-      })
-      .addCase(fetchTrailes.rejected, (state) => {
-        state.trailersLoadingStatus = 'error';
-      })
+      // .addCase(fetchTrailes.pending, (state) => {
+      //   state.trailersLoadingStatus = 'loading';
+      // })
+      // .addCase(fetchTrailes.fulfilled, (state, action) => {
+      //   state.trailersLoadingStatus = 'idle';
+      //   state.trailers = action.payload.results;
+      // })
+      // .addCase(fetchTrailes.rejected, (state) => {
+      //   state.trailersLoadingStatus = 'error';
+      // })
       .addCase(fetchAchievements.pending, (state) => {
         state.achievementsLoadingStatus = 'loading';
       })
