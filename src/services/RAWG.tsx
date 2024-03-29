@@ -1,66 +1,68 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 const apiKey = import.meta.env.VITE_API_KEY;
 
-function RAWG() {
-  function getGameList(genre: string | '' = '') {
-    let res;
-    if (genre) {
-      res = `https://api.rawg.io/api/games?key=${apiKey}&genres=${genre}`;
-    } else {
-      res = `https://api.rawg.io/api/games?key=${apiKey}`;
+class RAWGService {
+  private apiKey: string;
+
+  private baseUrl: string;
+
+  constructor(key: string) {
+    this.apiKey = key;
+    this.baseUrl = 'https://api.rawg.io/api';
+  }
+
+  async get(endpoint: string, params: Record<string, any> = {}): Promise<any> {
+    const url = new URL(`${this.baseUrl}/${endpoint}`);
+    url.searchParams.set('key', this.apiKey);
+    Object.entries(params).forEach(([key, value]) => url.searchParams.set(key, value));
+    try {
+      const res = await fetch(url.toString());
+      if (!res.ok) {
+        throw new Error(`Failed to fetch data (status ${res.status})`);
+      }
+      return await res.json();
+    } catch (error) {
+      throw new Error(`Failed to fetch data: ${error}`);
     }
-    return res;
   }
 
-  function getGame(id: string) {
-    return `https://api.rawg.io/api/games/${id}?key=${apiKey}`;
+  async getGameList(genre: string | '' = ''): Promise<any> {
+    const params = genre ? { genres: genre } : {};
+    return this.get('games', params);
   }
 
-  function getGameAchievements(gameId: string) {
-    return `https://api.rawg.io/api/games/${gameId}/achievements?key=${apiKey}`;
+  async getGame(id: string): Promise<any> {
+    return this.get(`games/${id}`);
   }
 
-  function getGameAdditions(gameId: string) {
-    return `https://api.rawg.io/api/games/${gameId}/additions?key=${apiKey}`;
+  async getGameAchievements(gameId: string): Promise<any> {
+    return this.get(`games/${gameId}/achievements`);
   }
 
-  function getListOfGamesSeries(id: string) {
-    return `https://api.rawg.io/api/games/${id}/game-series?key=${apiKey}`;
+  async getGameAdditions(gameId: string): Promise<any> {
+    return this.get(`games/${gameId}/additions`);
   }
 
-  function getGameTrailers(id: string) {
-    return `https://api.rawg.io/api/games/${id}/movies?key=${apiKey}`;
+  async getListOfGamesSeries(id: string): Promise<any> {
+    return this.get(`games/${id}/game-series`);
   }
 
-  function getGameScreenshots(id: string) {
-    return `https://api.rawg.io/api/games/${id}/screenshots?key=${apiKey}`;
+  async getGameTrailers(id: string): Promise<any> {
+    return this.get(`games/${id}/movies`);
   }
 
-  function getGenres() {
-    return `https://api.rawg.io/api/genres?key=${apiKey}`;
+  async getGameScreenshots(id: string): Promise<any> {
+    return this.get(`games/${id}/screenshots`);
   }
 
-  function getGenreDetail(genreId: string | number) {
-    return `https://api.rawg.io/api/genres/${genreId}?key=${apiKey}`;
+  async getGenres(): Promise<any> {
+    return this.get('genres');
   }
 
-  async function getData(url: string) {
-    const res = await fetch(url);
-    const data = await res.json();
-    return data;
+  async getGenreDetail(genreId: string | number): Promise<any> {
+    return this.get(`genres/${genreId}`);
   }
-
-  return {
-    getGameList,
-    getGame,
-    getGameAchievements,
-    getGameAdditions,
-    getListOfGamesSeries,
-    getGameTrailers,
-    getGameScreenshots,
-    getGenres,
-    getGenreDetail,
-    getData,
-  };
 }
 
-export default RAWG;
+const rawgService = new RAWGService(apiKey);
+export default rawgService;

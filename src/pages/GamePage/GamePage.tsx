@@ -23,7 +23,7 @@ import './GamePage.scss';
 
 function GamePage() {
   const { gameId } = useParams();
-  const { getGame, getGameScreenshots, getGameAchievements, getGameAdditions, getListOfGamesSeries } = RAWG();
+  const { getGame, getGameScreenshots, getGameAchievements, getGameAdditions, getListOfGamesSeries } = RAWG;
 
   const { currentGame, currentGameLoadingStatus, gamesOfSeries, achievements, additions } = useAppSelector(
     (state) => state.currentGame,

@@ -17,7 +17,7 @@ function AchievementsList({ achievementsAmount }: { achievementsAmount: number }
   const { nextAchievementsPage, achievements, achievementsLoadingStatus } = useAppSelector(
     (state) => state.currentGame,
   );
-  const { getData } = RAWG();
+  const { getData } = RAWG;
 
   function loadMoreAchievements() {
     if (nextAchievementsPage) {

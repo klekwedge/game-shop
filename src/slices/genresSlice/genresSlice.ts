@@ -2,6 +2,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import useFetch from '../../hooks/useFetch';
 import { IGenre } from '../../types';
+import rawgService from '../../services/RAWG';
 
 type GenresState = {
   genres: IGenre[],
@@ -17,14 +18,14 @@ const initialState: GenresState = {
   currentGenreLoadingStatus: 'idle',
 };
 
-export const fetchGenres = createAsyncThunk('genres/fetchGenres', (url: string) => {
-  const { request } = useFetch();
-  return request(url);
+export const fetchGenres = createAsyncThunk('genres/fetchGenres', async() => {
+  const response = await rawgService.getGenres();
+  return response;
 });
 
-export const fetchCurrentGenre = createAsyncThunk('genres/fetchCurrentGenre', (url: string) => {
-  const { request } = useFetch();
-  return request(url);
+export const fetchCurrentGenre = createAsyncThunk('genres/fetchCurrentGenre', async (url: string) => {
+  const response = await rawgService.getGameList(url);
+  return response;
 });
 
 const genresSlice = createSlice({

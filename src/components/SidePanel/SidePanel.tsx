@@ -42,7 +42,7 @@ function SidePanel() {
     hidden: { opacity: 0, x: -100 },
   };
 
-  const { getGenres } = RAWG();
+  const { getGenres } = RAWG;
 
   const { genres } = useAppSelector((state) => state.genres);
 
@@ -70,7 +70,7 @@ function SidePanel() {
 
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(fetchGenres(getGenres()));
+    dispatch(fetchGenres());
   }, []);
 
   return (

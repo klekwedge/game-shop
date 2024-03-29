@@ -27,7 +27,7 @@ function GameList({ genreName, mainTitle }: GameListProps) {
   const { currentGenre, genres } = useAppSelector((state) => state.genres);
   const { games, nextPage, gamesLoadingStatus } = useAppSelector((state) => state.games);
 
-  const { getGameList, getGenreDetail } = RAWG();
+  const { getGameList, getGenreDetail } = RAWG;
 
   const handleOnLoad = () => {
     setLoadingImage(false);
@@ -40,9 +40,9 @@ function GameList({ genreName, mainTitle }: GameListProps) {
   useEffect(() => {
     dispatch(resetGames());
     if (genreName) {
-      dispatch(fetchGames(getGameList(genreName)));
+      dispatch(fetchGames(genreName));
     } else {
-      dispatch(fetchGames(getGameList()));
+      dispatch(fetchGames());
     }
   }, [genreName]);
 
@@ -50,7 +50,7 @@ function GameList({ genreName, mainTitle }: GameListProps) {
     if (genres.length > 0 && genre) {
       const desiredGenre = genres.find((genreItem: IGenre) => genreItem.slug === genre);
       if (desiredGenre) {
-        dispatch(fetchCurrentGenre(getGenreDetail(desiredGenre.id)));
+        dispatch(fetchCurrentGenre(String(desiredGenre.id)));
       }
     }
   }, [genreName, genres]);
