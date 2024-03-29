@@ -16,7 +16,7 @@ const initialState: GamesState = {
   gamesLoadingStatus: 'idle',
 };
 
-export const fetchGames = createAsyncThunk('games/fetchGames', async (url?: string) => {
+export const fetchGames = createAsyncThunk('games/fetchGames', async (url: string | undefined) => {
   const response = await rawgService.getGameList(url);
   return response;
 });
