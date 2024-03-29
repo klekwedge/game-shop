@@ -26,7 +26,7 @@ class RAWGService {
     }
   }
 
-  async getGameList(genre: string | '' = ''): Promise<any> {
+  async getGameList(genre: string | undefined): Promise<any> {
     const params = genre ? { genres: genre } : {};
     return this.get('games', params);
   }

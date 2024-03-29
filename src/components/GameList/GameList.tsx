@@ -36,11 +36,7 @@ function GameList({ genreName, mainTitle }: GameListProps) {
 
   useEffect(() => {
     dispatch(resetGames());
-    if (genreName) {
-      dispatch(fetchGames(genreName));
-    } else {
-      dispatch(fetchGames());
-    }
+    dispatch(fetchGames(genreName));
   }, [genreName]);
 
   useEffect(() => {
