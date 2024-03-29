@@ -23,7 +23,7 @@ export const fetchGenres = createAsyncThunk('genres/fetchGenres', async() => {
 });
 
 export const fetchCurrentGenre = createAsyncThunk('genres/fetchCurrentGenre', async (url: string) => {
-  const response = await rawgService.getGameList(url);
+  const response = await rawgService.getGenreDetail(url);
   return response;
 });
 

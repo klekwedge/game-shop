@@ -68,6 +68,18 @@ function GameList({ genreName, mainTitle }: GameListProps) {
     }
   }
 
+  function defineDescription() {
+    if (currentGenre) {
+      return {
+        __html: currentGenre.description,
+      };
+    }
+
+    return {
+      __html: '',
+    };
+  }
+
   if (gamesLoadingStatus === 'error') {
     return <ErrorMessage />;
   }
@@ -77,6 +89,7 @@ function GameList({ genreName, mainTitle }: GameListProps) {
       <Heading as="h2" fontSize="48px" textTransform="capitalize" mb="8px" fontWeight="700">
         {genre ? `${genre} games` : mainTitle}
       </Heading>
+      {currentGenre && <Heading as="h3" fontSize="16px" mb="32px" dangerouslySetInnerHTML={defineDescription()} />}
       {games.length > 0 ? (
         <Flex gap="70px" flexDirection="column">
           <AnimatePresence>
@@ -85,7 +98,7 @@ function GameList({ genreName, mainTitle }: GameListProps) {
                 <ListItem
                   as={motion.li}
                   className="game__item"
-                  cursor='pointer'
+                  cursor="pointer"
                   key={game.id}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
