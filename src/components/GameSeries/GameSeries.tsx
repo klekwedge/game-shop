@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { Flex, Heading, List, ListItem, Image } from '@chakra-ui/react';
 import { IGameSeries } from '../../types';
-import { useAppSelector } from '../../hooks/useRedux';
+import { useAppSelector } from '../../types/redux';
 import Spinner from '../Spinner/Spinner';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 

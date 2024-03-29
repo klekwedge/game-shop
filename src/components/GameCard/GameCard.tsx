@@ -10,7 +10,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import { IGame, IScreenshot } from '../../types';
-import { useAppSelector } from '../../hooks/useRedux';
+import { useAppSelector } from '../../types/redux';
 import './GameCard.scss';
 
 function GameCard({ currentGame }: { currentGame: IGame }) {

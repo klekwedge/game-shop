@@ -6,7 +6,7 @@ import { Flex, Button, Skeleton, Heading, List, ListItem, Image } from '@chakra-
 import { fetchCurrentGenre } from '../../slices/genresSlice/genresSlice';
 import { fetchGames, resetGames } from '../../slices/gamesSlice/gamesSlice';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
-import { useAppDispatch, useAppSelector } from '../../hooks/useRedux';
+import { useAppDispatch, useAppSelector } from '../../types/redux';
 import './GameList.scss';
 import { IGenre } from '../../types';
 

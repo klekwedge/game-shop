@@ -1,6 +1,5 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import useFetch from '../../hooks/useFetch';
 
 import { GamesAction, Result } from "../../types";
 import rawgService from '../../services/RAWG';

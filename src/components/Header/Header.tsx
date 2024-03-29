@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Flex, Heading, Input, InputGroup, InputLeftElement } from '@chakra-ui/react';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
-import { useAppDispatch } from '../../hooks/useRedux';
+import { useAppDispatch } from '../../types/redux';
 import { fetchGames, resetGames } from '../../slices/gamesSlice/gamesSlice';
 import SidePanel from '../SidePanel/SidePanel';
 import './Header.scss';

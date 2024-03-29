@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { Heading, List, ListItem, Image } from '@chakra-ui/react';
 import { IAddition } from '../../types';
-import { useAppSelector } from '../../hooks/useRedux';
+import { useAppSelector } from '../../types/redux';
 import Spinner from '../Spinner/Spinner';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import './AdditionsList.scss';

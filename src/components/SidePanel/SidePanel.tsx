@@ -26,7 +26,7 @@ import {
   GiFlatPlatform,
   GiSandSnake,
 } from 'react-icons/gi';
-import { useAppSelector, useAppDispatch } from '../../hooks/useRedux';
+import { useAppSelector, useAppDispatch } from '../../types/redux';
 import { fetchGenres } from '../../slices/genresSlice/genresSlice';
 import './SidePanel.scss';
 

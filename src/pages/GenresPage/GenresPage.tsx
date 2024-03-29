@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import {
   Flex, Heading, List, ListItem, Image,
 } from '@chakra-ui/react';
-import { useAppSelector } from '../../hooks/useRedux';
+import { useAppSelector } from '../../types/redux';
 import { IGenre } from '../../types';
 
 function GenresPage() {
