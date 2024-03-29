@@ -10,7 +10,6 @@ import {
   fetchGameSeries,
   resetCurrentGame,
 } from '../../slices/currentGameSlice/currentGameSlice';
-import RAWG from '../../services/RAWG';
 import Spinner from '../../components/Spinner/Spinner';
 import AdditionsList from '../../components/AdditionsList/AdditionsList';
 import AchievementsList from '../../components/AchievementsList/AchievementsList';
@@ -23,7 +22,6 @@ import './GamePage.scss';
 
 function GamePage() {
   const { gameId } = useParams();
-  const { getGame, getGameScreenshots, getGameAchievements, getGameAdditions, getListOfGamesSeries } = RAWG;
 
   const { currentGame, currentGameLoadingStatus, gamesOfSeries, achievements, additions } = useAppSelector(
     (state) => state.currentGame,

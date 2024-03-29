@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import { Flex, Button, Skeleton, Heading, List, ListItem, Image } from '@chakra-ui/react';
-import RAWG from '../../services/RAWG';
 import { fetchCurrentGenre } from '../../slices/genresSlice/genresSlice';
 import { fetchGames, resetGames } from '../../slices/gamesSlice/gamesSlice';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
@@ -26,8 +25,6 @@ function GameList({ genreName, mainTitle }: GameListProps) {
 
   const { currentGenre, genres } = useAppSelector((state) => state.genres);
   const { games, nextPage, gamesLoadingStatus } = useAppSelector((state) => state.games);
-
-  const { getGameList, getGenreDetail } = RAWG;
 
   const handleOnLoad = () => {
     setLoadingImage(false);

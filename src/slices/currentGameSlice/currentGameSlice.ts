@@ -1,6 +1,5 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import useFetch from '../../hooks/useFetch';
 import { IAchievement, IAchievementResponse, IGame, Loading } from '../../types';
 import rawgService from '../../services/RAWG';
 
@@ -46,11 +45,6 @@ export const fetchScreenshots = createAsyncThunk('currentGame/fetchScreenshots',
   const response = await rawgService.getGameScreenshots(id);
   return response;
 });
-
-// export const fetchTrailes = createAsyncThunk('currentGame/fetchTrailes', async(id: string) => {
-//   const response = await rawgService.getGameTrailers(id);
-//   return response;
-// });
 
 export const fetchAchievements = createAsyncThunk('currentGame/fetchAchievements', async (id: string) => {
   const response = await rawgService.getGameAchievements(id);
@@ -114,16 +108,6 @@ const currentGameSlice = createSlice({
       .addCase(fetchScreenshots.rejected, (state) => {
         state.screenshotsLoadingStatus = 'error';
       })
-      // .addCase(fetchTrailes.pending, (state) => {
-      //   state.trailersLoadingStatus = 'loading';
-      // })
-      // .addCase(fetchTrailes.fulfilled, (state, action) => {
-      //   state.trailersLoadingStatus = 'idle';
-      //   state.trailers = action.payload.results;
-      // })
-      // .addCase(fetchTrailes.rejected, (state) => {
-      //   state.trailersLoadingStatus = 'error';
-      // })
       .addCase(fetchAchievements.pending, (state) => {
         state.achievementsLoadingStatus = 'loading';
       })

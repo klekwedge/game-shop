@@ -27,7 +27,6 @@ import {
   GiSandSnake,
 } from 'react-icons/gi';
 import { useAppSelector, useAppDispatch } from '../../hooks/useRedux';
-import RAWG from '../../services/RAWG';
 import { fetchGenres } from '../../slices/genresSlice/genresSlice';
 import './SidePanel.scss';
 
@@ -41,8 +40,6 @@ function SidePanel() {
     },
     hidden: { opacity: 0, x: -100 },
   };
-
-  const { getGenres } = RAWG;
 
   const { genres } = useAppSelector((state) => state.genres);
 
