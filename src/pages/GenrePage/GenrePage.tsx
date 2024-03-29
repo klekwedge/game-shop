@@ -11,7 +11,6 @@ function GenrePage() {
         <meta name="description" content=" - Game Shop" />
         <title>
           {genre && genre[0].toUpperCase() + genre.slice(1)}
-          {' '}
           - Game Shop
         </title>
       </Helmet>

@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 import { motion, AnimatePresence } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
@@ -12,7 +13,6 @@ import { IGenre } from '../../types';
 
 interface GameListProps {
   mainTitle?: string;
-  descr?: string;
   genreName?: string;
 }
 
@@ -72,24 +72,11 @@ function GameList({ genreName, mainTitle }: GameListProps) {
     return <ErrorMessage />;
   }
 
-  function defineDescription() {
-    if (currentGenre) {
-      return {
-        __html: currentGenre.description,
-      };
-    }
-
-    return {
-      __html: '',
-    };
-  }
-
   return (
     <section>
       <Heading as="h2" fontSize="48px" textTransform="capitalize" mb="8px" fontWeight="700">
         {genre ? `${genre} games` : mainTitle}
       </Heading>
-      {currentGenre && <Heading as="h3" fontSize="16px" mb="32px" dangerouslySetInnerHTML={defineDescription()} />}
       {games.length > 0 ? (
         <Flex gap="70px" flexDirection="column">
           <AnimatePresence>
