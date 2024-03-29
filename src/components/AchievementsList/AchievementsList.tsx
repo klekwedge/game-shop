@@ -2,7 +2,6 @@ import cn from 'classnames';
 import { v4 as uuidv4 } from 'uuid';
 import { Flex, Box, Button, Text, Heading, List, ListItem, Image } from '@chakra-ui/react';
 import { useAppDispatch, useAppSelector } from '../../hooks/useRedux';
-import RAWG from '../../services/RAWG';
 import {
   achievementsFetched,
   achievementsFetchingError,
@@ -17,17 +16,16 @@ function AchievementsList({ achievementsAmount }: { achievementsAmount: number }
   const { nextAchievementsPage, achievements, achievementsLoadingStatus } = useAppSelector(
     (state) => state.currentGame,
   );
-  const { getData } = RAWG;
 
   function loadMoreAchievements() {
-    if (nextAchievementsPage) {
-      getData(nextAchievementsPage)
-        .then((achievementsData) => {
-          dispatch(nextAchievements(achievementsData.next));
-          dispatch(achievementsFetched(achievementsData.results));
-        })
-        .catch(() => dispatch(achievementsFetchingError()));
-    }
+    // if (nextAchievementsPage) {
+    //   getData(nextAchievementsPage)
+    //     .then((achievementsData) => {
+    //       dispatch(nextAchievements(achievementsData.next));
+    //       dispatch(achievementsFetched(achievementsData.results));
+    //     })
+    //     .catch(() => dispatch(achievementsFetchingError()));
+    // }
   }
 
   if (achievementsLoadingStatus === 'loading') {

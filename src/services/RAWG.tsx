@@ -47,10 +47,6 @@ class RAWGService {
     return this.get(`games/${id}/game-series`);
   }
 
-  async getGameTrailers(id: string): Promise<any> {
-    return this.get(`games/${id}/movies`);
-  }
-
   async getGameScreenshots(id: string): Promise<any> {
     return this.get(`games/${id}/screenshots`);
   }
